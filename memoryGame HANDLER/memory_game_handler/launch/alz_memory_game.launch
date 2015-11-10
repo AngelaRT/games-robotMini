@@ -1,0 +1,11 @@
+<launch>
+    <arg name="robot" default="alz"/>
+    <group ns="$(arg robot)">
+        <node pkg="memory_game_handler" type="alz_memory_game.exe"
+            name="alz_memory_game" output="screen" required="true" />
+          <node pkg="memory_game_handler" type="cardsRequestHandler.py"
+            name="cardsRequestHandler" output="screen" required="true" />
+          <node pkg="memory_game_handler" type="differencesRequestHandler.py"
+            name="differencesRequestHandler" output="screen" required="true" />
+    </group>
+</launch>

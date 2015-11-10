@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Memory Game</title>
+
+    <link href="css/compiled/bootstrap.min.css" rel="stylesheet">
+    <link href="css/compiled/memoryGame.css" rel="stylesheet">
+    <script src="js/utils.js"></script>
+    <script src="js/polling.js"></script>
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>    
+   <div id="sombreado" class="visible"></div>
+   <div id="board">
+      <h1 class="tituloSeccion">Encuentra las parejas</h1>
+      <div id="hintButton" class="oculta"><a onclick="getHint();">Dame una pista!</a></div>
+      <div id="initGame" class="visible messageScreen">
+       <p> Selecciona el nivel del juego:</p>
+       <p>
+         <a onclick="selectNumberOfCards(1); return false;">Jugar (Nivel Fácil)</a>
+         <a onclick="selectNumberOfCards(2); return false;">Jugar (Nivel Medio)</a>
+         <a onclick="selectNumberOfCards(3); return false;">Jugar (Nivel Difícil)</a>
+       </p>
+      </div>
+      <div id="finishGame" class="oculta messageScreen">
+       <p> ¡Enhorabuena! Has resuelto el juego!!!!</p>
+       <a onclick="reloadGame(); return false;">Volver a jugar</a>
+      </div>
+      <div id="content">
+      </div>
+   </div>
+  
+   <!-- Placed at the end of the document so the pages load faster -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+   <script> id_game="memGame"; startPolling();//loadGame(); </script>
+</html>

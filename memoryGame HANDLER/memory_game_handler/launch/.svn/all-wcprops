@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/repoAD/!svn/ver/17124/projects/teleop/unstable/launch
+END
+alz_presentation.launch
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/repoAD/!svn/ver/17898/projects/teleop/unstable/launch/alz_presentation.launch
+END
+teleop_alz_gui.launch
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/repoAD/!svn/ver/17124/projects/teleop/unstable/launch/teleop_alz_gui.launch
+END
+teleop_alz_cli.launch
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/repoAD/!svn/ver/11283/projects/teleop/unstable/launch/teleop_alz_cli.launch
+END

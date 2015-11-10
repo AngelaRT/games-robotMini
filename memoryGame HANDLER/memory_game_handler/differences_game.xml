@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<differences_game>
+    <intro>Vamos a jugar al juego de las diferencias!\pause=1000 Os voy a enseñar dos fotos \pause=1000 vosotros tenéis que encontrar las diferencias entre ellas</intro>
+    <time_intro>20</time_intro>
+    <gesture_intro>alz_speaking_02</gesture_intro>
+    <item>
+            <question>Mirad estas dos imágenes. \pause=2000 Parecen iguales, pero tienen tres diferencias. \pause=1000 \emphasis A ver si las encontráis!</question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/differences/differences_1.png</multimedia_init>
+            <multimedia_init_type>photo</multimedia_init_type>
+            <gesture_init>alz_base2</gesture_init>
+            <wait_time>20</wait_time>
+            <solution>correcto! \pause=2000 Se diferencian en el tejado, en la puerta y en la ventana. \pause=1000 \emphasis Qué listos que sois!</solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/differences/solution_differences_1.gif</multimedia_solut>
+            <multimedia_solut_type>photo</multimedia_solut_type>
+            <gesture_solut>alz_base</gesture_solut>
+            <time_after>20</time_after>
+    </item>
+    <item>
+            <question>Bueno, como se os ha dado \emphasis tan bien,\pause=1000 voy a poneros ahora otra \emphasis más difícil.\pause=1000 En qué se diferencian estas dos fotos?</question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/differences/differences_2.png</multimedia_init>
+            <multimedia_init_type>photo</multimedia_init_type>
+            <gesture_init>alz_base2</gesture_init>
+            <wait_time>20</wait_time>
+            <solution>genial! \pause=2000 Como habéis dicho, \pause=1000 las diferencias son la rama del árbol y las mariposas.</solution>
+            <multimedia_init>/mnt/external_sd/multimedia/session/differences/differences_2.png</multimedia_init>
+            <multimedia_init_type>photo</multimedia_init_type>
+            <gesture_solut>alz_base</gesture_solut>
+            <time_after>10</time_after>
+    </item>
+</differences_game>
