@@ -17,8 +17,13 @@ class DifferencesRequestsHandler(GenericGameRequestsHandler):
         GenericGameRequestsHandler.__init__(self)
         self.port=9090
         self.level=1
-        self.phase=2          
+        self.phase=2  
+        self.startString="diffGame"        
 
+    def setPhase(self,post_body):
+        GenericGameRequestsHandler.setPhase(self,post_body)
+        if self.phase==3:
+            self.setRestart()
 
 if __name__ == "__main__":
 	drh=DifferencesRequestsHandler();

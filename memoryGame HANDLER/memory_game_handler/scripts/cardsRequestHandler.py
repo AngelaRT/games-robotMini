@@ -15,8 +15,9 @@ class CardsRequestsHandler(GenericGameRequestsHandler):
 
     def __init__(self):
         GenericGameRequestsHandler.__init__(self)
-        self.pairFoundPublisher = rospy.Publisher('memGame_pairFound', String)
+        self.pairFoundPublisher = rospy.Publisher('memGame_pairFound', String, queue_size=10)
         self.port=8080
+        self.startString="memoryGame"
         
     def setPhase(self,post_body):
         GenericGameRequestsHandler.setPhase(self,post_body)

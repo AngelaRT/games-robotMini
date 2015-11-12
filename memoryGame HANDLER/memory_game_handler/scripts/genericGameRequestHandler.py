@@ -15,16 +15,19 @@ class GenericGameRequestsHandler():
         self.level="zero"
         self.phase=1
         self.restart=False
-        self.ip='192.168.1.33'
+        self.ip='localhost'#'192.168.1.33'
         self.port=8080
+        self.start=False
 
     def reset(self):
         self.level="zero"
         self.phase=1
-        self.restart=False       
+        self.restart=False 
+        self.start=False      
     def setRestart(self):
         self.restart=True
         self.level="zero"
+        self.start=False 
     def getRestart(self):
         return self.restart
     def setLevel(self,level):
@@ -40,7 +43,7 @@ class GenericGameRequestsHandler():
     # "Phase X", where X is the ID of the phase
         if "Phase" in post_body:
             self.phase=int(post_body[6]);
-            print "Phase %d"%self.phase
+            print ">>>> %s Phase %d"%(self.startString,self.phase)
             return True
         else:
             return False
@@ -54,24 +57,35 @@ class GenericGameRequestsHandler():
             return -1
     def queueContent(self,reqContent):
         self.q.put(reqContent)
+    def getStart(self):
+        return self.start
+    def getStartString(self):
+        return self.startString;
 
+    def isSuccessMsg(self,post_body):
+        return False
+                
     def callback(self,reqContent):
-        if self.getPhase()==1:
-            #First, set the level
-            print "Level: %s"%reqContent
-            self.setLevel(reqContent.data)
-        elif self.getPhase()==2:
-            #Play the game --> requesting cards
-            print "Requested content: %s"%reqContent
-            # Queue the reqContent in the httpHandler
-            self.queueContent(reqContent.data)
-        else:
-            #Finally, restart game
-            print "Play again!!"
-            self.setRestart()
+        print ">>>> %s RECIBO DESDE alz/ask4GameCommand: %s"%(self.startString,reqContent)
+        if reqContent.data == self.startString:
+            self.start=True
+        elif self.start:
+            if self.getPhase()==1:
+                #First, set the level
+                print ">>>> %s Level: %s"%(self.startString,reqContent)
+                self.setLevel(reqContent.data)
+            elif self.getPhase()==2:
+                #Play the game --> requesting cards
+                print ">>>> %s Requested content: %s"%(self.startString,reqContent)
+                # Queue the reqContent in the httpHandler
+                self.queueContent(reqContent.data)
+            else:
+                #Finally, restart game
+                print ">>>> %s Play again!!"%self.startString
+                self.setRestart()
 
     def listener(self):
         rospy.init_node('cardsRequestHandler', anonymous=True)
-        print "Listening to alz/ask4GameCommand"
+        print ">>>> %s Listening to alz/ask4GameCommand"%self.startString
         rospy.Subscriber("ask4GameCommand", String, self.callback)
         rospy.spin()
