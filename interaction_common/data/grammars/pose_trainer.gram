@@ -1,0 +1,18 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+public $root = $pose_trainer;
+
+$pose_trainer = [$GARBAGE] $start |  [$GARBAGE] $stop | [$GARBAGE] $change [$GARBAGE] | [$GARBAGE] $pose;
+
+$pose = [$position] $action [$GARBAGE] $direction;
+
+$start = ("empieza":START | "comienza":START | "comenzamos":START | "empezamos":START | "inicio":START | "inicia":START | "iniciamos":START){<@START_COMMAND $value>};
+$stop = ("para":STOP| "para de etiquetar":STOP | "stop":STOP | "ya esta bien":STOP | "dejalo ya":STOP | "cansado":STOP){<@STOP_COMMNAND $value>};
+$change = ("pausa":CHANGE | "cambio":CHANGE | "cambio de":CHANGE | "cambiar de":CHANGE){<@CHANGE_COMMAND $value>};
+
+$position = ("sentado":SIT | "en una silla":SIT | "de pie":STAND | "levantado":STAND){<@POSITION $value>};
+$action = ("girado":TURNED | "mirando":LOOKING | "apuntando":POINTING){<@ACTION $value>};
+$direction = ("derecha":RIGHT | "izquierda":LEFT | "delante":FORWARD){<@DIRECTION $value>};
+

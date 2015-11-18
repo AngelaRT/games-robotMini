@@ -1,0 +1,14 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+public $root = $gram;
+
+$gram =  es [$objetos] [$colores ] [$tam];
+
+$objetos = [una] (pelota:pelota | caja:caja | platano:fruta | manzana:fruta | fruta){<@name $value>};
+$colores = [de color] (amarilla | roja | azul | negra | blanca | naranja) {<@color $value>}; 
+$tam = [muy] (grande|pequenha){<@tam $value>};
+
+
+

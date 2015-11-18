@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repoAD/!svn/ver/19168/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples
+END
+touch_echo.xml
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/touch_echo.xml
+END
+speaker_identification_echo.xml
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/speaker_identification_echo.xml
+END
+information_extraction_echo.xml
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/information_extraction_echo.xml
+END
+several_atoms_on_recipe.xml
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repoAD/!svn/ver/15719/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/several_atoms_on_recipe.xml
+END
+people_pose_echo.xml
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repoAD/!svn/ver/18108/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/people_pose_echo.xml
+END
+loquendo_asr_echo.xml
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/loquendo_asr_echo.xml
+END
+voice_activity_detection_echo.xml
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/voice_activity_detection_echo.xml
+END
+ibeacon_echo.xml
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repoAD/!svn/ver/19168/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/ibeacon_echo.xml
+END
+google_asr_echo.xml
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/google_asr_echo.xml
+END
+grammar_based_example.xml
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/grammar_based_example.xml
+END
+grammar_based_example_share_info_between_recipes.xml
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/multimodal_basic_examples/grammar_based_example_share_info_between_recipes.xml
+END

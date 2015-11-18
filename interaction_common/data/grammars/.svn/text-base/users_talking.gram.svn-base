@@ -1,0 +1,21 @@
+#ABNF 1.0 ISO-8859-1;
+
+/* A grammar used to teach the robot when a person is talking with another one. The semantic tags will be used as inputs for a learning system. */
+
+language en-GB; 
+tag-format <loq-semantics/1.0>;
+public $root = $interaction;
+
+/*
+ *
+ * $interaction = [$GARBAGE] $user_talking [$GARBAGE] | [$GARBAGE] $user_not_talking [$GARBAGE];
+ * $user_talking = ("talking":TALKING | "speaking":TALKING | "chatting":TALKING | "saying":TALKING) {<@USER_TALKING $value>};
+ * $user_not_talking = ( "not talking":NOT_TALKING | "not speaking":NOT_TALKING | "not saying anything":NOT_TALKING | "silent":NOT_TALKING | "quiet":NOT_TALKING){<@USER_TALKING $value>};
+ */
+
+
+$interaction = [$GARBAGE] $is_talking [$GARBAGE];
+
+$is_talking = ("talking":TALKING | "speaking":TALKING | "chatting":TALKING | "saying":TALKING | "not [talking]":NOT_TALKING | "not [speaking]":NOT_TALKING | "not [saying anything]":NOT_TALKING | "silent":NOT_TALKING | "quiet":NOT_TALKING){<@IS_TALKING $value>};
+
+

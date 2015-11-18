@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<iminit>
+  <triggerables>
+    <recipe name="echo_demo" max_instances="1"/>
+    <recipe name="did_not_understood" max_instances="1"/>
+  </triggerables>
+
+  <recipefiles>
+    <file>monarch_hri_demo/echo_demo.xml</file>
+    <file>monarch_hri_demo/did_not_understood.xml</file>
+  </recipefiles>
+
+  <actionfiles>
+    <file>monarch_hri_demo/default_actions.xml</file>
+  </actionfiles>
+</iminit>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<grammar 
+ version="1.0" xml:lang="es-ES" tag-format="semantics/1.0" root="r">
+   <rule id = "r">
+     trivial
+   </rule>
+</grammar>

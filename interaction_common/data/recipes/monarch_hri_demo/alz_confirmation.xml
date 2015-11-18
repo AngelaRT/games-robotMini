@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!-- top level activity -->
+<recipe name="confirmation">
+
+<!-- preconditions: unification and bindings -->
+<!-- values of names and vals of the atom slots are checked hndUserInput function in soundboard.cc file -->
+<precondition>
+   <atom quantifier="exist">
+      <!-- object type and subtype -->
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="user"/>
+      <!-- arguments -->
+      <!--slot name="SKILL" val="MEDICINAS" rel="equal"/-->
+      <!-- bindings -->
+      <slot name="words" rel="bind" var="recog_words"/>
+      <slot name="id" rel="bind" var="present_user_id"/>
+      <slot name="this" rel="bind" var="the_globals_atom"/>
+    </atom>
+</precondition>
+
+<!-- interrupt the recipe when this condition fails -->
+<whilecondition>
+</whilecondition>
+
+<body order="sequence">
+  <assignment>
+      <atom>
+        <slot name="this" var="the_globals_atom"/>
+      </atom>
+    </assignment>
+
+    <!--action name="echo_action" actor="user" action_space="speech"-->
+    <action name="echo_action" actor="etts" action_space="speech">
+          <roboml:args>
+            <arg name="words" value="Has dicho $recog_words. Diga si o no." type="string"/>
+            <!--arg name="words" value="Se han recibido palabras..." type="string"/-->
+          </roboml:args>
+    </action>
+
+</body>
+
+<!-- set right after execution ends -->
+<assignpost>
+  <atom>
+    <!-- set object which name is equal to the one stored in var -->
+    <slot name="this" var="present_user_atom"/>
+    <slot name="SKILL" val="NULL"/>
+  </atom>
+</assignpost>
+
+</recipe>

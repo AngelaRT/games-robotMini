@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/launch
+END
+monarch_interaction.launch
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repoAD/!svn/ver/15631/catkin_projects/interaction_common/unstable/launch/monarch_interaction.launch
+END
+grammar_based_example.launch
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repoAD/!svn/ver/15631/catkin_projects/interaction_common/unstable/launch/grammar_based_example.launch
+END
+grammar_based_example_share_info_between_recipes.launch
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/launch/grammar_based_example_share_info_between_recipes.launch
+END
+full_multimodal_interaction_example.launch
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repoAD/!svn/ver/15631/catkin_projects/interaction_common/unstable/launch/full_multimodal_interaction_example.launch
+END

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!---------------------------------------------------------------->
+
+<!-- Presenter asks the robot to tell more jokes -->
+<recipe name="another_joke">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="dialog_option" rel="equal" val="presentJokes" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="jokes_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="jokes_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+
+    </assignment>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_happy" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis+ Sí. Claro. \\pause=2000 \\emphasis- Sabes por que los de Lepe no entran en la cocina? \\pause=1200 porque pone sal. \\pause=1200 \\item=Laugh \\pause=1200 quieres que te cuente otro?"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_cheeks" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="yes_another_joke , no_more_jokes" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Presenter asks the robot to tell more jokes -->
+<recipe name="yes_another_joke">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="dialog_option" rel="equal" val="yes" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="yes_jokes_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="yes_jokes_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+
+    </assignment>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_happy" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Un hombre se encuentra con un amigo por la calle y le dice:
+          \\pause=1000 Manolo, \\pause=300 qué te pasa que estás blanco."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1000 Nada Pepe,\\pause=200 que vengo del médico y me ha dicho que deje de beber,
+          \\pause=200 fumar y tomar dulces"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="sad"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_base" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1000 Y ¿qué vas a hacer?"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_test_03" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1000 Pues qué quieres que haga Pepe, cambiar de médico.
+          \\pause=800 \\item=Laugh_03"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="tranquility"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_test_02" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="another_joke_2" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="another_joke_2">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="dialog_option" rel="equal" val="presentJokes" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="jokes_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="jokes_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+
+    </assignment>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_sad" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Dejate de chistes! \\pause=1200"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Mejor te sigo contando el resto de cosas que se
+          hacer. \\pause=1200 te parece bien?"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <goal recipe_name="back_to_presentation_after_jokes" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="no_more_jokes">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="dialog_option" rel="equal" val="no" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="no_jokes_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="no_jokes_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+
+    </assignment>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_sad" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis- De acuerdo. Dejamos los chistes. \\pause=1000"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis Mejor te sigo contando el resto de cosas que se
+          hacer \\pause=1000 te parece bien?"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="back_to_presentation_after_jokes" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Presenter asks the robot to tell more jokes -->
+<recipe name="back_to_presentation_after_jokes">
+  <precondition>
+      <atom quantifier="exist">
+          <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+          <slot name="type" val="asr_loquendoOK"/>
+          <slot name="subtype" val="user"/>
+          <slot name="consumed" val="false" rel="equal"/>
+          <slot name="dialog_option" rel="equal" val="yes" />
+          <slot name="confidence" rel=">" val="0.45" type="number" />
+          <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+          <slot name="this" rel="bind" var="back_presentation_atom"/>
+       </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <assignment>
+      <atom>
+        <slot name="this" var="back_presentation_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+
+    <!-- Action for presentation -->
+    <action name="present_alz" actor="alz_presentation_node">
+      <roboml:args>
+          <arg name="part_to_present"  value="presentScenariosMultimedia"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+<!---------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+

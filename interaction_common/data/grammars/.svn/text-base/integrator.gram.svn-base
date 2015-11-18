@@ -1,0 +1,71 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+public $root = $integrador;
+
+$habilidad = (
+    "adivinar personajes":AKINATOR |
+    "habla mas bajo":BAJARVOLUMEN |
+    "baterias":BATERIAS | "nivel de las  baterias":BATERIAS |
+    "callate ya":CALLARSE |
+    "no sigas diciendo mas cosas":CALLARSE |
+    "cantame algo":CANTAR | "cantes":CANTAR | "canta":CANTAR | "quiero que cantes":CANTAR | "cantar":CANTAR | "sabes cantar":CANTAR |
+    "cuentame un chiste":CHISTE | "dime un chiste":CHISTE | "dime algo divertido":CHISTE |
+    "contar caras":CONTARCARAS | "contar personas":CONTARCARAS |
+    "deportes":DEPORTES | "noticias deportivas":DEPORTES |
+    "correo electronico":EMAIL |
+    "escondite":ESCONDITE | "quien soy":ESCONDITE |
+    "estoy cansado de jugar contigo":FIN | "duermete":FIN | "vete a dormir":FIN |
+    "estoy harto de jugar contigo":FIN | "me gustaria que te durmieras":FIN |
+    "me he cansado de jugar contigo":FIN | "ya no quiero jugar mas contigo":FIN | "ya no quiero jugar mas":FIN | "estoy harto":FIN |
+    "ahorcado":HANGMAN |
+    "que sabes hacer":HELP | "que puedes hacer":HELP | "que opciones tienes:"HELP | "ayuda":HELP | "no se que hacer:"HELP | "que hago":HELP|
+    "ayudame":HELP | "no se que hacer":HELP | "que puedo hacer":HELP | "que le digo":HELP |
+    "me apetece jugar contigo":JUGAR | "quiero jugar contigo":JUGAR | "quiero jugar":JUGAR | "vamos a jugar":JUGAR |
+    "reconocer medicamentos":MEDICINAS | "reconocer medicinas":MEDICINAS |
+    "deja de hacer esto":PARAR | "dejalo ya":PARAR | "estate quieta":PARAR | "estate queto":PARAR | "detente":PARAR | "para":PARAR | "otra cosa":PARAR | "parate":PARAR |
+    "callate un momento":PAUSESPEECH  |
+    "reconocer animales":PELUCHES | "reconocer peluches":PELUCHES | "peluches":PELUCHES | "jugar con los peluches":PELUCHES | "animales":PELUCHES | "jugar con los animales":PELUCHES |
+    "autopresentate":PRESENTACION | "presentate":PRESENTACION |
+    "ya puedes seguir hablando":RESUMESPEECH |
+    "persigueme":SIGUEME | "pilla pilla":SIGUEME | "seguir":SIGUEME |
+    "sigueme":SIGUEME | "vamonos de paseo":SIGUEME |
+    "vamos a dar una vuelta":SIGUEME | "vente conmigo":SIGUEME |
+    "habla mas alto":SUBIRVOLUMEN |
+    "conecta con la television":TELEMANDO | "controla la television":TELEMANDO |
+    "maneja la television":TELEMANDO | "telemando":TELEMANDO |
+    "mover tu cuerpo":TELEOPERACION | "teleoperarte":TELEOPERACION | "controlar tu cuerpo":TELEOPERACION | "quiero controlar tu cuerpo":TELEOPERACION | "quiero mover tu cuerpo":TELEOPERACION | "quiero moverte":TELEOPERACION |
+    "tres en raya":TICTACTOE |
+    "informacion del tiempo":TIEMPO | "tiempo meteorologico":TIEMPO | "tiempo para hoy":TIEMPO | "tiempo metereologico para hoy":TIEMPO | "el tiempo de hoy":TIEMPO |  "el tiempo":TIEMPO |
+    "tiempo para hoy":TIEMPO |
+    "volver al inicio":FIN |
+    "habla lo mas alto posible":VOLUMENMAX |
+    "habla lo mas bajo posible":VOLUMENMIN |
+    "quiero hacerte una pregunta":INFORMACION  |
+    "quiero hacerte unas preguntas":INFORMACION  |
+    "necesito informacion":INFORMACION |
+    "necesito saber una cosa":INFORMACION |
+    "necesito saber unas cosas":INFORMACION |
+    "quiero saber una cosa":INFORMACION |
+    "quiero esuchar musica":MUSIC |
+    "ponme musica":MUSIC |
+    "me apetece escuchar musica":MUSIC |
+    "atacalo":ATACAR | "atacale":ATACAR | "ataca":ATACAR |
+    "como te llamas":ASKNAME | "dime tu nombre":ASKNAME |
+    "cual es tu edad":ASKAGE | "que edad tienes":ASKAGE |
+    "quiero que te despiertes":WAKEUP | "despiertate":WAKEUP
+    ){<@Skill $value>};
+
+$integrador = [$GARBAGE] $habilidad;
+
+
+/*
+$integrador = [$sujeto] [vamos a] $accion $determinante $habilidad [por favor];
+$sujeto = magui |xxx robot |xxx amigo;
+$accion = ver |xxx lanzar |xxx jugar |xxx hacer |xxx lanza |xxx juega |xxx juguemos |xxx digas;
+$determinante = a |xxx al |xxx la habilidad |xxx el  |xxx la |xxx las;
+*/
+
+
+

@@ -1,0 +1,57 @@
+<!-- #################################################################################################### -->
+<!-- # Receta que se dispara cuando se detecta actividad de voz                                         # -->
+<!-- #################################################################################################### -->
+<recipe name="voice_activity_detection_echo">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from Voice Activity Detection -->
+    <atom>
+      <!-- Condiciones de la receta-->
+      <slot name="type" val="VAD"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false"/>
+      <!-- se decaclara una variable -->
+      <slot name="user_speaking" rel= "bind" var="user_speaking_var"/>
+      <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+      <slot name="this" rel="bind" var="vad_atom"/>
+    </atom>
+
+  </precondition>
+  <!---------------------------------------------------------------->
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Actividad de voz: $user_speaking_var"  type="string"/>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_arms" type="string"/>
+      </roboml:args>
+    </action>
+
+
+  </body>
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <atom>
+        <slot name="this" var="vad_atom" />
+        <slot name="consumed" val="true" />
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+

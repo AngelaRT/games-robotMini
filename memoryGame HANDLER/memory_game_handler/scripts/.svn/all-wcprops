@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/repoAD/!svn/ver/19033/catkin_projects/memory_game_handler/unstable/scripts
+END
+genericGameRequestHandler.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repoAD/!svn/ver/19170/catkin_projects/memory_game_handler/unstable/scripts/genericGameRequestHandler.py
+END
+cardsRequestHandler.py
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repoAD/!svn/ver/19170/catkin_projects/memory_game_handler/unstable/scripts/cardsRequestHandler.py
+END
+differencesRequestHandler.py
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repoAD/!svn/ver/19170/catkin_projects/memory_game_handler/unstable/scripts/differencesRequestHandler.py
+END
+httpGameHandler.py
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repoAD/!svn/ver/19170/catkin_projects/memory_game_handler/unstable/scripts/httpGameHandler.py
+END

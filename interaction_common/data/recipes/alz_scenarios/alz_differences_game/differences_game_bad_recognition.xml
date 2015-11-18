@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!---------------------------------------------------------------->
+
+<!-- General recipes triggered when the robot does not understand the user -->
+
+<!---------------------------------------------------------------->
+<!-- User says something out of the grammar  -->
+<recipe name="diff_game_asr_loquendo_no_results">
+  <precondition>
+    <!-- Atom from Loquendo ASR without results -->
+    <atom quantifier="exist">
+      <slot name="type" val="asr_loquendoFail"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="state" val="memory_game_session" rel="equal"/>
+      <slot name="this" rel="bind" var="diff_game_loquendo_asr_no_results_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+    <assignment>
+      <atom>
+        <slot name="this" var="diff_game_loquendo_asr_no_results_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+    <goal recipe_name="diff_game_recognition_fail" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!-- Loquendo recognizes with small confidence -->
+<recipe name="diff_game_asr_loquendo_small_confidence">
+
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel="<" val="0.40" type="number" />
+        <slot name="state" val="memory_game_session" rel="equal"/>
+        <slot name="this" rel="bind" var="diff_game_loquendo_small_confidence_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+    <assignment>
+      <atom>
+        <slot name="this" var="diff_game_loquendo_small_confidence_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <goal recipe_name="diff_game_recognition_fail" initiator="any"/>
+
+  </body>
+</recipe>
+
+
+
+<!---------------------------------------------------------------->
+
+<!-- If either Loquendo does not recognize what the user has said or it recognizes
+it with very small confidence, these recipes are activated -->
+<recipe name="diff_game_recognition_fail">
+  <precondition>
+  </precondition>
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="No, esa no es una diferencia! | Prueba otra vez! "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+
+
+
+
+
+
+

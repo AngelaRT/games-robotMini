@@ -1,0 +1,13 @@
+#ABNF 1.0 ISO-8859-1;
+language en-gb;
+mode voice;
+tag-format <semantics/1.0>;
+root $rule_session;
+
+$rule_help = (help | help_me) {out="help";};
+$rule_cancel = (cancel) {out="cancel";};
+$rule_exit = (restart | exit | rewind) {out="exit";};
+
+$rule_session = $rule_help | $rule_cancel | $rule_exit;
+
+

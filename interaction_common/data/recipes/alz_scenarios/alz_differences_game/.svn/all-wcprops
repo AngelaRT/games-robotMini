@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repoAD/!svn/ver/19062/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_differences_game
+END
+differences_game.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repoAD/!svn/ver/19034/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_differences_game/differences_game.xml
+END
+differences_game_bad_recognition.xml
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/repoAD/!svn/ver/19062/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_differences_game/differences_game_bad_recognition.xml
+END
+differences_game_flow_control.xml
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/repoAD/!svn/ver/19034/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_differences_game/differences_game_flow_control.xml
+END

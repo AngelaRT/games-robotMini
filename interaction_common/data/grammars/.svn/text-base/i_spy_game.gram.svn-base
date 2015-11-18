@@ -1,0 +1,21 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+public $root = $gram;
+
+$gram = $in_step_1 | $in_step_2 | $in_step_3 | $in_step_4 | $first_char | $affirmation | $negation;
+
+$letra = (a | be:b | cd:c | de:d | e | efe:f | ge:g | ache:h | i | jota:j | ca:k | ele:l |eme:m | ene:n | o | pe:p | cu:q | erre:r | ese:s | te:t | u | uve:v | uve_doble:w | equis:x | i_griega:y | ceta:z){<@first_char $value>}; 
+
+$in_step_1 ="veo veo"{<@sema "IN_STEP_1">};
+$in_step_2 ="que ves"{<@sema "IN_STEP_2">};
+$in_step_3 ="una cosita"{<@sema "IN_STEP_3">};
+$in_step_4 ="y que cosita es"{<@sema "IN_STEP_4">};
+$first_char= ("([empieza|comienza] [por la] <letrita>)" $letra){<@sema "FIRST_CHAR">};
+
+/* no answer */
+$negation = (no|negativo|incorrecto|[que|muy] mal|falso){<@sema "NEG">};
+
+/* si answer */
+$affirmation = (si|afirmativo|correcto|[que|muy] bien|verdadero){<@sema "AFF">};

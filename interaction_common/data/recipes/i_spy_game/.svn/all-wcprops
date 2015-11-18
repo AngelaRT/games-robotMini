@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game
+END
+user_negation.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/user_negation.xml
+END
+load_grammar.xml
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/load_grammar.xml
+END
+check_word.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/check_word.xml
+END
+match_no.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/match_no.xml
+END
+intro_steps.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/intro_steps.xml
+END
+step_0.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/step_0.xml
+END
+step_1.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/step_1.xml
+END
+match_yes.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/match_yes.xml
+END
+step_2.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/step_2.xml
+END
+got_first_char.xml
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/got_first_char.xml
+END
+step_3.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/step_3.xml
+END
+user_affirmation.xml
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/user_affirmation.xml
+END
+step_4.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/recipes/i_spy_game/step_4.xml
+END

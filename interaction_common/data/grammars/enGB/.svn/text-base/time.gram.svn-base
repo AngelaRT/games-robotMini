@@ -1,0 +1,361 @@
+#ABNF 1.0 UTF-8;
+
+language  en-GB;
+mode  voice;
+tag-format <semantics/1.0>;
+root  $time;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     time                                                 	*/
+ /* @rule        time                                                 	*/
+ /* @version     6.3                                                     */
+ /* @author      Toniolo Athos                                           */
+ /* @revisor     Daniele Colibro                                         */
+ /* @date        July 26, 2002                                           */
+ /* @example     it's seven o'clock                                      */
+ /* @semantic    <@time "0700?">                                      	*/
+ /* @example     almost a_quarter to eleven P.M.                         */
+ /* @semantic    <@time "1045p">                                      	*/
+ /* @example     half past four                                          */
+ /* @semantic    <@time "0430?">                                      	*/
+ /* @example     the_time_is three in_the_afternoon                      */
+ /* @semantic    <@time "0300p">                                      	*/
+ /* @example     eleven thirty-eight                                     */
+ /* @semantic    <@time "1138?">                                      	*/
+ /* @example     five til nine                                           */
+ /* @semantic    <@time "0855?">                                      	*/
+ /* @example     it_is quarter past three in_the_afternoon               */
+ /* @semantic    <@time "0315p">                                      	*/
+ /* @example     four oh oh                                              */
+ /* @semantic    <@time "0400?">                                      	*/
+ /* Description: This grammar allows the user to insert a time           */
+ /* information in the format "hhmmx" where x is one of "a" for AM,      */
+ /* "p" for PM, "h" for extended hours format or "?" to indicate an      */
+ /* ambiguous time.                                                      */
+ /* The output variable that contains the user value is @time.        	*/
+ /*                                                                      */
+ /************************************************************************/
+ /* time (public) */
+ public $time = $s_time ;
+
+ /* string time */
+ $s_time = (
+             $s_fullhoursminutes  | 
+             $s_2fullhoursminutes  | 
+             $s_3fullhoursminutes  | 
+             $s_fullminuteshours  | 
+             $s_halfhoursminutes  | 
+             $s_2halfhoursminutes  | 
+             $s_3halfhoursminutes  | 
+             $s_halfminuteshours  | 
+             $s_2halfminuteshours  | 
+             $s_fullminushoursminutes  | 
+             $s_halfminushoursminutes 
+           ) ;
+
+ /* string fullhoursminutes */
+ $s_fullhoursminutes = [$v_its] [$v_about] ($u_13_24 $dd_00_59) {out = rules.u_13_24 + rules.dd_00_59 + "h";};
+
+ /* string 2fullhoursminutes */
+ $s_2fullhoursminutes =  [$v_its] [$v_about] $dd_hourssome {out = rules.dd_hourssome + "00h";};
+
+ /* string 3fullhoursminutes */
+ $s_3fullhoursminutes = [$v_its] [$v_about] ( $u_13_24  $v_hundredhours) {out = rules.u_13_24 + "00h";};
+
+ /* string fullminuteshours */
+ $s_fullminuteshours = [$v_its] [$v_about] ( $dd_moreminutes $v_past $dd_hourssome ) {out = rules.dd_hourssome + rules.dd_moreminutes + "h";};
+
+ /* string halfhoursminutes */
+ $s_halfhoursminutes = {var c; c="?";}[$v_its] [$v_about] ($dd_01_12  $dd_00_59 [$c_ampm {c = rules.c_ampm;}]) {out = rules.dd_01_12 + rules.dd_00_59 + c;};
+
+ /* string 2halfhoursminutes */
+ $s_2halfhoursminutes = {var c; c="?";} [$v_its] [$v_about] ( $dd_01_12 [$v_oclock] [$c_ampm {c = rules.c_ampm;}]) {out = rules.dd_01_12 + "00" + c;};
+
+ /* string 3halfhoursminutes */
+ $s_3halfhoursminutes = {var c; c="?";} [$v_its] [$v_about] ( $dd_01_12 $v_hundredhours [$c_ampm {c = rules.c_ampm;}]) {out = rules.dd_01_12 + "00" + c;};
+
+ /* string halfminuteshours */
+ $s_halfminuteshours = {var c; c="?";} [$v_its] [$v_about] ( $dd_moreminutes $v_past $dd_01_12 [$c_ampm {c = rules.c_ampm;}]) {out = rules.dd_01_12 + rules.dd_moreminutes + c;};
+
+ /* string 2halfminuteshours */
+ $s_2halfminuteshours = {var c; c="?";} [$v_its] [$v_about] ( $dd_minutessome $dd_01_12  [$c_ampm {c = rules.c_ampm;}]) {out = rules.dd_01_12 + rules.dd_minutessome + c;};
+
+ /* string fullminushoursminutes */
+ $s_fullminushoursminutes = [$v_its] [$v_about] ( $dd_minusminutes $v_to $dd_fullminushourssome) {out = rules.dd_fullminushourssome + rules.dd_minusminutes + "h";};
+
+ /* string halfminushoursminutes */
+ $s_halfminushoursminutes = {var c; c="?";} [$v_its] [$v_about] ( $dd_minusminutes $v_to $dd_halfminushourssome [$c_ampm {c = rules.c_ampm;}]) {out = rules.dd_halfminushourssome + rules.dd_minusminutes + c;};
+
+ /* digit-digit minutes */
+ $dd_minutes = $dd_00_59 {out = rules.latest();}[$v_minute];
+
+ /* digit-digit moreminutes */
+ $dd_moreminutes = ( $dd_minutes | 
+                     $dd_minutessome 
+                   );
+
+ /* digit-digit minusminutes */
+ $dd_minusminutes = $dd_minusminutessome {out = rules.latest();} [$v_minute];
+
+ /* digit-digit from 00 to 59 */
+ $dd_00_59 = ( $u_10_59  | 
+               $dd_00_09 
+             ) ;
+
+ /* digit-digit from 01 to 12 */
+ $dd_01_12 = ( $u_10_12  | 
+               $dd_01_09 
+             ) ;
+
+ /* digit-digit from 00 to 09 */
+ $dd_00_09 = [$u_0] $u_0_9 {out = "0" + rules.u_0_9;};
+
+ /* digit-digit from 01 to 09 */
+ $dd_01_09 = [$u_0] $u_1_9 {out = "0" + rules.u_1_9;};
+
+ /* unsigned from 0 to 9 */
+ $u_0_9 = ( $u_1_9  | 
+            $u_0 
+          ) ;
+
+ /* unsigned from 1 to 9 */
+ $u_1_9 = (
+            $u_2_9  | 
+            $u_1 
+          ) ;
+
+ /* char ampm */
+ $c_ampm = ( A._M. {out = "a";} | 
+             P._M. {out = "p";} | 
+             in_the_morning {out = "a";} | 
+             in_the_afternoon {out = "p";} | 
+             in_the_evening {out = "p";} | 
+             at_night {out = "a";} 
+           ) ;
+
+ /* digits-digits hourssome */
+ $dd_hourssome = ( noon {out = "12";} | 
+                   mid-day {out = "12";} | 
+                   midnight {out = "24";} 
+                 ) ;
+
+ /* digits-digits fullminushourssome */
+ $dd_fullminushourssome = ( noon {out = "11";} | 
+                            mid-day {out = "11";} | 
+                            midnight {out = "23";} 
+                          ) ;
+
+ /* digits-digits halfminushourssome */
+ $dd_halfminushourssome = (
+                            one {out = "12";} | 
+                            a {out = "12";} | 
+                            two {out = "01";} | 
+                            three {out = "02";} | 
+                            four {out = "03";} | 
+                            five {out = "04";} | 
+                            six {out = "05";} | 
+                            seven {out = "06";} | 
+                            eight {out = "07";} | 
+                            nine {out = "08";} | 
+                            ten {out = "09";} | 
+                            eleven {out = "10";} | 
+                            twelve {out = "11";} 
+                          ) ;
+
+ /* digit-digit minutessome */
+ $dd_minutessome = (
+                     quarter {out = "15";} | 
+                     a_quarter {out = "15";} | 
+                     half {out = "30";} | 
+                     a_half {out = "30";} 
+                   ) ;
+ 
+ /* digit-digit minusminutessome */
+ $dd_minusminutessome = (
+                          one {out = "59";} | 
+                          a {out = "59";} | 
+                          two {out = "58";} | 
+                          three {out = "57";} | 
+                          four {out = "56";} | 
+                          five {out = "55";} | 
+                          six {out = "54";} | 
+                          seven {out = "53";} | 
+                          eight {out = "52";} | 
+                          nine {out = "51";} | 
+                          ten {out = "50";} | 
+                          eleven {out = "49";} | 
+                          twelve {out = "48";} | 
+                          thirteen {out = "14";} | 
+                          fourteen {out = "46";} | 
+                          fifteen {out = "45";} | 
+                          quarter {out = "45";} | 
+                          a_quarter {out = "45";} | 
+                          sixteen {out = "44";} | 
+                          seventeen {out = "43";} | 
+                          eighteen {out = "42";} | 
+                          nineteen {out = "41";} | 
+                          twenty {out = "40";} | 
+                          twenty-one {out = "39";} | 
+                          twenty-two {out = "38";} | 
+                          twenty-three {out = "37";} | 
+                          twenty-four {out = "36";} | 
+                          twenty-five {out = "35";} | 
+                          twenty-six {out = "34";} | 
+                          twenty-seven {out = "33";} | 
+                          twenty-eight {out = "32";} | 
+                          twenty-nine {out = "31";}
+                        ) ;
+
+ /* unsigned from 10 to 12 */
+ $u_10_12 = (
+              ten {out = "10";} | 
+              eleven {out = "11";} | 
+              twelve {out = "12";} 
+            ) ;
+
+ /* unsigned from 13 to 24 */
+ $u_13_24 = (
+              thirteen {out = "13";} | 
+              fourteen {out = "14";} | 
+              fifteen {out = "15";} | 
+              sixteen {out = "16";} | 
+              seventeen {out = "17";} | 
+              eighteen {out = "18";} | 
+              nineteen {out = "19";} | 
+              twenty {out = "20";} | 
+              twenty-one {out = "21";} | 
+              twenty-two {out = "22";} | 
+              twenty-three {out = "23";} | 
+              twenty-four {out = "24";} 
+            ) ;
+
+ /* unsigned from 10 to 59 */
+ $u_10_59 = (
+              ten {out = "10";} | 
+              eleven {out = "11";} | 
+              twelve {out = "12";} | 
+              thirteen {out = "13";} | 
+              fourteen {out = "14";} | 
+              fifteen {out = "15";} | 
+              sixteen {out = "16";} | 
+              seventeen {out = "17";} | 
+              eighteen {out = "18";} | 
+              nineteen {out = "19";} | 
+              twenty {out = "20";} | 
+              twenty-one {out = "21";} | 
+              twenty-two {out = "22";} | 
+              twenty-three {out = "23";} | 
+              twenty-four {out = "24";} | 
+              twenty-five {out = "25";} | 
+              twenty-six {out = "26";} | 
+              twenty-seven {out = "27";} | 
+              twenty-eight {out = "28";} | 
+              twenty-nine {out = "29";} | 
+              thirty {out = "30";} | 
+              thirty-one {out = "31";} | 
+              thirty-two {out = "32";} | 
+              thirty-three {out = "33";} | 
+              thirty-four {out = "34";} | 
+              thirty-five {out = "35";} | 
+              thirty-six {out = "36";} | 
+              thirty-seven {out = "37";} | 
+              thirty-eight {out = "38";} | 
+              thirty-nine {out = "39";} | 
+              forty {out = "40";} | 
+              forty-one {out = "41";} | 
+              forty-two {out = "42";} | 
+              forty-three {out = "43";} | 
+              forty-four {out = "44";} | 
+              forty-five {out = "45";} | 
+              forty-six {out = "46";} | 
+              forty-seven {out = "47";} | 
+              forty-eight {out = "48";} | 
+              forty-nine {out = "49";} | 
+              fifty {out = "50";} | 
+              fifty-one {out = "51";} | 
+              fifty-two {out = "52";} | 
+              fifty-three {out = "53";} | 
+              fifty-four {out = "54";} | 
+              fifty-five {out = "55";} | 
+              fifty-six {out = "56";} | 
+              fifty-seven {out = "57";} | 
+              fifty-eight {out = "58";} | 
+              fifty-nine {out = "59";} 
+            ) ;
+
+ /* unsigned from 2 to 9 */
+ $u_2_9 = (
+            two {out = "2";} | 
+            three {out = "3";} | 
+            four {out = "4";} | 
+            five {out = "5";} | 
+            six {out = "6";} | 
+            seven {out = "7";} | 
+            eight {out = "8";} | 
+            nine {out = "9";} 
+          ) ;
+
+ /* unsigned one */
+ $u_1 = (
+          one | 
+          a
+        ) {out = "1";};
+
+ /* unsigned zero */
+ $u_0 = (
+          zero | 
+          oh
+        ) {out = "0";};
+
+ /* void hundredhours */
+ $v_hundredhours = (
+                     hundred | 
+                     hours | 
+                     hundred_hours
+                   );
+
+ /* void to */
+ $v_to = (
+           to | 
+           til | 
+           till | 
+           before | 
+           of | 
+           until
+         );
+
+ /* void past */
+ $v_past = (
+             past | 
+             after
+           );
+
+ /* void oclock */
+ $v_oclock = "o'clock";
+
+ /* void minute */
+ $v_minute = (
+               minute | 
+               minutes
+             );
+
+ /* void its */
+ $v_its = (
+            "it's" | 
+            it_is | 
+            the_time_is | 
+            at
+          );
+
+ /* void about */
+ $v_about = (
+              now | 
+              exactly | 
+              around | 
+              approximately | 
+              about | 
+              almost | 
+              nearly | 
+              just | 
+              precisely
+            );

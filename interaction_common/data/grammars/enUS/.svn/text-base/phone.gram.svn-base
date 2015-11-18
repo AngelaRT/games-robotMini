@@ -1,0 +1,227 @@
+#ABNF 1.0 UTF-8;
+
+language  en-US;
+mode  voice;
+tag-format <semantics/1.0>;
+root  $phone;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     phone                                                	*/
+ /* @rule        phone                                                	*/
+ /* @version     6.3                                                     */
+ /* @author      Toniolo Athos                                           */
+ /* @date        April 15, 2002                                          */
+ /* @example     three fifty-two one one one oh six oh four              */
+ /* @semantic    <@phone "3521110604">                                	*/
+ /* @example     three fifty-two one one six eleven hundred              */
+ /* @semantic    <@phone "3521161100">                                	*/
+ /* @example     five six three oh twenty-six forty thirty-one           */
+ /* @semantic    <@phone "5630264031">                                	*/
+ /* @example     four hundred  six hundred twenty-two oh six             */
+ /* @semantic    <@phone "4006002206">                                	*/
+ /* @example     five six seven two sixty-two forty-seven oh one         */
+ /* @semantic    <@phone "5672624701">                                	*/
+ /*                                                                      */
+ /* Description:                                                         */
+ /* This grammar allows the user to insert a phone number.               */
+ /* There is a control for the phone number's lenght, that's 10.         */
+ /* The output variable that contains the user value is @phone.       	*/
+ /*                                                                      */
+ /************************************************************************/
+ /* phone (public) */
+
+ public $phone = $s_phone {out = rules.s_phone;};
+
+ $s_phone = ( $ddd_phone {out = rules.ddd_phone;} $ddd_phone {out += rules.ddd_phone;} $dddd_phone {out += rules.dddd_phone;});
+ /* digit-digit-digit-digit phone */
+
+ $dddd_phone = (
+                 $u_1_9k | 
+                 $dddd_01_99h | 
+                 $dddd_pair_pair
+               ) {out = rules.latest();};
+ /* digit-digit-digit phone */
+
+ $ddd_phone = (
+                $u_1_9h | 
+                $ddd_0_9_pair
+              ) {out = rules.latest();};
+ /* digits-digit pair */
+
+ $dd_pair = (
+              $u_tens10_90 | 
+              $u_notens11_99 | 
+              $dd_0_9_0_9 
+            ) {out = rules.latest();};
+ /* unsigned from 1 to 9 thousand */
+
+ $u_1_9k = ( $u_1_9 $v_thousand) {out = rules.u_1_9 + "000";};
+ /* digit-digit-digit-digit 01 to 99 hundred */
+
+ $dddd_01_99h = ( $dd_01_99 $v_hundred) {out = rules.dd_01_99 + "00";};
+ /* unsigned 1 to 9 hundred */
+
+ $u_1_9h = ( $u_1_9 $v_hundred) {out = rules.u_1_9 + "00";};
+ /* digit-digit from 01 to 99 */
+
+ $dd_01_99 = (
+               $u_tens10_90 | 
+               $u_notens11_99 | 
+               $dd_1_9 | 
+               $dd_0_9to1_9 
+             ) {out = rules.latest();};
+ /* unsigned from 0 to 9 */
+
+ $u_0_9 = (
+            $u_1_9 | 
+            $u_0
+          ) {out = rules.latest();};
+ /* digit-digit from 1 to 9 */
+
+ $dd_1_9 = $u_1_9 {out = "0" + rules.u_1_9;};
+ /* unsigned from 1 to 9 */
+
+ $u_1_9 = (
+            $u_2_9 {out = rules.u_2_9;} | 
+            $u_1 {out = rules.u_1;}
+          );
+ /* digits-digit-digit-digit pair - pair */
+
+ $dddd_pair_pair = ( $dd_pair {out = "" + rules.dd_pair;} $dd_pair {out += rules.dd_pair;});
+ /* digits-digit-digit from 0 to 9 - pair */
+
+ $ddd_0_9_pair = ( $u_0_9 {out = "" + rules.u_0_9;} $dd_pair {out += rules.dd_pair;});
+ /* digit-digit from 0 to 9 - from 0 to 9 */
+
+ $dd_0_9_0_9 = ( $u_0_9 {out = "" + rules.u_0_9;} $u_0_9 {out += rules.u_0_9;});
+ /* digit-digit from 0 to 9 - from 1 to 9 */
+
+ $dd_0_9to1_9 = ( $u_0_9 {out = "" + rules.u_0_9;} $u_1_9 {out += rules.u_1_9;});
+ /* unsigned tens from 10 to 90 */
+
+ $u_tens10_90 = (
+                  ten {out = "10";} |
+                  twenty {out = "20";} | 
+                  thirty {out = "30";} | 
+                  forty {out = "40";} | 
+                  fifty {out = "50";} | 
+                  sixty {out = "60";} | 
+                  seventy {out = "70";} | 
+                  eighty {out = "80";} | 
+                  ninety {out = "90";}
+                );
+ /* unsigned notens from 11 to 99 */
+
+ $u_notens11_99 = (
+                    eleven {out = "11";} |
+                    twelve {out = "12";} |
+                    thirteen {out = "13";} |
+                    fourteen {out = "14";} |
+                    fifteen {out = "15";} |
+                    sixteen {out = "16";} |
+                    seventeen {out = "17";} |
+                    eighteen {out = "18";} |
+                    nineteen {out = "19";} |
+                    twenty-one {out = "21";} |
+                    twenty-two {out = "22";} |
+                    twenty-three {out = "23";} |
+                    twenty-four {out = "24";} |
+                    twenty-five {out = "25";} |
+                    twenty-six {out = "26";} |
+                    twenty-seven {out = "27";} |
+                    twenty-eight {out = "28";} |
+                    twenty-nine {out = "29";} |
+                    thirty-one {out = "31";} |
+                    thirty-two {out = "32";} |
+                    thirty-three {out = "33";} |
+                    thirty-four {out = "34";} |
+                    thirty-five {out = "35";} |
+                    thirty-six {out = "36";} |
+                    thirty-seven {out = "37";} |
+                    thirty-eight {out = "38";} |
+                    thirty-nine {out = "39";} |
+                    forty-one {out = "41";} |
+                    forty-two {out = "42";} |
+                    forty-three {out = "43";} |
+                    forty-four {out = "44";} |
+                    forty-five {out = "45";} |
+                    forty-six {out = "46";} |
+                    forty-seven {out = "47";} |
+                    forty-eight {out = "48";} |
+                    forty-nine {out = "49";} |
+                    fifty-one {out = "51";} |
+                    fifty-two {out = "52";} |
+                    fifty-three {out = "53";} |
+                    fifty-four {out = "54";} |
+                    fifty-five {out = "55";} |
+                    fifty-six {out = "56";} |
+                    fifty-seven {out = "57";} |
+                    fifty-eight {out = "58";} |
+                    fifty-nine {out = "59";} |
+                    sixty-one {out = "61";} |
+                    sixty-two {out = "62";} |
+                    sixty-three {out = "63";} |
+                    sixty-four {out = "64";} |
+                    sixty-five {out = "65";} |
+                    sixty-six {out = "66";} |
+                    sixty-seven {out = "67";} |
+                    sixty-eight {out = "68";} |
+                    sixty-nine {out = "69";} |
+                    seventy-one {out = "71";} |
+                    seventy-two {out = "72";} |
+                    seventy-three {out = "73";} |
+                    seventy-four {out = "74";} |
+                    seventy-five {out = "75";} |
+                    seventy-six {out = "76";} |
+                    seventy-seven {out = "77";} |
+                    seventy-eight {out = "78";} |
+                    seventy-nine {out = "79";} |
+                    eighty-one {out = "81";} |
+                    eighty-two {out = "82";} |
+                    eighty-three {out = "83";} |
+                    eighty-four {out = "84";} |
+                    eighty-five {out = "85";} |
+                    eighty-six {out = "86";} |
+                    eighty-seven {out = "87";} |
+                    eighty-eight {out = "88";} |
+                    eighty-nine {out = "89";} |
+                    ninety-one {out = "91";} |
+                    ninety-two {out = "92";} |
+                    ninety-three {out = "93";} |
+                    ninety-four {out = "94";} |
+                    ninety-five {out = "95";} |
+                    ninety-six {out = "96";} |
+                    ninety-seven {out = "97";} |
+                    ninety-eight {out = "98";} |
+                    ninety-nine {out = "99";}
+                  );
+ /* unsigned from 2 to 9 */
+
+ $u_2_9 = (
+            two {out = "2";} |
+            three {out = "3";} |
+            four {out = "4";} |
+            five {out = "5";} |
+            six {out = "6";} |
+            seven {out = "7";} |
+            eight {out = "8";} |
+            nine {out = "9";}
+          );
+ /* unsigned one */
+
+ $u_1 = (
+          one | 
+          a
+        ) {out = "1";};
+ /* unsigned zero */
+
+ $u_0 = (
+          zero | 
+          oh
+        ) {out = "0";};
+ /* void thousand */
+
+ $v_thousand = thousand;
+ /* void hundred */
+
+ $v_hundred = hundred;

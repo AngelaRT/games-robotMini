@@ -1,0 +1,37 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = $adjetivando;
+
+$insultos_piropos = (
+    "idiota":INSULTO |
+    "boba":INSULTO |
+    "tonta":INSULTO |
+    "torpe":INSULTO |
+    "fea":INSULTO |
+    "aburrida":INSULTO |
+    "asquerosa":INSULTO |
+    "cabrona":INSULTO |
+    "malvada":INSULTO |
+    "puta":INSULTO |
+    "manipuladora":INSULTO |
+    "patosa":INSULTO |
+    "guarra":INSULTO |
+    "lista":PIROPO |
+    "guapa":PIROPO |
+    "bonita":PIROPO |
+    "limpia":PIROPO |
+    "hueles bien":PIROPO |
+    "divertida":PIROPO |
+    "bella":PIROPO |
+    "marchosa":PIROPO |
+    "encantadora":PIROPO |
+    "cachonda":PIROPO |
+    "salada":PIROPO |
+    "graciosa":PIROPO
+    ){<@calificativo $value>};
+
+
+$adjetivando = [$GARBAGE] $insultos_piropos;

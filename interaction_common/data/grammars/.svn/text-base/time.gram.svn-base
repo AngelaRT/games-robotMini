@@ -1,0 +1,434 @@
+﻿#ABNF 1.0 UTF-8;
+
+language  es-es;
+mode  voice;
+tag-format <semantics/1.0>;
+public $root = $time
+
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     time                                                 	 */
+ /* @rule        time                                                 	 */
+ /* @version     6.3                                                     */
+ /* @author      Colibro Daniele, Luciano Fissore                        */
+ /* @date        November 28, 2001                                       */
+ /*                                                                      */
+ /* @example     veinte_menos seis de_la_tarde en_punto                  */
+ /* @semantic     "1954h"                                      	         */
+ /* @example     ocho y_media                                            */
+ /* @semantic     "0830?"                                      	         */
+ /* @example     ocho                                                    */
+ /* @semantic     "0800?"                                      	         */
+ /* @example     las_veinti_trés y_cuarto                                */
+ /* @semantic     "2315h"                                      	         */
+ /* @example     mediodia_menos veinte minutos                           */
+ /* @semantic     "1140a"                                      	         */
+ /* @example     siete y doce minutos                                    */
+ /* @semantic     "0712?"                                      	         */
+ /* @example     dieci_nueve_menos cuarto                                */
+ /* @semantic     "1845h"                                      	         */
+ /* @example     nueve cero seis                                         */
+ /* @semantic     "0906?"                                      	         */
+ /*                                                                      */
+ /* Description: This grammar allows the user to insert a time           */
+ /* information in the format "hhmmx" where x is one of "a" for AM,      */
+ /* "p" for PM, "h" for an extended time or "?" to indicate an           */
+ /* ambiguous time                                                       */
+ /*                                                                      */
+ /* Note:   "hh" is comprised in a range beetween 01 to 23               */
+ /*         (so Midday=1200p - Midnight=1200a)                           */
+ /*         "mm" from 00 to 59 - when not specified is 00.               */
+ /*                                                                      */
+ /************************************************************************/
+ /* Simple rules: this section contains the vocabularies used in the grammar (quite tedious) */
+ /* Hour slice */
+ {var hours, minutes="00", daytime="?";};
+ $ambhour = (
+              una {hours = "01";} | 
+              dos {hours = "02";} | 
+              tres {hours = "03";} | 
+              cuatro {hours = "04";} | 
+              cinco {hours = "05";} | 
+              seis {hours = "06";} | 
+              siete {hours = "07";} | 
+              ocho {hours = "08";} | 
+              nueve {hours = "09";} | 
+              diez {hours = "10";} | 
+              once {hours = "11";} 
+            ) ;
+
+ $ambhour12 = (
+				doce {hours = "12";} 
+             );
+            
+            
+            
+ $theambhour = (
+                 la_una {hours = "01";} | 
+                 las_dos {hours = "02";} | 
+                 las_tres {hours = "03";} | 
+                 las_cuatro {hours = "04";} | 
+                 las_cinco {hours = "05";} | 
+                 las_seis {hours = "06";} | 
+                 las_siete {hours = "07";} | 
+                 las_ocho {hours = "08";} | 
+                 las_nueve {hours = "09";} | 
+                 las_diez {hours = "10";} | 
+                 las_once {hours = "11";} 
+               ) ;
+
+ $theambhour12 = (
+                 las_doce {hours = "12";}
+               ) ;
+
+ 
+               
+$pmhour = (
+             trece {hours = "13";} | 
+             catorce {hours = "14";} | 
+             quince {hours = "15";} | 
+             dieci_séis {hours = "16";} | 
+             dieci_siete {hours = "17";} | 
+             dieci_ocho {hours = "18";} | 
+             dieci_nueve {hours = "19";} | 
+             veinte {hours = "20";} | 
+             veinti_ún {hours = "21";} | 
+             veinti_dós {hours = "22";} | 
+             veinti_trés {hours = "23";} 
+           ) {daytime = "h";};
+
+ $thepmhour = (
+                las_trece {hours = "13";} | 
+                las_catorce {hours = "14";} | 
+                las_quince {hours = "15";} | 
+                las_dieciséis {hours = "16";} | 
+                las_diecisiete {hours = "17";} | 
+                las_dieciocho {hours = "18";} | 
+                las_diecinueve {hours = "19";} | 
+                las_veinte {hours = "20";} | 
+                las_veinti_ún {hours = "21";} | 
+                las_veinti_dós {hours = "22";} | 
+                las_veinti_trés {hours = "23";} | 
+                mediodìa {hours = "12";} 
+              ) {daytime = "h";};
+
+ $theamhour = (
+                medianoche  | 
+                las_cero  | 
+                las_veinti_cuatro 
+              ) {hours = "24";} {daytime = "h";};
+
+ $ambhour_minus = (
+                    una_menos {hours = "12";} | 
+                    dos_menos {hours = "01";} | 
+                    tres_menos {hours = "02";} | 
+                    cuatro_menos {hours = "03";} | 
+                    cinco_menos {hours = "04";} | 
+                    seis_menos {hours = "05";} | 
+                    siete_menos {hours = "06";} | 
+                    ocho_menos {hours = "07";} | 
+                    nueve_menos {hours = "08";} | 
+                    diez_menos {hours = "09";} | 
+                    once_menos {hours = "10";} | 
+                    doce_menos {hours = "11";} 
+                  ) ;
+
+ $theambhour_minus = (
+                       la_una_menos {hours = "12";} | 
+                       las_dos_menos {hours = "01";} | 
+                       las_tres_menos {hours = "02";} | 
+                       las_cuatro_menos {hours = "03";} | 
+                       las_cinco_menos {hours = "04";} | 
+                       las_seis_menos {hours = "05";} | 
+                       las_siete_menos {hours = "06";} | 
+                       las_ocho_menos {hours = "07";} | 
+                       las_nueve_menos {hours = "08";} | 
+                       las_diez_menos {hours = "09";} | 
+                       las_once_menos {hours = "10";} | 
+                       las_doce_menos {hours = "11";} 
+                     ) ;
+
+ $pmhour_minus = (
+                   trece_menos {hours = "12";} | 
+                   catorce_menos {hours = "13";} | 
+                   quince_menos {hours = "14";} | 
+                   dieci_séis_menos {hours = "15";} | 
+                   dieci_siete_menos {hours = "16";} | 
+                   dieci_ocho_menos {hours = "17";} | 
+                   dieci_nueve_menos {hours = "18";} | 
+                   veinte_menos {hours = "19";} | 
+                   veinti_ún_menos {hours = "20";} | 
+                   veinti_dós_menos {hours = "21";} | 
+                   veinti_trés_menos {hours = "22";} | 
+                   cero_menos {hours = "23";} | 
+                   veinti_cuatro_menos {hours = "23";} 
+                 ) {daytime = "h";};
+
+ $thepmhour_minus = (
+                      las_trece_menos {hours = "12";} | 
+                      las_catorce_menos {hours = "13";} | 
+                      las_quince_menos {hours = "14";} | 
+                      las_dieci_séis_menos {hours = "15";} | 
+                      las_dieci_siete_menos {hours = "16";} | 
+                      las_dieci_ocho_menos {hours = "17";} | 
+                      las_dieci_nueve_menos {hours = "18";} | 
+                      las_veinte_menos {hours = "19";} | 
+                      las_veinti_ún_menos {hours = "20";} | 
+                      las_veinti_dós_menos {hours = "21";} | 
+                      las_veinti_trés_menos {hours = "22";} | 
+                      las_veinti_cuatro_menos {hours = "23";} | 
+                      las_cero_menos {hours = "23";} | 
+                      medianoche_menos {hours = "23";} 
+                    ) {daytime = "h";};
+
+ $theamhour_minus = mediodia_menos {hours = "11";} {minutes = "00";} {daytime = "a";};
+ /* Minutes slice */
+
+ $n0 = cero;
+
+ $n0to0 = cero {minutes = "00";};
+
+ $n1to1 = (
+            una | 
+            un
+          ) {minutes = "01";};
+
+ $n2to9 = (
+            dos {minutes = "02";} | 
+            tres {minutes = "03";} | 
+            cuatro {minutes = "04";} | 
+            cinco {minutes = "05";} | 
+            seis {minutes = "06";} | 
+            siete {minutes = "07";} | 
+            ocho {minutes = "08";} | 
+            nueve {minutes = "09";} 
+          ) ;
+
+ $n10to59 = (
+              diez {minutes = "10";} | 
+              once {minutes = "11";} | 
+              doce {minutes = "12";} | 
+              trece {minutes = "13";} | 
+              catorce {minutes = "14";} | 
+              quince {minutes = "15";} | 
+              dieci_séis {minutes = "16";} | 
+              dieci_siete {minutes = "17";} | 
+              dieci_ocho {minutes = "18";} | 
+              dieci_nueve {minutes = "19";} | 
+              veinte {minutes = "20";} | 
+              veinti_uno {minutes = "21";} | 
+              veinti_ún {minutes = "21";} | 
+              veinti_dós {minutes = "22";} | 
+              veinti_trés {minutes = "23";} | 
+              veinti_cuatro {minutes = "24";} | 
+              veinti_cinco {minutes = "25";} | 
+              veinti_séis {minutes = "26";} | 
+              veinti_siete {minutes = "27";} | 
+              veinti_ocho {minutes = "28";} | 
+              veinti_nueve {minutes = "29";} | 
+              treinta {minutes = "30";} | 
+              treinta_y_uno {minutes = "31";} | 
+              treinta_y_dos {minutes = "32";} | 
+              treinta_y_tres {minutes = "33";} | 
+              treinta_y_cuatro {minutes = "34";} | 
+              treinta_y_cinco {minutes = "35";} | 
+              treinta_y_seis {minutes = "36";} | 
+              treinta_y_siete {minutes = "37";} | 
+              treinta_y_ocho {minutes = "38";} | 
+              treinta_y_nueve {minutes = "39";} | 
+              cuarenta {minutes = "40";} | 
+              cuarenta_y_uno {minutes = "41";} | 
+              cuarenta_y_dos {minutes = "42";} | 
+              cuarenta_y_tres {minutes = "43";} | 
+              cuarenta_y_cuatro {minutes = "44";} | 
+              cuarenta_y_cinco {minutes = "45";} | 
+              cuarenta_y_seis {minutes = "46";} | 
+              cuarenta_y_siete {minutes = "47";} | 
+              cuarenta_y_ocho {minutes = "48";} | 
+              cuarenta_y_nueve {minutes = "49";} | 
+              cincuenta {minutes = "50";} | 
+              cincuenta_y_uno {minutes = "51";} | 
+              cincuenta_y_una {minutes = "51";} | 
+              cincuenta_y_dos {minutes = "52";} | 
+              cincuenta_y_tres {minutes = "53";} | 
+              cincuenta_y_cuatro {minutes = "54";} | 
+              cincuenta_y_cinco {minutes = "55";} | 
+              cincuenta_y_seis {minutes = "56";} | 
+              cincuenta_y_siete {minutes = "57";} | 
+              cincuenta_y_ocho {minutes = "58";} | 
+              cincuenta_y_nueve {minutes = "59";} 
+            ) ;
+
+ $min_opt = minuto;
+
+ $mins_opt = minutos;
+
+ $mins_other = (
+                 y_cuarto {minutes = "15";} | 
+                 y_media {minutes = "30";} 
+               ) ;
+
+ $mins_minus = (
+                 un {minutes = "59";} | 
+                 una {minutes = "59";} | 
+                 dos {minutes = "58";} | 
+                 tres {minutes = "57";} | 
+                 cuatro {minutes = "56";} | 
+                 cinco {minutes = "55";} | 
+                 seis {minutes = "54";} | 
+                 siete {minutes = "53";} | 
+                 ocho {minutes = "52";} | 
+                 nueve {minutes = "51";} | 
+                 diez {minutes = "50";} | 
+                 once {minutes = "49";} | 
+                 doce {minutes = "48";} | 
+                 trece {minutes = "47";} | 
+                 catorce {minutes = "46";} | 
+                 quince {minutes = "45";} | 
+                 cuarto {minutes = "45";} | 
+                 dieci_séis {minutes = "44";} | 
+                 dieci_siete {minutes = "43";} | 
+                 dieci_ocho {minutes = "42";} | 
+                 dieci_nueve {minutes = "41";} | 
+                 veinte {minutes = "40";} | 
+                 veinti_uno {minutes = "39";} | 
+                 veinti_dós {minutes = "38";} | 
+                 veinti_trés {minutes = "37";} | 
+                 veinti_cuatro {minutes = "36";} | 
+                 veinti_cinco {minutes = "35";} | 
+                 veinti_séis {minutes = "34";} | 
+                 veinti_siete {minutes = "33";} | 
+                 veinti_ocho {minutes = "32";} | 
+                 veinti_nueve {minutes = "31";} | 
+                 treinta {minutes = "30";} | 
+                 treinta_y_uno {minutes = "29";} | 
+                 treinta_y_dos {minutes = "28";} | 
+                 treinta_y_tres {minutes = "27";} | 
+                 treinta_y_cuatro {minutes = "26";} | 
+                 treinta_y_cinco {minutes = "25";} | 
+                 treinta_y_seis {minutes = "24";} | 
+                 treinta_y_siete {minutes = "23";} | 
+                 treinta_y_ocho {minutes = "22";} | 
+                 treinta_y_nueve {minutes = "21";} | 
+                 cuarenta {minutes = "20";} | 
+                 cuarenta_y_uno {minutes = "19";} | 
+                 cuarenta_y_dos {minutes = "18";} | 
+                 cuarenta_y_tres {minutes = "17";} | 
+                 cuarenta_y_cuatro {minutes = "16";} | 
+                 cuarenta_y_cinco {minutes = "15";} | 
+                 cuarenta_y_seis {minutes = "14";} | 
+                 cuarenta_y_siete {minutes = "13";} | 
+                 cuarenta_y_ocho {minutes = "12";} | 
+                 cuarenta_y_nueve {minutes = "11";} | 
+                 cincuenta {minutes = "10";} | 
+                 cincuenta_y_uno {minutes = "9";} | 
+                 cincuenta_y_una {minutes = "9";} | 
+                 cincuenta_y_dos {minutes = "8";} | 
+                 cincuenta_y_tres {minutes = "7";} | 
+                 cincuenta_y_cuatro {minutes = "6";} | 
+                 cincuenta_y_cinco {minutes = "5";} | 
+                 cincuenta_y_seis {minutes = "4";} | 
+                 cincuenta_y_siete {minutes = "3";} | 
+                 cincuenta_y_ocho {minutes = "2";} | 
+                 cincuenta_y_nueve {minutes = "1";} 
+               ) ;
+ /* AM/PM Slice */
+
+ $am_info = (
+              de_la_madrugada | 
+              de_mañana | 
+              de_la_noche | 
+              de_la_mañana
+            ) {daytime = "a";}; 
+            
+ $daytime12 = (
+              de_la_madrugada {daytime = "p";} | 
+              de_mañana {daytime = "p";} | 
+              de_la_noche {daytime = "a";} | 
+              de_la_mañana {daytime = "p";} 
+            ) ;                      
+            
+ $pm_info = de_la_tarde {daytime = "p";};
+
+ $daytime_filler = de_la_tarde;
+
+ $o_clock = en_punto;
+
+ $the_tod_yes = (
+                  de_hoy | 
+                  de_ayer
+                );
+
+ $tod_yes = (
+              hoy | 
+              ayer
+            );
+
+ $son_exact = (
+                son_exactamente | 
+                son | 
+                exactamente
+              );
+ /* Compound rules: this section contains other rules obtained from the simple rules */
+
+ $hours_base = (
+                 $ambhour ( horas)<0-1> | 
+                 ( a)<0-1> $theambhour | 
+                 ( a)<0-1> $theamhour
+               );
+               
+ $hours_base12 = (
+                 $ambhour12 ( horas)<0-1> | 
+                 ( a)<0-1> $theambhour12  
+               );               
+
+ $hourspm_base = (
+                   $pmhour ( horas)<0-1> | 
+                   ( a)<0-1> $thepmhour
+                 );
+
+ $hours_minus = (
+                  $ambhour_minus ( horas)<0-1> | 
+                  ( a)<0-1> $theambhour_minus | 
+                  ( a)<0-1> $theamhour_minus
+                );
+
+ $hourspm_minus = (
+                    $pmhour_minus ( horas)<0-1> | 
+                    ( a)<0-1> $thepmhour_minus
+                  );
+
+ $minutes = (
+              ( y)<0-1> $n0 $n0to0 ( $mins_opt)<0-1> | 
+              ( y)<0-1> ( $n0)<0-1> $n1to1 ( $min_opt)<0-1> | 
+              ( y)<0-1> $n0 $n2to9 ( $mins_opt)<0-1> | 
+              ( y)<0-1> $n0to0 ( $mins_opt)<0-1> | 
+              ( y)<0-1> $n1to1 ( $min_opt)<0-1> | 
+              ( y)<0-1> $n2to9 ( $mins_opt)<0-1> | 
+              ( y)<0-1> $n10to59 ( $mins_opt)<0-1> | 
+              $mins_other
+            );
+
+ $daytime = (
+              $am_info | 
+              $pm_info
+            );
+
+ $hmd1 = ( $tod_yes)<0-1> ( $son_exact)<0-1> $hours_base ( $minutes)<0-1> ( $daytime)<0-1> ( $o_clock)<0-1>; 
+ 
+ $hmd12 = ( $tod_yes)<0-1> ( $son_exact)<0-1> $hours_base12 ( $minutes)<0-1> ( $daytime12)<0-1> ( $o_clock)<0-1>; 
+ 
+ $hmd2 = ( $tod_yes)<0-1> ( $son_exact)<0-1> $hours_minus $mins_minus ( $mins_opt)<0-1> ( $daytime)<0-1> ( $o_clock)<0-1>;
+
+ $hmd3 = ( $tod_yes)<0-1> ( $son_exact)<0-1> $hourspm_base ( $minutes)<0-1> ( $daytime_filler)<0-1> ( $o_clock)<0-1>;
+
+ $hmd4 = ( $tod_yes)<0-1> ( $son_exact)<0-1> $hourspm_minus $mins_minus ( $mins_opt)<0-1> ( $daytime_filler)<0-1> ( $o_clock)<0-1>;
+ /* Public rule */
+
+ public $time = ( (
+                    $hmd1  |
+                    $hmd12 | 
+                    $hmd2  | 
+                    $hmd3  | 
+                    $hmd4 
+                  ) ( $the_tod_yes)<0-1>) {out = hours + minutes + daytime;};

@@ -1,0 +1,9 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = $nombres;
+
+$nombres = ("Fernando" | "Javi" | "Javier" | "Miguel" | "Miguel Angel" | "Ana" | "Ana Belen" | "Alvaro" | "Victor" | "Alberto" | "David" | "Raul" | "Ramon" | "Marta" | "Maria" | "Eva" | "Paulina" | "Paula" | "Diego" | "Fran" | "Francisco" | "Paco" | "Gema" | "Lorena" | "Laura" | "Sheila" | "Marcos" | "Cristian" | "Sergio" | "Chema" | "Jose" | "Jorge" | "Julio" | "Jesus" | "Juan Carlos" | "Luis Maria" | "Santi" | "Santiago" | "Carlos" | "Concha" | "Dolores" | "Dani" | "Daniel" | "Juan" | "Mar" | "Sonia" | "Clara" | "Luz" | "Sandra" | "Vanesa" | "Jenifer" | "Patricia" | "Sofia" | "Adrian" | "Virginia" | "Ursula" | "Cristina" | "Alejandro" | "Alex" | "Noemi" | "Roberto" | "Noelia" | "Irene" | "Lara" | "Judith" | "Agustin" | "Rafa" | "Rafael" | "Carol" | "Carolina" | "Silvia" | "Fabio" | "Tania" | "Raquel" | "Rocio" | "Nuria" | "Mario" | "Diana" | "Ignacio" | "Nacho" | "Mireya" | "Rosario" | "Erica" | "Sara" | "Merche" | "Mercedes" | "Miriam" | "Alba" | "Ivan" | "Monica" | "Mamen" | "Elena"){<@Name $string>};
+

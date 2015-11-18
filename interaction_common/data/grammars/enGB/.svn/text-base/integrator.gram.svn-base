@@ -1,0 +1,41 @@
+#ABNF 1.0 ISO-8859-1;
+
+language en-GB;
+tag-format <loq-semantics/1.0>;
+public $root = $integrador;
+
+$habilidad = (
+            "teleoperation":TELEOPERACION |
+            "hide and seek":ESCONDITE |
+            "identify drugs":MEDICINAS | "recognize drugs":MEDICINAS |
+            "control the television":TELEMANDO |  "connect with the television":TELEMANDO | "watch the television":TELEMANDO |
+            "introduce yourself":PRESENTACION |
+            "count people":CONTARCARAS |
+            "shut up":CALLARSE | "be quiet":CALLARSE | "be quiet a moment":PAUSESPEECH | "follow speaking":RESUMESPEECH |
+            "tell me a joke":CHISTE | "play with the animals":PELUCHES | "play with the stuffed animals":PELUCHES |
+            "sports news":DEPORTES | "sports":DEPORTES |
+            "forecast":TIEMPO | "weather information":TIEMPO |
+            "followme":SIGUEME | "come with me":SIGUEME |
+            "sing something":CANTAR | "sing for the moment":CANTAR | "sing for me something":CANTAR |
+            "battery level":BATERIAS | "battery information":BATERIAS | "tic tac toe":TICTACTOE | "hangman":HANGMAN | "guess character":AKINATOR | "mail":EMAIL |
+            "stop":PARAR | "cut it out":PARAR | "stop doing":PARAR |
+            "start to play":JUGAR | "play with you":JUGAR |
+            "your name":ASKNAME | "how old are you":ASKAGE |
+            "wake up":WAKEUP |
+            "go to the init":IDENTIFY |
+            "wantn't play with you":FIN | "tired":FIN | "end":FIN | "go to sleep":FIN | "see you":FIN |
+            "speak highest":VOLUMENMAX | "speak lowest":VOLUMENMIN | "speak higher":SUBIRVOLUMEN | "speak lower":BAJARVOLUMEN | "help me":HELP 
+    ){<@Skill $value>};
+
+$integrador = [$GARBAGE] $habilidad;
+
+
+/*
+$integrador = [$sujeto] [vamos a] $accion $determinante $habilidad [por favor];
+$sujeto = magui | robot | amigo;
+$accion = ver | lanzar | jugar | hacer | lanza | juega | juguemos | digas;
+$determinante = a | al | la habilidad | el  | la | las;
+*/
+
+
+

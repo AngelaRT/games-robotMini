@@ -1,0 +1,22 @@
+#ABNF 1.0 ISO-8859-1;
+
+language en-GB;
+tag-format <loq-semantics/1.0>;
+public $root = $integrador;
+
+$games = (
+            "hide and seek":ESCONDITE |
+            "shut up":CALLARSE | "be quiet":CALLARSE | "be quiet a moment":PAUSESPEECH | "follow speaking":RESUMESPEECH |
+            "play with the animals":PELUCHES | "play with the stuffed animals":PELUCHES |
+            "followme":SIGUEME | "come with me":SIGUEME |
+            "tic tac toe":TICTACTOE | "hangman":HANGMAN | "guess character":AKINATOR |
+            "stop":PARAR | "cut it out":PARAR | "stop doing":PARAR |
+            "speak highest":VOLUMENMAX | "speak lowest":VOLUMENMIN | "speak higher":SUBIRVOLUMEN | "speak lower":BAJARVOLUMEN
+    ){<@Game $value>};
+
+$integrador = [$GARBAGE] $games;
+
+
+
+
+

@@ -1,0 +1,36 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <semantics/1.0>;
+
+public $root = [$GARBAGE] $language;
+
+$language = 
+(
+    "hola magui" { out.option = "greet";  out.lang = "es"; } |
+    "hola mini" { out.option = "greet";  out.lang = "es"; } |
+    "hola" { out.option = "greet";  out.lang = "es"; } |
+    "hello maggie!en-gb" { out.option = "greet";  out.lang = "en"; } |
+    "hello!en-gb" { out.option = "greet";  out.lang = "en"; } |
+    "hi!en-gb" { out.option = "greet";  out.lang = "en"; } |
+    "elou"{ out.option = "greet";  out.lang = "en"; } |
+    "jelou"{ out.option = "greet";  out.lang = "en"; } |
+    "jai"{ out.option = "greet";  out.lang = "en"; } |
+    "jelou Magui"{ out.option = "greet";  out.lang = "en"; } |
+    "jai Magui"{ out.option = "greet";  out.lang = "en"; } |
+    "identificarme" { out.option = "login";  out.lang = "es"; } |
+    "registrarme"   { out.option = "enroll"; out.lang = "es"; } |
+    "salir"         { out.option = "exit";   out.lang = "es"; } |
+    "loguin"   { out.option = "login";  out.lang = "en"; } |
+    "identifai"   { out.option = "login";  out.lang = "en"; } |
+    "enroll"  { out.option = "enroll"; out.lang = "en"; } |
+    "anroll"  { out.option = "enroll"; out.lang = "en"; } |
+    "sain ap"  { out.option = "enroll"; out.lang = "en"; } |
+    "exit!en-gb"    { out.option = "exit";   out.lang = "en"; } |
+    "identify!en-gb" { out.option = "login";  out.lang = "en"; } |
+    "sign up!en-gb" { out.option = "enroll"; out.lang = "en"; } |
+    "login|\\SAMPA=xsampa;(lA:g_}In)"                            { out.option = "login";  out.lang = "en"; } |
+    "enroll|\\SAMPA=xsampa;(Inr\oUl)|\\SAMPA=xsampa;(Enr\oUl)"   { out.option = "enroll"; out.lang = "en"; } |
+    "exit|\\SAMPA=xsampa;(Ek_hs@t_h)|\\SAMPA=xsampa;(Eg_}zIt_h)" { out.option = "exit";   out.lang = "en"; }
+);
+

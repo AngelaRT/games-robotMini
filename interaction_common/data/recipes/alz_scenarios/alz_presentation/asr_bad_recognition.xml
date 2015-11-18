@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!---------------------------------------------------------------->
+
+<!-- General recipes triggered when the robot does not understand the user -->
+
+<!---------------------------------------------------------------->
+<!-- User says something out of the grammar  -->
+<recipe name="asr_loquendo_no_results">
+  <precondition>
+    <!-- Atom from Loquendo ASR without results -->
+    <atom quantifier="exist">
+      <slot name="type" val="asr_loquendoFail"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="this" rel="bind" var="loquendo_asr_no_results_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+    <assignment>
+      <atom>
+        <slot name="this" var="loquendo_asr_no_results_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+  </body>
+</recipe>
+
+
+<!---------------------------------------------------------------->
+<!-- Loquendo recognizes with small confidence -->
+<recipe name="asr_loquendo_small_confidence">
+
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel="<" val="0.40" type="number" />
+        <slot name="this" rel="bind" var="loquendo_small_confidence_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+    <assignment>
+      <atom>
+        <slot name="this" var="loquendo_small_confidence_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+<!--
+    <goal recipe_name="stop_presentation" initiator="any"/>
+-->
+    <goal recipe_name="stop_story_telling" initiator="any"/>
+    <goal recipe_name="recognition_fail" initiator="any"/>
+
+  </body>
+</recipe>
+
+
+
+<!---------------------------------------------------------------->
+
+<!-- If either Loquendo does not recognize what the user has said or it recognizes
+it with very small confidence, these recipes are activated -->
+<recipe name="recognition_fail">
+  <precondition>
+  </precondition>
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Perdon, no te he entendido | No estoy segura de lo que has dicho | Que? | Como? | puedes repetir? | No te he entendido | Debes hacer la pregunta correcta para que yo te responda como tú te mereces "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+
+
+<!-- General recipes triggered when there are several asr fails-->
+
+<!---------------------------------------------------------------->
+<!-- User says something out of the grammar  -->
+<recipe name="asr_communication_problems">
+  <precondition>
+    <!-- Atom from Loquendo ASR without results -->
+    <atom quantifier="exist">
+      <slot name="type" val="communication_problems"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="this" rel="bind" var="asr_communication_problems_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+    <assignment>
+      <atom>
+        <slot name="this" var="asr_communication_problems_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Tenemos problemas para entendernos.\\pause=1000 Habla al micrófono sin pegártelo y a un volumen normal. \\pause=1000 Intenta que no haya mucho ruido en el ambiente | ¿Me estás hablando a mi?. Te entiendo muy mal"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+
+
+
+
+<!---------------------------------------------------------------->
+<recipe name="stop_presentation">
+
+  <precondition>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Action for presentation -->
+    <action name="present_alz" actor="alz_presentation_node">
+      <roboml:args>
+          <arg name="part_to_present"  value="stop"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+
+<!---------------------------------------------------------------->
+<recipe name="stop_story_telling">
+
+  <precondition>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Action to story_telling_pause -->
+    <action name="story_telling_pause_resume" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="data"  value="0"  type="number"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+
+
+
+

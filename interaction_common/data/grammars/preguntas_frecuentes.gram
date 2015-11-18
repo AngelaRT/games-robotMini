@@ -1,0 +1,19 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = $preguntas_frecuentes;
+/* $preguntas_frecuentes = $qt $cd $verb; */
+$preguntas_frecuentes = $q_time | $q_day | $q_where_me | $q_where_my_son | $q_who_are_you;
+
+$qt = ("que":WHAT | "quien":WHO | "donde":WHERE | "cuando":WHEN | "como":HOW ){<@QT $value>};
+$cd = ("hora":TIME | "dia":DAY){<@CD $value>};
+$verb = ("es|eres":SER | "esta|estas|estoy":ESTAR | "llama|llamas":LLAMAR){<@VERB $value>};
+$pronombre = ("te");
+
+$q_time = "que hora es"{<@Q TIME>};
+$q_day = "que dia es"{<@Q DAY>};
+$q_where_me = "donde estoy"{<@Q WHERE_ME>};
+$q_where_my_son = "donde esta mi hija|hijo"{<@Q WHERE_MY_SON>};
+$q_who_are_you = "tu que|quien eres"{<@Q WHO_ARE_YOU>};

@@ -1,0 +1,11 @@
+﻿#ABNF 1.0 UTF-8;
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $language;
+
+$language = ("Espanyol":CASTELLANO |  "Ingles":INGLES  | "Castellano":CASTELLANO |
+("Spanish":CASTELLANO)!en-us | ("English":INGLES)!en-us  | "inglis":INGLES )
+{<@Idioma $value>};
+
+

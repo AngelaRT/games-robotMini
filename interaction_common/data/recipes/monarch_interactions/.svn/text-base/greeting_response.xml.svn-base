@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!-- #################################################################################################### -->
+<!-- # Recipe that  triggers and wait to greet to the robot                                             # -->
+<!-- #################################################################################################### -->
+<recipe name="greeting_response_OK">
+
+  <precondition>
+    <!-- Atom from Loquendo ASR with results -->
+    <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="option" rel="equal" val="greet" />
+      <!-- declaramos variables-->
+      <slot name="words" rel= "bind" var="asr_transcription_var"/>
+      <slot name="confidence" rel="bind" var="asr_confidence_var"/>
+
+      <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+      <slot name="this" rel="bind" var="greeting_ok_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  
+               value="Que bien, alguien me hace caso. Como te llamas?"  
+               type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+    
+    <!-- Consume the atom to no repeat the ricipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="greeting_ok_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+
+    <!-- Set the grammar to recognize name of the user -->
+    <action name="set_grammar" actor="asr">
+        <roboml:args>
+            <!-- Grammar to set on asr grammar based engine (without absolute path and without extension .gram) -->
+            <arg name="grammar" value="nombres.gram" type="string"/>
+        </roboml:args>
+     </action>
+
+    <!-- Execute children recipe, to get the name of the user -->
+    <goal recipe_name="get_name" initiator="any"/>
+
+    <!-- Set the grammar to recognize language -->
+    <action name="set_grammar" actor="asr">
+        <roboml:args>
+            <!-- Grammar to set on asr grammar based engine (without absolute path and without extension .gram) -->
+            <arg name="grammar" value="idiomas.gram" type="string"/>
+        </roboml:args>
+     </action>
+
+    <!-- Execute children recipe, to get the language of the user -->
+    <goal recipe_name="get_language" initiator="any"/>
+      
+  </body>
+
+  <assignpost>
+  </assignpost>
+
+</recipe>
+
+
+
+
+
+<!-- This recipe is when user has been talking to the robot and it don't get the
+     transcription of the user speech -->
+<recipe name="greeting_response_fail">
+
+  <precondition>
+    <!-- Atom from Loquendo ASR without results -->
+    <atom quantifier="exist">
+      <!-- Condiciones de la receta-->
+      <slot name="type" val="asr_loquendoFail"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+      <slot name="this" rel="bind" var="loquendo_asr_no_results_atom"/>
+    </atom>
+  </precondition>
+
+  <body>
+
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence" value="Lo siento, no te he entendido. Me lo puedes repetir?" type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+
+  <!-- Consume the atom to avoid repeat again the recipe -->
+  <assignpost>
+    <atom>       
+        <slot name="this" var="loquendo_asr_no_results_atom"/>
+        <slot name="consumed" val="true"/>
+    </atom>
+  </assignpost>
+
+</recipe>
+
+
+
+
+
+<!-- This recipe is triggered when  I have no speech during 10 segunds
+-->
+<recipe name="greeting_response_nothing">
+  <precondition>
+
+    <!-- Condition: One user is disengaged -->
+    <atom quantifier="exist">
+        <slot name="type" val="user_disengaged"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <!-- Name of the atom-->
+        <slot name="this" rel="bind" var="no_response_atom"/>
+    </atom>
+  </precondition>
+
+  <body>
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>         
+          <arg name="sentence"  value="Veo que no me haces mucho caso, eh?." type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+
+  <assignpost>
+    <atom>
+        <!-- set object which name is equal to the one stored in var -->
+        <slot name="consumed" val="true"/>
+        <slot name="this" var="no_response_atom"/>
+    </atom>
+  </assignpost>
+
+</recipe>
+
+
+
+<!-- This recipe is when user leave the scene  -->
+<recipe name="greeting_response_leave">
+  <precondition>
+      <atom>
+        <!-- Condiciones de la receta-->
+        <slot name="type" val="user_leaving"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <!-- Nombre del atomo-->
+        <slot name="this" rel="bind" var="user_leaving_atom"/>
+      </atom>
+  </precondition>
+
+  <body>
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence" value="Eres muy mal educado por dejar a un robot solo."  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+
+  <assignpost>
+    <atom>
+      <!-- set object which name is equal to the one stored in var -->
+      <slot name="this" var="user_leaving_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignpost>
+
+</recipe>

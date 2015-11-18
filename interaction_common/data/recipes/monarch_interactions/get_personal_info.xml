@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!-- #################################################################################################### -->
+<!-- # Recipes to get perosonal info                                                                    # -->
+<!-- #################################################################################################### -->
+
+
+<!-- GET NAME -->
+<recipe name="get_name">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from Loquendo ASR with results -->
+    <atom quantifier="exist">
+      <!-- Condiciones de la receta-->
+      <slot name="type" val="asr_loquendoOK"/>  <!-- del subtipo asr_googleOK -->
+      <slot name="subtype" val="user"/> <!--creado por nosotros -->
+      <slot name="consumed" val="false" rel="equal"/>
+
+      <!-- declaramos variables-->
+      <slot name="words" rel= "bind" var="asr_transcription_var"/>
+      <slot name="confidence" rel="bind" var="asr_confidence_var"/>
+      <slot name="Name"  rel="bind" var="name_var" />
+      <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+      <slot name="this" rel="bind" var="name_atom"/>
+    </atom>
+
+  </precondition>
+  <!---------------------------------------------------------------->
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence" value="Me has dicho: $asr_transcription_var. Tu nombre es $name_var . Dime tu idioma, por favor."  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <!--Variamos el atomo para que no vueva a cumplirse las precondiciones-->
+    <atom>
+      <!-- set object which name is equal to the one stored in var -->
+      <slot name="this" var="name_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+<!-- GET LANGUAGE -->
+
+<recipe name="get_language">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from Loquendo ASR with results -->
+    <atom quantifier="exist">
+      <!-- Condiciones de la receta-->
+      <slot name="type" val="asr_loquendoOK"/>  <!-- del subtipo asr_googleOK -->
+      <slot name="subtype" val="user"/> <!--creado por nosotros -->
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="Idioma"  rel="bind" var="idoma_var" />
+
+      <!-- declaramos variables-->
+      <slot name="words" rel= "bind" var="asr_transcription_var"/>
+      <slot name="confidence" rel="bind" var="asr_confidence_var"/>
+      <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+      <slot name="this" rel="bind" var="language_atom"/>
+    </atom>
+
+  </precondition>
+  <!---------------------------------------------------------------->
+
+  <!---------------------------------------------------------------->
+  <body>
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Has dicho $asr_transcription_var. Tu idioma es $idoma_var"   type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <!--Variamos el atomo para que no vueva a cumplirse las precondiciones-->
+    <atom>
+      <!-- set object which name is equal to the one stored in var -->
+      <slot name="this" var="language_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/monarch_interactions
+END
+get_personal_info.xml
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/monarch_interactions/get_personal_info.xml
+END
+give_greetings.xml
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/monarch_interactions/give_greetings.xml
+END
+greeting_response.xml
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repoAD/!svn/ver/15678/catkin_projects/interaction_common/unstable/data/recipes/monarch_interactions/greeting_response.xml
+END

@@ -1,0 +1,50 @@
+#ABNF 1.0 ISO-8859-1;
+
+language en-US;
+tag-format <loq-semantics/1.0>;
+
+public $root = $nombres;
+
+$nombres = (Jacob | Isabella | Ethan | Sophia | Michael | Emma | Tony |
+Jayden | Olivia | William | Ava | Alexander | Emily | Noah | Robin |
+Abigail | Daniel | Madison | Aiden | Chloe |  Antony | Mia |
+Joshua | Addison | Mason | Elizabeth | Christopher | Ella |
+Andrew | Natalie | David | Samantha | Mathew | Alexis | Logan |
+Lily | Elijah | Grace | James | Hailey | Jospeh | Alyssa |
+Gabriel | Lillian | Benjamin | Hannah | Ryan | Avery | Samuel |
+Leah | Jacson | Nevaeh | John | Sofia | Nathan | Ashley | Jonathan
+| Anna | Christian | Brianna | Liam | Sarah | Dylan | Zoe | Landon
+| Victoria | Caleb | Gabriella | Tyler | Brooklyn | Lucas | Kaylee
+| Evan | Taylor | Gavin | Layla | Nicholas | Allison | Isaac |
+Evelyn | Brayden | Riley | Luke | Amelia | Angel | Khloe |
+Brandon | Makayla | Jack | Aubrey | Isaiah | Charlotte |
+Jordan | Savannash | Owen | Zoey | Carter | Bella | Connor
+| Kayla | Justin | Alexa | Jose | Peyton | Jeremiah | Audrey
+| Julian | Claire | Robert | Arianna | Aaron | Julia | Adrian
+| Aaliyah | Wyatt | Kylie | Kevin | Lauren | Hunter | Sophie
+| Cameron | Sydney | Zachary | Camila | Thomas | Jasmine |
+Charles | Morgan | Austin | Alexandra | Eli | Jocelyn | Chase
+| Gianna | Henry | Maya | Sebastian | Kimberly | Jason |
+Mackenzie | Levi | Katherine | Xavier | Destiny | Ian | Brooke
+| Colton | Trinity | Dominic | Faith | Juan | Lucy | Cooper
+| Madelyn | Josiah | Madeline | Luis | Bailey | Ayden | Payton
+| Carson | Andrea | Adam | Autumn | Nathaniel | Melanie | Brody
+| Ariana | Tristan | Serenity | Diego | Stella | Parker | Maria
+| Blake | Molly | Oliver | Caroline | Cole | Genesis | Carlos |
+Kaitlyn | Jaden | Eva | Jesus | Jessica | Alex | Angelina |Aidan
+| Valeria | Eric | Gabrielle | Hayden | Naomi | Bryan | Mariah
+| Max | Natalia | Jaxon | Paige | Rachel | Bentley | Mya |
+Alejandro | Rylee | Sean | Katelyn | Nolan | Ellie | Riley |
+Isabelle | Kaden | Vanessa | Kyle | Micah | London | Vincent
+| Mary | Kennedy | Colin | Lydia | Bryce | Jordyn | Ruby |
+Giovanni | Scarlett | Timothy | Jade | Jake | Isabel | Kaleb |
+Annabelle | Steven | Sadie | Caden | Harper | Bryson | Jennifer |
+Damian | Sara | Grayson | Nicole | Kayden | Violet | Jesse |
+Liliana | Brady | Michelle | Ashton | Stephanie | Richard |
+Reagan | Jada | Patrick | Adriana | Marcus | Gracie | Preston |
+Egan | Joel | Jayla | Kendall | Maxwell | Lyla | Ryder | Amy |
+Edward | Reese | Miles | Rebecca | Hudson | Laila | Asher |
+Kylee | Devin | Izabella | Elias | Jenna | Jeremy | Brooklynn
+| Aliyah | Jonah | Piper | Easton | Juliana | Jace | Giselle |
+Collin | Arnaud | Gabriela | Peyton | Valerie | Leonardo | Daniela |
+Cayden | Daisy){<@Name $string>};

@@ -1,0 +1,57 @@
+<!-- #################################################################################################### -->
+<!-- # Receta que se dispara cuando se toca al robot                                                    # -->
+<!-- #################################################################################################### -->
+<recipe name="touch_echo">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from touch detection -->
+    <atom>
+      <!-- Condiciones de la receta-->
+      <slot name="type" val="touch"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false"/>
+      <!-- Variable -->
+      <slot name="body_part_touched" rel="bind" var="body_part_touched_var" />
+      <!-- Nombre del atomo-->
+      <slot name="this" rel="bind" var="touch_atom"/>
+    </atom>
+  </precondition>
+  <!---------------------------------------------------------------->
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Se ha tocado la parte del cuerpo: $body_part_touched_var" type="string"/>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_angry" type="string"/>
+      </roboml:args>
+    </action>
+
+
+
+  </body>
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <atom>
+        <slot name="this" var="touch_atom" />
+        <slot name="consumed" val="true" />
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+

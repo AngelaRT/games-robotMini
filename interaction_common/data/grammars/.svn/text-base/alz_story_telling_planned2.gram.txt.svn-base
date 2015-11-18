@@ -1,0 +1,45 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $user_request;
+
+$user_request = ( $tell_poems | $tell_specific_poem | $repeat_poem | $tell_sayings | $repeat_sayings | $end_sayings | $stop | $pause | $resume | $end );
+
+
+$tell1 = ("cuentame":ONE | "cuenta":ONE |"cuentes":GROUP | "cuentanos":GROUP | "recita":ONE | "recitanos":GROUP){<@st_num_users $value>};
+
+$repeat = (("repite" | "repitenos" | "repiteme" | "vuelve a repetir") ["lo ultimo"] ){<@st_option "story_telling_repeat"><@st_id "">};
+
+$tell_type =  (  "historia":STORY|  "historia de":STORY |  "cuento":STORY |  "cuento de":STORY |  "cuento del":STORY
+| "chiste":JOKE | "anecdota":ANECDOTE | "curiosidad":CURIOSITY
+| "poema":POEM | "poesia":POEM){<@st_option "story_telling_goto_tale"><@st_type $value><@st_id "">};
+
+$poems = ("antonio machado":caminante_machado_lento |"caminante":caminante_machado_lento |"calderon de la barca":vida_calderon_lento
+| "la vida es sueño":vida_calderon_lento | "jorque manrique":copla_1_lento | "copla de jorge manrique":copla_1_lento
+| ["cancion"] del "pirata":pirata_lento | "don juan tenorio":tenorio_zorrilla_lento" | "el tenorio":tenorio_zorrilla_lento){<@st_id $value>};
+
+$tell_poems = ($tell1 ("algun"|"alguna"|"un" |"una") ("poema"|"poesia")| "A que te sabes" ("algun poema"|" alguna poesia")){<@st_option "st_tell_poems">};
+
+$tell_specific_poem= ($tell1 ("la"|"el") ["poema"|"poesia"|"poema de"|"poesia de"|"fragmeto de"] $poems){<@st_option "st_tell_specific_poem">};
+
+$repeat_poem= ($repeat ["la"|"el"] ["poema"|"poesia"|"poema de"|"poesia de"|"fragmento de"] [$poems] ["de nuevo"]);
+
+$tell_sayings = ("vamos a jugar a los refranes" |  "Sabes algun refran"){<@st_option "st_tell_sayings">};
+
+$repeat_sayings = (("repite" | "repitenos" | "repiteme" | "vuelve a repetir" | "vuelve a contar") "los refranes" ["de nuevo"]){<@st_option "st_repeat_sayings">};
+
+$end_sayings= ( "deja los refranes" | "deja de contar refranes" ){<@st_option "st_end_sayings">};
+
+$stop= ("para de hablar" | "deja" ["de contar"]("eso"|("la historia" | "el cuento" | "el chiste" | "la anecdota" | "la curiosidad" | "la poesia" | "el poema"))){<@st_option "story_telling_stop">};
+
+$pause = ( "haz una pausa" | "para un momento" | "espera un momento" ){<@st_option "story_telling_pause">};
+
+$resume = ("continua" | "puedes continuar" | "puedes seguir" ){<@st_option "story_telling_resume">};
+
+$previous = ( ("cuenta"  | "cuentame" | "cuentanos") ("la"|"el")| "anterior" ["historia" | "cuento" | "anecdota" | "curiosidad" | "poesia" | "poema" | "chiste" ]){<@st_option "story_telling_previous">};
+
+$next = (("cuenta"  | "cuentame" | "cuentanos") ("la"|"el") "siguiente" ["historia" | "cuento" | "anecdota" | "curiosidad" | "poesia" | "poema" | "chiste"]){<@st_option "story_telling_next">};
+
+$end= ("dejalo ya" |"deja de contar cosas"){<@st_option "story_telling_end">};

@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+
+<!--------------------------------------------------------------->
+
+<!-- start telling sayings -->
+<recipe name="start_poems">
+
+<precondition>
+  <atom quantifier="exist">
+  <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="st_option" rel="equal" val="st_tell_poems" />
+      <slot name="confidence" rel=">" val="0.4" type="number" />
+      <slot name="this" rel="bind" var="start_poems_atom"/>
+      </atom>
+</precondition>
+
+  <body order="sequence">
+  <assignment>
+    <atom>
+      <slot name="this" var="start_poems_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+         <arg name="sentence"  value="\\pause=1500 Como el otro día vi que también os gustan mucho los poemas,
+         me he dedicado todas las navidades a estudiar, \\pause=500 para aprenderme varios,
+         que creo que os van a sonar. " type="string"/>
+         <arg name="engine"  value="loquendo"  type="string"/>
+         <arg name="emotion"  value="happy"  type="string"/>
+         <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=2000 Como sé que muchos os los sabéis,
+          \\pause=1000 quiero que vosotros también los vayáis recitando conmigo, al mismo tiempo.
+          \\pause=1000 Empecemos "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <goal recipe_name="poem_caminante_machado" initiator="any"/>
+
+    <!--<goal recipe_name="poem_vida_calderon" initiator="any"/>
+
+     <goal recipe_name="poem_copla1_manrique" initiator="any"/>
+
+    <goal recipe_name="poem_pirata_espronceda" initiator="any"/>
+
+    <goal recipe_name="poem_tenorio_zorrilla" initiator="any"/>-->
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User check if the poem is finished -->
+<recipe name="end_st_poem">
+<precondition>
+  <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="activity_finished"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="activity" rel="equal" val="POEM" />
+      <slot name="this" rel="bind" var="end_poem_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="end_poem_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="congrat_poem" initiator="any"/>
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the poem "Caminante no hay camino" -->
+<recipe name="repeat_poem">
+
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="story_telling_repeat" />
+        <slot name="st_id" rel="!=" val="" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="st_id" rel="bind" var="st_id_var" />
+        <slot name="this" rel="bind" var="repeat_poem_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <assignment>
+      <atom>
+        <slot name="this" var="repeat_poem_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Change show liveliness from waiting to talking -->
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+    </action>
+
+    <goal recipe_name="intro_poem" initiator="any"/>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="emotion"  value="tranquility"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action to story_telling_goto_tale -->
+    <action name="story_telling_goto_tale" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="story_reference"  value="$st_id_var"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="end_st_poem , stop_story , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--=========================================================--->
+
+<!-- User asks for the poem "la vida es sueño" -->
+<recipe name="poem_vida_calderon">
+
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="st_tell_specific_poem" />
+        <slot name="st_id" rel="equal" val="vida_calderon_lento" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="st_id" rel="bind" var="st_id_var" />
+        <slot name="this" rel="bind" var="vida_calderon_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <assignment>
+      <atom>
+        <slot name="this" var="vida_calderon_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Change show liveliness from waiting to talking -->
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Este no es un poema como tal.
+          \\pause=1000 Se trata de un fragmento de una obra muy conocida. \\pause=1000 Intentad recitarlo conmigo.
+          \\pause=1000 vamos! "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="emotion"  value="tranquility"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action to story_telling_goto_tale -->
+    <action name="story_telling_goto_tale" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="story_reference"  value="vida_calderon_lento"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="end_st_poem , stop_story , end_skill" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!--=========================================================--->
+
+<!-- User asks for the "copla 1" of Manrique -->
+<recipe name="poem_copla1_manrique">
+
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="st_tell_specific_poem" />
+        <slot name="st_id" rel="equal" val="copla_1_lento" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="st_id" rel="bind" var="st_id_var" />
+        <slot name="this" rel="bind" var="copla1_manrique_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <assignment>
+      <atom>
+        <slot name="this" var="copla1_manrique_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Change show liveliness from waiting to talking -->
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Vamos con el poema. \\pause=1000 Venga, vosotros también tenéis que recitarlo. "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="emotion"  value="tranquility"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action to story_telling_goto_tale -->
+    <action name="story_telling_goto_tale" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="story_reference"  value="copla_1_lento"  type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <goal recipe_name="end_st_poem , stop_story , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--=========================================================--->
+<!-- User asks for the "canción del pirata" -->
+<recipe name="poem_pirata_espronceda">
+
+<precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="st_option" rel="equal" val="st_tell_specific_poem" />
+      <slot name="st_id" rel="equal" val="pirata_lento" />
+      <slot name="confidence" rel=">" val="0.4" type="number" />
+      <slot name="st_id" rel="bind" var="st_id_var" />
+      <slot name="this" rel="bind" var="pirata_espronceda_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+    <assignment>
+      <atom>
+        <slot name="this" var="pirata_espronceda_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Change show liveliness from waiting to talking -->
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Seguro que os sabéis este muy muy bien.\\pause=1000 Venga,
+          quiero oíros a todos recitándo conmigo en voz alta.\\pause=1000 vamos! "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="emotion"  value="tranquility"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action to story_telling_goto_tale -->
+    <action name="story_telling_goto_tale" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="story_reference"  value="pirata_lento"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="end_st_poem , stop_story , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--=========================================================--->
+
+<!-- User asks for the fragment of "Don Juan Tenorio" -->
+<recipe name="poem_tenorio_zorrilla">
+
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="st_tell_specific_poem" />
+        <slot name="st_id" rel="equal" val="tenorio_zorrilla_lento" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="st_id" rel="bind" var="st_id_var" />
+        <slot name="this" rel="bind" var="tenorio_zorrilla_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <assignment>
+      <atom>
+        <slot name="this" var="tenorio_zorrilla_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Change show liveliness from waiting to talking -->
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Si no me equivoco,
+          antes se transmitía por la televisión todos los años,\\pause=1000 en el día de todos los santos,
+          la obra de Don Juan Tenorio.\\pause=1000 Seguro que a todos os suena este fragmento,
+          \\pause=500 así que quiero oiros recitandolo, que si no, me siento un poco sola."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="emotion"  value="tranquility"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action to story_telling_goto_tale -->
+    <action name="story_telling_goto_tale" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="story_reference"  value="tenorio_zorrilla_lento"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="end_st_poem , stop_story , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--=========================================================--->
+
+<!-- User asks for the poem "Caminante no hay camino" -->
+<recipe name="poem_caminante_machado">
+
+  <body order="sequence">
+
+    <!-- Change show liveliness from waiting to talking -->
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Seguro que conocéis a Antonio Machado.
+          \\pause=1000 A ver si os gusta este trozito de uno de sus poemas.
+          \\pause=1000 Vamos, recitadlo conmigo si os lo sabéis, que me gusta oiros."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="emotion"  value="tranquility"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action to story_telling_goto_tale -->
+    <action name="story_telling_goto_tale" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="story_reference"  value="caminante_machado_lento"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="end_st_poem , stop_story , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--=========================================================--->
+
+<!-- User asks for the poem "Caminante no hay camino" -->
+<recipe name="intro_poem">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1000 venga, ya sabéis que ahora os toca recitarlo conmigo, que si no, esto parece un monólogo.
+          |\\pause=1000 venga otra vez \\pause=1000 Que esta me gusta mucho. \\pause=1000 Recitadlo conmigo. | \\pause=1500 Seguro que os sabéis este muy muy bien. \\pause=1000 Venga,
+          quiero oíros a todos recitándo conmigo en voz alta. | \\pause=2000 Venga,\\pause=1000 que no os oigo bien,
+          \\pause=1000 Vamos a recitar el poema de nuevo todos juntos."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1000 vamos! | \\pause=1000 preparados? |\\pause=1000 listos?."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="congrat_poem">
+
+  <body order="sequence">
+
+  <action name="say_text" actor="etts">
+    <roboml:args>
+        <arg name="sentence"  value=" \\pitch=100 Sois todos unos poetas. \\pitch \\item=Laugh_03
+        | \\pause=1000 muy bien!! | \\pause=2000 genial! Qué bien os lo sabéis.| \\pause=2000 magnífico! \\pause=1000 Así me gusta." type="string"/>
+        <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+    </roboml:args>
+  </action>
+
+
+  </body>
+</recipe>
+
+

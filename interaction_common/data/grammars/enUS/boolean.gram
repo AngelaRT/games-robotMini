@@ -1,0 +1,64 @@
+#ABNF 1.0 UTF-8;
+
+language  en-US;
+mode  voice;
+tag-format <semantics/1.0>;
+root  $bool_root;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     boolean                                              	*/
+ /* @rule        boolean                                              	*/
+ /* @version     6.3                                                     */
+ /* @author      Colibro Daniele                                         */
+ /* @date        September 11, 2001                                      */
+ /*                                                                      */
+ /* @example     yes                                                     */
+ /* @semantic    <@boolean "true">                                    	*/
+ /* @example     yes_I_do                                                */
+ /* @semantic    <@boolean "true">                                    	*/
+ /* @example     yes_It_is                                               */
+ /* @semantic    <@boolean "true">                                    	*/
+ /* @example     yes_yes                                                 */
+ /* @semantic    <@boolean "true">                                    	*/
+ /* @example     affirmative                                             */
+ /* @semantic    <@boolean "true">                                    	*/
+ /* @example     no                                                      */
+ /* @semantic    <@boolean "false">                                   	*/
+ /* @example     nope                                                    */
+ /* @semantic    <@boolean "false">                                   	*/
+ /* @example     no_I_don't                                              */
+ /* @semantic    <@boolean "false">                                   	*/
+ /* Description: This grammar allows the user to answer a simple         */
+ /* question affermatively or negatively.                                */
+ /* The output variable that contains the user value is @boolean.     	*/
+ /*                                                                      */
+ /************************************************************************/
+
+ public $bool_root = $yes_no {out = rules.yes_no;};
+
+ $yes_no = (
+             $yes {out = "true";} | 
+             $no {out = "false";}
+           );
+
+ $yes = (
+          yes | 
+          yes_yes | 
+          yes_I_do | 
+          yes_I_would | 
+          yes_it_is | 
+          sure | 
+          yeah | 
+          yep | 
+          certainly
+        );
+
+ $no = (
+         no | 
+         "no_I_don't" | 
+         no_I_do_not | 
+         "no_I'm_not" | 
+         not | 
+         no_no | 
+         nope
+       );

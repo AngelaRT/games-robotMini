@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!-- Parent recipe used to set the grammar. -->
+<recipe name="alz_general">
+
+  <!-- first recipe no conditions, always execute the body -->
+  <precondition>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Yawn with etts (to make sure the next time the robot speaks it's ok)-->
+
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="HELLO"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\item=Yawn"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+
+
+    <!-- Set the grammar for the presentation-->
+    <action name="set_grammar" actor="asr">
+        <roboml:args>
+            <arg name="grammar" value="alz_general.gram" type="string"/>
+        </roboml:args>
+    </action>
+
+    <goal recipe_name="go_to_dead" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!------- Recipes to request transitions between states  --------->
+
+<!-- In order to go to the presentation, it is not defined yet how
+     to do the transition, so, temporarily, the presenter must say "wake up"
+-->
+<recipe name="go_to_presentation">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="alz_option" rel="equal" val="go_to_presentation" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="go_to_presentation_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+<!--    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="voy a la presentacion"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+      </roboml:args>
+    </action>-->
+
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="go_to_presentation_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+
+    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+          <arg name="state"  value="presentation"  type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <!-- We don't put here as a goal the recipe to start presentation because
+    we don't know if the state machine is going to allow the transition-->
+
+  </body>
+</recipe>
+
+<!-- In order to go to the autopresentation-->
+<recipe name="go_to_autopresentation">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="alz_option" rel="equal" val="go_to_autopresentation" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="go_to_autopresentation_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+<!--    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="voy a la presentacion"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+      </roboml:args>
+    </action>-->
+
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="go_to_autopresentation_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+
+    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+          <arg name="state"  value="presentation"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- We don't put here as a goal the recipe to start presentation because
+    we don't know if the state machine is going to allow the transition-->
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- In order to go to story-telling one-to-group-->
+<recipe name="go_to_story_telling_group">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="alz_option" rel="equal" val="story_telling" />
+        <slot name="alz_general_num_users" rel="equal" val="GROUP" />
+
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="go_to_story_telling_group_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="CONFIRMATION"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Como os dije. Os puedo contar historias. chistes. anécdotas. y poesías. \\pause=1000
+          Me podeís pedir que os cuente cualquiera de esas cosas. o algo en concreto que yo me sepa. \\pause=1500
+          Espero que os gusten y me entendáis bien."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="go_to_story_telling_group_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+
+    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+          <arg name="state"  value="story_telling"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- In order to go to story-telling one-to-one-->
+<recipe name="go_to_story_telling_one">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="alz_option" rel="equal" val="story_telling" />
+        <slot name="alz_general_num_users" rel="equal" val="ONE" />
+
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="go_to_story_telling_one_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="CONFIRMATION"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Como te dije. Te puedo contar historias. chistes. anécdotas. y poesías. \\pause=1000
+          Me puedes pedir que te cuente cualquiera de esas cosas. o algo en concreto que yo me sepa. \\pause=1500
+          Espero que te guste y me entiendas bien."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="go_to_story_telling_one_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+
+    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+      <arg name="state"  value="story_telling"  type="string"/>
+  </roboml:args>
+</action>
+
+<action name="liveliness_status_update" actor="show_liveliness">
+    <roboml:args>
+        <arg name="status" value="talking" type="string"/>
+    </roboml:args>
+ </action>
+
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- In order to go to story-telling one-to-one-->
+<recipe name="go_to_story_telling_planned">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="alz_option" rel="equal" val="story_telling_planned" />
+        <slot name="this" rel="bind" var="go_to_story_telling_planned_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+      <roboml:args>
+          <arg name="status" value="talking" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <!-- non verbal sound of hello-->
+
+<!--    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="CONFIRMATION"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="He vuelto a venir para seguiros contando
+          más cosillas, y pasar un rato con vosotros. "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+-->
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="go_to_story_telling_planned_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+
+    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+      <arg name="state"  value="story_telling"  type="string"/>
+  </roboml:args>
+</action>
+
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- In order to go to the game session-->
+<recipe name="go_to_game_session">
+<precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="confidence" rel=">" val="0.45" type="number" />
+      <slot name="alz_option" rel="equal" val="go_to_game_session" />
+      <slot name="this" rel="bind" var="go_to_game_session_atom"/>
+   </atom>
+
+</precondition>
+
+<body order="sequence">
+    <assignment>
+    <atom>
+        <slot name="this" var="go_to_game_session_atom"/>
+        <slot name="consumed" val="true"/>
+    </atom>
+    </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis+ vale"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+      </action>
+    
+    <!--<action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="a qué juego quieres jugar"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+      </action>-->
+      
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+     
+  <action name="request_state" actor="state_machine_node">
+    <roboml:args>
+        <arg name="state"  value="game_session"  type="string"/>
+    </roboml:args>
+  </action>
+
+</body>
+</recipe>
+
+
+<!-- In order to go to the game session-->
+<recipe name="go_to_session">
+<precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="confidence" rel=">" val="0.45" type="number" />
+      <slot name="alz_option" rel="equal" val="go_to_session" />
+      <slot name="this" rel="bind" var="go_to_session_atom"/>
+   </atom>
+
+</precondition>
+
+<body order="sequence">
+    <assignment>
+    <atom>
+        <slot name="this" var="go_to_session_atom"/>
+        <slot name="consumed" val="true"/>
+    </atom>
+    </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis+ comenzamos la sesión"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+      </action>
+      
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+     
+  <action name="request_state" actor="state_machine_node">
+    <roboml:args>
+        <arg name="state"  value="game_session"  type="string"/>
+    </roboml:args>
+  </action>
+
+</body>
+</recipe>
+
+
+<!---------------------------------------------------------------->
+
+<!-- In order to go to the game session-->
+ <recipe name="go_to_memory_game">
+<precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="confidence" rel=">" val="0.45" type="number" />
+      <slot name="alz_option" rel="equal" val="go_to_memory_game" />
+      <slot name="game_grammar" rel="bind" var="game_grammar" />
+      <slot name="this" rel="bind" var="go_to_memory_game_atom"/>
+   </atom>
+
+</precondition>
+
+<body order="sequence">
+    <assignment>
+    <atom>
+        <slot name="this" var="go_to_memory_game_atom"/>
+        <slot name="consumed" val="true"/>
+    </atom>
+    </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="CONFIRMATION"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+    
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+  <!-- Add the grammar for the game-->
+    <action name="add_grammar" actor="asr">
+        <roboml:args>
+            <arg name="grammar" value="$game_grammar" type="string"/>
+        </roboml:args>
+     </action>
+
+  <action name="request_state" actor="state_machine_node">
+    <roboml:args>
+         <arg name="state"  value="memory_game_session"  type="string"/>
+    </roboml:args>
+  </action>
+
+</body>
+</recipe>
+
+<!-- In order to go to the game session-->
+ <!-- <recipe name="go_to_memory_game">
+<precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="confidence" rel=">" val="0.45" type="number" />
+      <slot name="alz_option" rel="equal" val="go_to_memory_game" />
+      <slot name="game_grammar" rel="bind" var="game_grammar" />
+      <slot name="this" rel="bind" var="go_to_memory_game_atom"/>
+   </atom>
+
+</precondition>
+
+<body order="sequence">
+    <assignment>
+    <atom>
+        <slot name="this" var="go_to_memory_game_atom"/>
+        <slot name="consumed" val="true"/>
+    </atom>
+    </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="CONFIRMATION"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+    
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+  <!-- Add the grammar for the game-->
+    <!-- <action name="add_grammar" actor="asr">
+        <roboml:args>
+            <arg name="grammar" value="$game_grammar" type="string"/>
+        </roboml:args>
+     </action>
+
+  <action name="request_state" actor="state_machine_node">
+    <roboml:args>
+         <arg name="state"  value="memory_game_session"  type="string"/>
+    </roboml:args>
+  </action>
+
+</body>
+</recipe>  -->
+
+<!-- In order to go to the game session-->
+ <recipe name="go_to_selected_game">
+<precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="confidence" rel=">" val="0.45" type="number" />
+      <slot name="selected_game" rel="bind" var="selected_game" />
+      <slot name="game_grammar" rel="bind" var="game_grammar" />
+      <slot name="this" rel="bind" var="go_to_selected_game_atom"/>
+   </atom>
+
+</precondition>
+
+<body order="sequence">
+    <assignment>
+    <atom>
+        <slot name="this" var="go_to_selected_game_atom"/>
+        <slot name="consumed" val="true"/>
+    </atom>
+    </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="CONFIRMATION"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+    
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+  <!-- Add the grammar for the game-->
+    <action name="add_grammar" actor="asr">
+        <roboml:args>
+            <arg name="grammar" value="$game_grammar" type="string"/>
+        </roboml:args>
+     </action>
+
+  <action name="request_state" actor="state_machine_node">
+    <roboml:args>
+         <arg name="state"  value="memory_game_session"  type="string"/>
+    </roboml:args>
+  </action>
+<!-- De momento mantenemos el actor porque se ejecuta en alz_memory_game.cpp pero seguramente esto no seguirá siendo así -->
+  <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="$selected_game"  type="string"/>
+<!--           <arg name="game_to_play"  value="presentSession"  type="string"/>
+ -->      </roboml:args>
+    </action>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!----------------- Recipes to say something  -------------------->
+
+<!-- tickles-->
+<recipe name="user_touches_for_tickle">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="touch"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="body_part_touched"  rel="equal" val="belly" />
+        <slot name="this" rel="bind" var="touch_tickle_atom"/>
+     </atom>
+    
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid repeating the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="touch_tickle_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+        
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\item=Laugh_01 | \\item=Laugh_03 | \\item=Laugh_02 | 
+          \\emphasis+ Para | Ay. para. | \\item=ay "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+      </action>
+
+  </body>
+</recipe>
+
+<!-- Change to talking-->
+<recipe name="change_to_talking">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="alz_option" rel="equal" val="wake_up" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="change_to_talking_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="change_to_talking_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="waiting" type="string"/>
+        </roboml:args>
+    </action>
+
+    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+          <arg name="state"  value="waiting"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\item=Yawn"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+<!-- say hello -->
+<recipe name="say_hello_everybody">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="alz_option" rel="equal" val="say_hello" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="say_hello_everybody_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="say_hello_everybody_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+    </action>
+
+    <!--<action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis- hola a todos!. \\pause=1000 \\emphasis Hace cuanto tiempo que no os veía.
+          \\pause=1000 Qué tal las navidades?. \\pause=1000 Yo me he inflado a polvorones.\\pause=1000 Ahora me toca estar a dieta,
+          para volver a estar guapa. \\item=Laugh_04"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>-->
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis- hola a todos!. \\pause=1000 \\emphasis+ qué guapos \\emphasis sóis!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!----------------- Recipes to finish the action  ---------------->
+
+<recipe name="go_to_sleep">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="alz_option" rel="equal" val="go_to_sleep" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="go_to_sleep_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="go_to_sleep_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+
+    </assignment>
+
+<!--    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+          <arg name="state"  value="waiting"  type="string"/>
+      </roboml:args>
+    </action>-->
+  
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Vete a dormir tú también.\\item=Yawn | Bueno, vale, me voy a dormir solo porque tengo sueño. |
+           Está bien. | De acuerdo \\item=Yawn"   type="string"/> 
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+          <!--\\pause=2500 Bueno, vale, me voy a dormir solo porque tengo sueño.
+          \\pause=1500 Nos vemos dentro de poco. \\pause=1000 -->
+          
+    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+          <arg name="state"  value="sleeping"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="go_to_dead">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="alz_option" rel="equal" val="go_to_dead" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="asr_ok_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="asr_ok_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+
+    </assignment>
+
+    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+          <arg name="state"  value="dead"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+

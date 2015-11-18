@@ -1,0 +1,12 @@
+#ABNF 1.0 ISO-8859-1;
+
+language en-GB;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $telemando;
+
+$telemando = ("on the television":On | "turn on tv":On | "on television":On |
+              "turn of TV":Off | "turn of television":Off |
+              "channel up":up | "channel down":down | "radio":FM |
+              "digital television":DTV | "volume up":vmas | "volume down":vmenos | "stop":FINTV | "leaving tv":FINTV | "leaves the television":FINTV | "cut it out":FINTV){<@comando $value>};
+

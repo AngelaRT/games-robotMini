@@ -1,23 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
-V 54
-/repoAD/!svn/ver/17124/projects/teleop/unstable/launch
+V 74
+/repoAD/!svn/ver/19033/catkin_projects/memory_game_handler/unstable/launch
 END
-alz_presentation.launch
+alz_memory_game.launch
 K 25
 svn:wc:ra_dav:version-url
-V 78
-/repoAD/!svn/ver/17898/projects/teleop/unstable/launch/alz_presentation.launch
-END
-teleop_alz_gui.launch
-K 25
-svn:wc:ra_dav:version-url
-V 76
-/repoAD/!svn/ver/17124/projects/teleop/unstable/launch/teleop_alz_gui.launch
-END
-teleop_alz_cli.launch
-K 25
-svn:wc:ra_dav:version-url
-V 76
-/repoAD/!svn/ver/11283/projects/teleop/unstable/launch/teleop_alz_cli.launch
+V 97
+/repoAD/!svn/ver/19033/catkin_projects/memory_game_handler/unstable/launch/alz_memory_game.launch
 END

@@ -1,0 +1,48 @@
+<!-- #################################################################################################### -->
+<!-- # Receta que se dispara cuando se identifica un usuario por su timbre de voz                       # -->
+<!-- #################################################################################################### -->
+<recipe name="speaker_identification_echo">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from Speaker Identification -->
+    <atom>
+      <!-- Condiciones de la receta-->
+      <slot name="type" val="speaker_identification"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false"/>
+      <!-- se decaclara una variable -->
+      <slot name="nameUserSpeaking" rel= "bind" var="nameUserSpeaking_var"/>
+      <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+      <slot name="this" rel="bind" var="SI_atom"/>
+    </atom>
+
+  </precondition>
+  <!---------------------------------------------------------------->
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Por tu timbre de voz creo que eres: $nameUserSpeaking_var"  type="string"/>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <atom>
+        <slot name="this" var="SI_atom" />
+        <slot name="consumed" val="true" />
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+

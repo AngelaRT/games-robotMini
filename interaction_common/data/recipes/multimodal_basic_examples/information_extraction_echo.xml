@@ -1,0 +1,135 @@
+<!-- #################################################################################################### -->
+<!-- # Receta que se dispara cuando se obtiene procesamiento del lenguaje                               # -->
+<!-- #################################################################################################### -->
+<recipe name="information_extracton_echo">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from information  extaction -->
+    <atom>
+      <!-- Condiciones de la receta-->
+      <slot name="type" val="information_extraction"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false"/>
+      <!-- Variables -->
+      <slot name="sentiment" rel="bind" var="sentiment_var" />
+      <slot name="thematic_0" rel="bind" var="thematic_0_var" />
+      <slot name="thematic_1" rel="bind" var="thematic_1_var" />
+      <slot name="entitie_0" rel="bind" var="entitie_0_var" />
+      <slot name="type_entitie_0" rel="bind" var="type_entitie_0_var" />
+      <slot name="entitie_1" rel="bind" var="entitie_1_var" />
+      <slot name="type_entitie_1" rel="bind" var="type_entitie_1_var" />
+      <slot name="concept_0" rel="bind" var="concept_0_var" />
+      <slot name="concept_1" rel="bind" var="concept_1_var" />
+      <!-- Nombre del atomo ⨪-->
+      <slot name="this" rel="bind" var="IE_atom"/>
+    </atom>
+  </precondition>
+  <!---------------------------------------------------------------->
+
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_look_tablet_right" type="string"/>
+      </roboml:args>
+    </action>
+
+
+
+
+    <!-- Action from send something to tablet -->
+    <action name="show_on_tablet" actor="tablet">
+      <roboml:args>
+          <arg name="url"  value="/mnt/external_sd/multimedia/video/video1.MTS" type="string"/>
+          <arg name="text"  value="prueba" type="string"/>
+          <arg name="type"  value="video" type="string"/>
+      </roboml:args>
+    </action>
+
+
+
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+          <arg name="sentence"  value="El sentimiento de la conversacion ha sido : $sentiment_var" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="La primera temática ha sido : $thematic_0_var" type="string"/>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+        <roboml:args>
+             <arg name="sentence"  value="La segunda temática ha sido : $thematic_1_var" type="string"/>
+             <arg name="engine"  value="google"  type="string"/>
+             <arg name="emotion"  value="happy"  type="string"/>
+             <arg name="language"  value="es"  type="string"/>
+         </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Se ha nombrado la entidad $entitie_0_var que es del tipo $type_entitie_0_var" type="string"/>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Se ha nombrado la entidad $entitie_1_var que es del tipo $type_entitie_1_var" type="string"/>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Se ha nombrado el concepto $concept_0_var" type="string"/>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Se ha nombrado el concepto $concept_1_var" type="string"/>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+
+
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <atom>
+        <slot name="this" var="IE_atom" />
+        <slot name="consumed" val="true" />
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+

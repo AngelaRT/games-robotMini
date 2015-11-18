@@ -1,0 +1,49 @@
+#ABNF 1.0 UTF-8;
+
+language  en-US;
+mode  voice;
+tag-format <semantics/1.0>;
+root  $digits;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     digits                                               	*/
+ /* @rule        digits                                               	*/
+ /* @version     6.3                                                     */
+ /* @author      Colibro Daniele                                         */
+ /* @date        September 13, 2001                                      */
+ /*                                                                      */
+ /* @example     seven oh seven                                          */
+ /* @semantic    <@digits "707">                                      	*/
+ /* @example     double zero one two double six                          */
+ /* @semantic    <@digits "001266">                                   	*/
+ /* @example     nine eight naught                                       */
+ /* @semantic    <@digits "980">                                      	*/
+ /* @example     six eight nine double five one oh                       */
+ /* @semantic    <@digits "6895510">                                  	*/
+ /* Description:                                                         */
+ /* This grammar allows the user to insert a digit sequence.             */
+ /* The sequence lenght is arbitrary.                                    */
+ /* The output variable that contains the user value is @digits.      	*/
+ /*                                                                      */
+ /************************************************************************/
+
+ public $digits = {out = "";} ($number {out += rules.number;})<1->;
+
+ $number = (
+             $simple_number {out = rules.simple_number;} | 
+             double $simple_number {out = rules.simple_number+rules.simple_number;}
+           ) ;
+
+ $simple_number = (
+ 										zero {out = "0";} | 
+ 										oh {out = "0";} | 
+ 										one {out = "1";} | 
+ 										two {out = "2";} | 
+ 										three {out = "3";} | 
+ 										four {out = "4";} | 
+ 										five {out = "5";} | 
+ 										six {out = "6";} | 
+ 										seven {out = "7";} | 
+ 										eight {out = "8";} | 
+ 										nine {out = "9";}
+                  ) ;

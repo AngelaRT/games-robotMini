@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-7"?>
+<grammar root="root" version="1.0" xml:lang="es-es" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+	<rule id="root">
+		<item repeat="1-">
+			<one-of>
+				<item>Fernando</item>
+				<item>Magui</item>
+				<item>David</item>
+				<item>Jose María</item>
+				<item>Fer</item>
+				<item>Manolo</item>
+				<item>Paco</item>
+				<item>Javier</item>
+				<item>Javi</item>
+				<item>Luis</item>
+				<item>Alvaro</item>
+                                <item>Ana</item>
+                                <item>Jose Javier</item>
+                                <item>Esteban</item> 
+                                <item>Andres</item> 
+                                <item>Sara</item>
+                                <item>Leticia</item>
+                                <item>Tamara</item>
+                                <item>Beatriz</item>
+                                <item>Maria</item>
+                                <item>Ramon</item>
+                                <item>Juan</item>
+                                <item>Victor</item>
+                                <item>Santiago</item>
+                                <item>Francisco</item>
+                                <item>Raul</item>
+                                <item>Jorge</item>
+                                <item>Pablo</item>
+                                <item>Sonia</item>
+                                <item>Patricia</item>
+                                <item>Marta</item>
+                                <item>Eva</item>
+                                <item>Jacinto</item>
+                                <item>Miguel</item>
+                                <item>Miguel Ange/item>
+                                <item>Jose</item>
+                                <item>Jesus</item>
+                                <item>Manuel</item>
+                                <item>Diego</item>
+                                <item>Carlos</item>
+                                <item>Alberto</item>
+                                <item>Concha</item>
+			</one-of>
+		</item>
+	</rule>
+</grammar>

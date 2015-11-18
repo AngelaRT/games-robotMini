@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<recipe name="step_0">
+  <precondition>
+    <atom quantifier="exist">
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="user"/>
+      <slot name="turn" val="MINE" rel="equal"/>
+      <slot name="step_0_handled" val="FALSE" rel="equal"/>
+      <slot name="id" rel="bind" var="present_user_id"/>
+      <slot name="this" rel="bind" var="present_user_atom"/>
+    </atom>
+</precondition>
+
+
+<body order="sequence">
+    <action name="out_step_0" actor="etts">
+    </action>
+</body>
+
+<assignpost>
+  <atom>
+    <slot name="step_0_handled" val="TRUE"/>
+    <slot name="this" var="present_user_atom"/>
+  </atom>
+</assignpost>
+
+</recipe>

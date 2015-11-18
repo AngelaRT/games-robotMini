@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<iminit>
+  <triggerables>
+    <recipe name="give_greetings" max_instances="1"/>
+    <recipe name="greeting_response_fail" max_instances="1"/>
+</triggerables>
+
+  <recipefiles>
+    <file>monarch_interactions/give_greetings.xml</file>
+    <file>monarch_interactions/greeting_response.xml</file>
+    <file>monarch_interactions/get_personal_info.xml</file>
+  </recipefiles>
+
+  <actionfiles>
+    <file>default_actions.xml</file>
+  </actionfiles>
+</iminit>

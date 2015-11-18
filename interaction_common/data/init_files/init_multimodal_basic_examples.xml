@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<iminit>
+  <triggerables>
+    <recipe name="asr_google_results_echo" max_instances="1"/>
+    <recipe name="asr_google_no_results_echo" max_instances="1"/>
+    <recipe name="asr_loquendo_results_echo" max_instances="1"/>
+    <recipe name="asr_loquendo_no_results_echo" max_instances="1"/>
+    <recipe name="voice_activity_detection_echo" max_instances="1"/>
+    <recipe name="touch_echo" max_instances="1"/>
+    <recipe name="information_extracton_echo" max_instances="1"/>
+    <recipe name="user_come_in" max_instances="1"/>
+    <recipe name="user_leaving" max_instances="1"/>
+    <recipe name="speaker_identification_echo" max_instances="1"/>
+    <recipe name="ibeacon_echo" max_instances="1"/>
+
+  </triggerables>
+
+  <recipefiles>
+    <file>multimodal_basic_examples/google_asr_echo.xml</file>
+    <file>multimodal_basic_examples/loquendo_asr_echo.xml</file>
+    <file>multimodal_basic_examples/voice_activity_detection_echo.xml</file>
+    <file>multimodal_basic_examples/touch_echo.xml</file>
+    <file>multimodal_basic_examples/information_extraction_echo.xml</file>
+    <file>multimodal_basic_examples/people_pose_echo.xml</file>
+    <file>multimodal_basic_examples/speaker_identification_echo.xml</file>
+    <file>multimodal_basic_examples/ibeacon_echo.xml</file>
+
+  </recipefiles>
+
+  <actionfiles>
+    <file>default_actions.xml</file>
+  </actionfiles>
+</iminit>

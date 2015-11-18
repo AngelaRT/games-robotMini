@@ -1,0 +1,28 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $user_talking;
+
+$user_talking = $wake_up | $say_hello | $s_telling_planned | $go_to_autopresentation | $go_to_game_session | $go_to_sleep | $go_to_memory_game | $go_to_differences_game;
+
+$wake_up = ("despierta" ["mini"]| "despiertate" | "si se despierta" | ["despierta"] "dormilona") {<@alz_option "wake_up">};
+
+$say_hello = ("saluda" ["a todos"]) {<@alz_option "say_hello">};
+
+$s_telling= ("quiero que me cuentes cosas":ONE | "cuentame algo":ONE | "cuentanos algo":GROUP | "dinos alguna cosa":GROUP) {<@alz_general_num_users $value><@alz_option "story_telling">};
+
+$s_telling_planned= (["cuéntanos"|"cuenta"] "que haces aqui"|"que" ["nos"] "vas a contar") {<@alz_option "story_telling_planned">};
+
+$go_to_presentation = (["mini"] "haz la presentacion" ["mini"]| ["mini"] "vamos a hacer la presentacion" ["mini"]) {<@alz_option "go_to_presentation">};
+
+$go_to_autopresentation = (["mini"] "presentate" ["mini"]) {<@alz_option "go_to_autopresentation">};
+
+$go_to_game_session = (["mini"] "comienza los juegos" ["mini"]|["mini"] "empieza los juegos" | ["mini"] "vamos a comenzar la sesion" ["mini"]| ["mini"] "empieza la sesion" ["mini"]| ["mini"] "vamos a empezar a jugar" ["mini"]) {<@alz_option "go_to_game_session">};
+
+$go_to_sleep = (["mini"] "duermete" ["mini"]| ["mini"] "vete a dormir" ["mini"]) {<@alz_option "go_to_sleep">};
+
+$go_to_memory_game = ("al juego de memoria" ["mini"] | "al juego de las cartas" ["mini"] | ["mini"] "comienza el juego de las cartas" ["mini"]|["mini"] "empieza el juego de memoria") {<@game_grammar "alz_memory_game.gram"><@selected_game "memory_game">};
+
+$go_to_differences_game = ("al juego de las diferencias" ["mini"] | ["mini"] "comienza el juego de las diferencias" ["mini"]|["mini"] "empieza el juego de las diferencias") {<@game_grammar "alz_differences_game.gram"><@selected_game "differences_game">};

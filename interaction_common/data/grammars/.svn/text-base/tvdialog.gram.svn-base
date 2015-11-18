@@ -1,0 +1,12 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $telemando;
+
+$telemando = ("enciende la television":On | "enciende la tele":On | "pon la tele":On | "enciende":ON | "enciendela":ON |
+              "apaga":Off | "apaga la tele":Off | "apaga la television":Off |
+              "cambia de canal":up | "cambia el canal":up |"cambia el canal de la tele":up | "sube un canal":up | "cambia de canal":up |  "baja un canal":down | "pon la radio":FM | "quiero oir la radio":FM |
+              "pon la tele":DTV | "pon la television digital terrestre":DTV | "sube el volumen":vmas | "baja el volumen":vmenos | "un poco mas bajo":vmenos | "un poco mas alto":vmas | "dejalo ya":FINTV | "deja de manejar la television":FINTV | "deja la tele":FINTV | "deja de manejar la tele":FINTV){<@comando $value>};
+

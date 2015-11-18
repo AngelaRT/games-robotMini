@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!---------------------------------------------------------------->
+
+<!-- User wants to control the flow of the presentation with pause, resume or previous -->
+
+<!-- User asks for a pause -->
+<recipe name="user_asks_for_pause">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="presentation_option"  rel="equal" val="pause" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="pause_presentation_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid repeating the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="pause_presentation_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action for presentation -->
+    <action name="present_alz" actor="alz_presentation_node">
+      <roboml:args>
+          <arg name="part_to_present"  value="pause"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks to continue-->
+<recipe name="user_asks_for_resume">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="presentation_option"  rel="equal" val="resume" />
+    <slot name="confidence" rel=">" val="0.4" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="resume_presentation_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid repeating the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="resume_presentation_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action for presentation -->
+    <action name="present_alz" actor="alz_presentation_node">
+      <roboml:args>
+          <arg name="part_to_present"  value="resume"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!-- User asks to repeat previous part-->
+<recipe name="user_asks_for_previous">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="presentation_option"  rel="equal" val="previous" />
+    <slot name="confidence" rel=">" val="0.4" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="previous_presentation_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid repeating the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="previous_presentation_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action for presentation -->
+    <action name="present_alz" actor="alz_presentation_node">
+      <roboml:args>
+          <arg name="part_to_present"  value="previous"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks to repeat previous part-->
+<recipe name="user_asks_for_stop">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="presentation_option"  rel="equal" val="stop" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="stop_presentation_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid repeating the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="stop_presentation_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action for presentation -->
+    <action name="present_alz" actor="alz_presentation_node">
+      <roboml:args>
+          <arg name="part_to_present"  value="stop"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User wants to control the flow of the presentation with pause, resume or previous -->
+
+<!-- User touches for a pause -->
+<recipe name="user_touches_for_pause">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="touch"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="body_part_touched"  rel="equal" val="belly" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="touch_pause_atom"/>
+     </atom>
+
+    <atom quatifier="exist">
+        <slot name="type" val="state_machine_update"/>
+        <slot name="subtype" val="user"/>
+        <slot name="state" val="presentation" rel="equal"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="this" rel="bind" var="state_presentation_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid repeating the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="touch_pause_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action for presentation -->
+    <action name="present_alz" actor="alz_presentation_node">
+      <roboml:args>
+          <arg name="part_to_present"  value="pause"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User touches for resuming-->
+<recipe name="user_touches_for_resume">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="touch"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="body_part_touched"  rel="equal" val="left_shoulder" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="touch_resume_atom"/>
+     </atom>
+
+    <atom quatifier="exist">
+        <slot name="type" val="state_machine_update"/>
+        <slot name="subtype" val="user"/>
+        <slot name="state" val="presentation" rel="equal"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="this" rel="bind" var="state_presentation_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid repeating the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="touch_resume_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action for presentation -->
+    <action name="present_alz" actor="alz_presentation_node">
+      <roboml:args>
+          <arg name="part_to_present"  value="resume"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User touches for resuming-->
+<recipe name="user_touches_for_previous">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="touch"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="body_part_touched"  rel="equal" val="right_shoulder" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="touch_previous_atom"/>
+     </atom>
+
+    <atom quatifier="exist">
+        <slot name="type" val="state_machine_update"/>
+        <slot name="subtype" val="user"/>
+        <slot name="state" val="presentation" rel="equal"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="this" rel="bind" var="state_presentation_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid repeating the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="touch_previous_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action for presentation -->
+    <action name="present_alz" actor="alz_presentation_node">
+      <roboml:args>
+          <arg name="part_to_present"  value="previous"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+
+
+
+
+

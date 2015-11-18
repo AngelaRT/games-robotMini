@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!---------------------------------------------------------------->
+
+<!-- General recipes triggered when the robot does not understand the user -->
+
+<!---------------------------------------------------------------->
+<!-- User says something out of the grammar  -->
+<recipe name="asr_loquendo_no_results">
+
+  <precondition>
+    <!-- Atom from Loquendo ASR without results -->
+    <atom quantifier="exist">
+      <slot name="type" val="asr_loquendoFail"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="this" rel="bind" var="loquendo_asr_no_results_atom"/>
+    </atom>
+
+    <!--  Use google ASR to discard noises when loquendo fails -->
+    <atom>
+      <slot name="type" val="asr_googleOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="g_confidence" rel=">" val="0.4" type="number"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="this" rel="bind" var="google_asr_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+    <assignment>
+      <atom>
+        <slot name="this" var="loquendo_asr_no_results_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+      <atom>
+        <slot name="this" var="google_asr_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <goal recipe_name="recognition_fail" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!-- Loquendo recognizes with small confidence -->
+<recipe name="asr_loquendo_small_confidence">
+
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel="<" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="loquendo_small_confidence_atom"/>
+     </atom>
+
+    <!--  Use google ASR to discard noises -->
+    <atom>
+      <slot name="type" val="asr_googleOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="g_confidence" rel=">" val="0.4" type="number"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="this" rel="bind" var="google_asr_atom"/>
+    </atom>
+
+  </precondition>
+
+  <body order="sequence">
+    <assignment>
+      <atom>
+        <slot name="this" var="loquendo_small_confidence_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+      <atom>
+        <slot name="this" var="google_asr_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <goal recipe_name="recognition_fail" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!-- If either Loquendo does not recognize what the user has said or it recognizes
+it with very small confidence, this recipe is activated -->
+<recipe name="recognition_fail">
+
+  <precondition>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Perdon, no te he entendido, me lo puedes repetir?"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>

@@ -1,0 +1,55 @@
+<!-- #################################################################################################### -->
+<!-- # Receta que se dispara cuando llega un mensaje de ibeacon                                         # -->
+<!-- #################################################################################################### -->
+<recipe name="ibeacon_echo">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from touch detection -->
+    <atom>
+      <!-- Condiciones de la receta-->
+      <slot name="type" val="ibeacon"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false"/>
+
+      <!-- Variable -->
+      <slot name="beaconType" rel="bind" var="type_var" />
+      <slot name="name" rel="bind" var="name_var" />
+      <slot name="zone" rel="bind" var="zone_var" />
+      <slot name="distance" rel="bind" var="distance_var" />
+      <!-- Nombre del atomo-->
+      <slot name="this" rel="bind" var="ibeacon_atom"/>
+    </atom>
+  </precondition>
+  <!---------------------------------------------------------------->
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Baliza: $name_var  que se encuentra en la zona $zone_var " type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+
+
+
+  </body>
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <atom>
+        <slot name="this" var="ibeacon_atom" />
+        <slot name="consumed" val="true" />
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+

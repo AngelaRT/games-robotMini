@@ -1,0 +1,30 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $user_talking;
+
+$user_talking = ($game_differences | $restart | $hello | $goodbye | $pause | $resume | $previous | $next | $stop | $end_game_session);
+
+$hello = ("saluda" | "di hola"){<@game_option "hello">};
+$restart = ("empieza de nuevo" | "vuelve a empezar" | "otra vez" ){<@game_option "restart">};
+
+$game_differences = ("juego nuevo" | "juego de las diferencias" | "el de las diferencias" | "encontrar las diferencias" | "buscar diferencias"){<@game_option "game_differences">};
+
+$goodbye = ("tenemos que irnos" | "deberias descansar" ["un poco"] | "estaras cansada" | "debes de estar cansada" | "despidete"){<@game_option "goodbye">};
+
+$pause = ( "haz una pausa" | "para un momento" | "espera un momento" ){<@game_option "pause">};
+
+$resume = ("continua" | "ya puedes continuar" | "ya puedes seguir" ){<@game_option "resume">};
+
+$previous = ("repite lo ultimo" | "puedes repetir"){<@game_option "previous">};
+
+$next = ("pasa al siguiente" ["juego"]){<@game_option "next">};
+
+$stop = ("mini callate" ["un rato"] | "eres una pesada" | "deja de hablar" | "dejalo ya"){<@game_option "stop">};
+
+$end_game_session = (["mini"] "deja la sesión" ["mini"]| ["mini"] "termina la sesión" ["mini"] | ["mini"] "finaliza la sesión" ["mini"]) {<@game_dialog_option "exit_game_session">};
+
+
+

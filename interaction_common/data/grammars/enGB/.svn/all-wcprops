@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB
+END
+number.gram
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/number.gram
+END
+currency.gram
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/currency.gram
+END
+games.gram
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/games.gram
+END
+integer.gram
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/integer.gram
+END
+time.gram
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/time.gram
+END
+words.gram
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/words.gram
+END
+digits_param.gram
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/digits_param.gram
+END
+names.gram
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/names.gram
+END
+stations.gram
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/stations.gram
+END
+phone.gram
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/phone.gram
+END
+tvdialog.gram
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/tvdialog.gram
+END
+date.gram
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/date.gram
+END
+integrator.gram
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/integrator.gram
+END
+boolean.gram
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/boolean.gram
+END
+digits.gram
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/digits.gram
+END
+session.gram
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repoAD/!svn/ver/15632/catkin_projects/interaction_common/unstable/data/grammars/enGB/session.gram
+END

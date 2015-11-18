@@ -1,0 +1,35 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $user_request;
+
+$user_request = ( $tell_story | $stop | $pause | $resume | $end | $repeat );
+
+
+$tell_story = ($tell1 ("el"|"una"|"un"|"la"|"otro"|"otra"|"alguno"|"alguna") $tell2 [$story]);
+
+$tell1 = ("cuentame":ONE | "cuenta":ONE |"cuentes":GROUP | "cuentanos":GROUP){<@st_num_users $value>};
+
+$tell2 =  (  "historia":STORY|  "historia de":STORY |  "cuento":STORY |  "cuento de":STORY |  "cuento del":STORY
+| "chiste":JOKE | "anecdota":ANECDOTE | "curiosidad":CURIOSITY
+| "poema":POEM | "poesia":POEM){<@st_option "story_telling_goto_tale"><@st_type $value><@st_id "">};
+
+$story = ("pastorcillo y el lobo":pastor_lobo | "ratoncito y el leon":raton_leon  | "uvas en nochevieja":uvas_nochevieja | "las uvas de navidad":uvas_nochevieja | "los tres cerditos":cerditos  | "tornavacas":tornavacas |"bruja befana":bruja_befana | "arbol de navidad":arbol_navidad |
+"calderon de la barca":calderon_barca | "la vida es sueño":calderon_barca | "jorque manrique":manrique_01 | "cancion del pirata":pirata
+| "lope de vega":lope_violante | "curiosidad sobre la risa":sabias_que_01 | "curiosidad sobre cantar":sabias_que_02){<@st_id $value>};
+
+$stop= ("para de hablar" | "deja" ["de contar"]("eso"|("la historia" | "el cuento" | "el chiste" | "la anecdota" | "la curiosidad" | "la poesia" | "el poema"))){<@st_option "story_telling_stop">};
+
+$pause = ( "haz una pausa" | "para un momento" | "espera un momento" ){<@st_option "story_telling_pause">};
+
+$resume = ("continua" | "puedes continuar" | "puedes seguir" ){<@st_option "story_telling_resume">};
+
+$previous = ( ("cuenta"  | "cuentame" | "cuentanos") ("la"|"el")| "anterior" ["historia" | "cuento" | "anecdota" | "curiosidad" | "poesia" | "poema" | "chiste" ]){<@st_option "story_telling_previous">};
+
+$next = (("cuenta"  | "cuentame" | "cuentanos") ("la"|"el") "siguiente" ["historia" | "cuento" | "anecdota" | "curiosidad" | "poesia" | "poema" | "chiste"]){<@st_option "story_telling_next">};
+
+$end= ("dejalo ya" |"deja de contar cosas"){<@st_option "story_telling_end">};
+
+$repeat = (("repite" | "repitenos" | "repiteme" | "vuelve a repetir") ["la"|"el"] ["historia" | "cuento" | "anecdota" | "curiosidad" | "poesia" | "poema" | "chiste"] ["de nuevo"]){<@st_option "story_telling_repeat">};

@@ -1,0 +1,26 @@
+#ABNF 1.0 UTF-8;
+
+language  en-GB;
+mode  voice;
+tag-format <semantics/1.0>;
+public $root = $root_bool;
+
+ public $root_bool = $yno ;
+
+ $yno = (
+          $yes | 
+          $no 
+        );
+
+ $yes = (
+          yes | 
+          right | 
+          sure | 
+          exactly | 
+          definity         
+        ) {out = "true";};
+
+ $no = (
+         no | 
+         negative
+       ) {out = "false";};

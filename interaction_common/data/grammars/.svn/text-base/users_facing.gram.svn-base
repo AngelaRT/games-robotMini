@@ -1,0 +1,19 @@
+#ABNF 1.0 ISO-8859-1;
+
+/* A grammar used to teach the robot when a person is staring to (looking to) another one. The semantic tags will be used as inputs for a learning system.*/
+
+language en-GB; 
+tag-format <loq-semantics/1.0>;
+public $root = $interaction;
+
+
+/*
+ * $interaction = [$GARBAGE] $is_facing [$GARBAGE] | [$GARBAGE] $is_not_facing [$GARBAGE];
+ * $is_facing = ("facing":FACING | "looking to":FACING | "staring":FACING){<@IS_FACING $value>};
+ * $is_not_facing = ("not facing":NOT_FACING | "not looking to":NOT_FACING | "not staring":NOT_FACING){<@IS_FACING $value>};
+ *
+ */
+
+
+$interaction = [$GARBAGE] $is_facing [$GARBAGE]; 
+$is_facing = ("facing":FACING | "looking":FACING | "staring":FACING | "not [facing]":NOT_FACING | "not [looking]":NOT_FACING | "not [staring]":NOT_FACING){<@IS_FACING $value>};

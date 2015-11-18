@@ -1,0 +1,270 @@
+#ABNF 1.0 UTF-8;
+
+language  en-GB;
+mode  voice;
+tag-format <semantics/1.0>;
+root  $number;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     number                                               	*/
+ /* @rule        number                                               	*/
+ /* @version     6.3                                                     */
+ /* @author      Toniolo Athos                                           */
+ /* @revisor     Daniele Colibro                                         */
+ /* @date        July 12, 2001                                           */
+ /* @example     twenty-six point oh three one                           */
+ /* @semantic    <@number "26.031">                                   	*/
+ /* @example     fifty million two hundred thousand and one              */
+ /* @semantic    <@number "50200001">                                 	*/
+ /* @example     zero point eight                                        */
+ /* @semantic    <@number "0.8">                                      	*/
+ /* @example     fifty-one                                               */
+ /* @semantic    <@number "51">                                       	*/
+ /*                                                                      */
+ /* Description: This grammar allows the user to insert a decimal number */
+ /* between +999,999,999.999 and -999,999,999.999.                       */
+ /* The output variable that contains the user value is @number.      	*/
+ /*                                                                      */
+ /************************************************************************/
+ //  grammar number
+
+ /* number (public) */
+ public $number = $n_number ;
+
+ /* number number */
+ $n_number = $i_integer {out = rules.i_integer;} [$s_decimal {out += rules.s_decimal;}];
+
+ /* integer integer */
+ $i_integer = {out = "";} [$c_minus {out += rules.c_minus;}] $u_unsigned {out += rules.u_unsigned;};
+
+ /* unsigned unsigned */
+ $u_unsigned = (
+                 $u_1000000_999999999  | 
+                 $u_1000_999999  | 
+                 $u_0_999 
+               ) ;
+
+ /* string decimal */
+ $s_decimal = ( $c_point $s_001_999 ) {out = rules.c_point + rules.s_001_999;};
+
+ /* unsigned and from 1 to 999 thousand */
+ $u_and1_999k = [$v_and] $u_1_999k ;
+
+ /* unsigned and from 1 to 999 */
+ $u_and1_999 = [$v_and] $u_1_999 ;
+
+ /* unsigned and from 1 to 99 */
+ $u_and1_99 = [$v_and] $u_1_99 ;
+
+ /* unsigned from 1 to 999 million */
+ $u_1_999M = ( $u_1_999 $v_million) {out = rules.u_1_999 * 1000000;};
+
+ /* unsigned from 1 to 999 thousand */
+ $u_1_999k = ( $u_1_999 $v_thousand) {out = rules.u_1_999 * 1000;};
+
+ /* unsigned 1 to 9 hundred */
+ $u_1_9h = ( $u_1_9 $v_hundred) {out = rules.u_1_9 * 100;};
+
+ /* unsigned from 1000000 to 999999999 */
+ $u_1000000_999999999 = $u_1_999M {out = rules.u_1_999M;} [$u_and1_999k {out += rules.u_and1_999k;}] [$u_and1_999 {out += rules.u_and1_999;}];
+
+ /* unsigned from 1000 to 999999 */
+ $u_1000_999999 = $u_1_999k {out = rules.u_1_999k;} [$u_and1_999 {out += rules.u_and1_999;}];
+
+ /* string from 001 to 999 */
+ $s_001_999 = ( $u_1_999  | 
+                $s_0_9to01_99 
+              ) {out = "" + rules.latest();};
+
+ /* unsigned from 0 to 999 */
+ $u_0_999 = ( $u_100_999  | 
+              $u_0_99 
+            ) ;
+
+ /* unsigned from 1 to 999 */
+ $u_1_999 = ( $u_100_999 | 
+              $u_1_99 
+            ) ;
+
+ /* unsigned from 100 to 999 */
+ $u_100_999 = $u_1_9h {out = rules.u_1_9h;} [$u_and1_99 {out += rules.u_and1_99;}];
+
+ /* string from 01 to 99 */
+ $s_01_99 = ( $u_1_99  | 
+              $dd_0_9to1_9 
+            ) {out = "" + rules.latest();};
+
+ /* unsigned from 0 to 99 */
+ $u_0_99 = ( $u_tens10_90 | 
+             $u_notens11_99 | 
+             $u_0_9 
+           ) ;
+
+ /* unsigned from 1 to 99 */
+ $u_1_99 = ( $u_tens10_90  | 
+             $u_notens11_99  | 
+             $u_1_9 
+           ) ;
+
+ /* unsigned from 0 to 9 */
+ $u_0_9 = ( $u_1_9  | 
+            $u_0 
+          ) ;
+
+ /* unsigned from 1 to 9 */
+ $u_1_9 = ( $u_2_9 | 
+            $u_1 
+          ) ;
+
+ /* string from 0 to 9 - from 01 to 99 */
+ $s_0_9to01_99 = $u_0_9 {out = "" + rules.u_0_9;} $s_01_99 {out += rules.s_01_99;};
+
+ /* digit-digit from 0 to 9 - from 1 to 9 */
+ $dd_0_9to1_9 = $u_0_9 {out = "" + rules.u_0_9;} $u_1_9 {out += rules.u_1_9};
+
+ /* unsigned tens from 10 to 90 */
+ $u_tens10_90 = (
+                  ten {out = 10;} | 
+                  twenty {out = 20;} | 
+                  thirty {out = 30;} | 
+                  forty {out = 40;} | 
+                  fifty {out = 50;} | 
+                  sixty {out = 60;} | 
+                  seventy {out = 70;} | 
+                  eighty {out = 80;} | 
+                  ninety {out = 90;} 
+                ) ;
+
+ /* unsigned notens from 11 to 99 */
+ $u_notens11_99 = (
+                    eleven {out = 11;} | 
+                    twelve {out = 12;} | 
+                    thirteen {out = 13;} | 
+                    fourteen {out = 14;} | 
+                    fifteen {out = 15;} | 
+                    sixteen {out = 16;} | 
+                    seventeen {out = 17;} | 
+                    eighteen {out = 18;} | 
+                    nineteen {out = 19;} | 
+                    twenty-one {out = 21;} | 
+                    twenty-two {out = 22;} | 
+                    twenty-three {out = 23;} | 
+                    twenty-four {out = 24;} | 
+                    twenty-five {out = 25;} | 
+                    twenty-six {out = 26;} | 
+                    twenty-seven {out = 27;} | 
+                    twenty-eight {out = 28;} | 
+                    twenty-nine {out = 29;} | 
+                    thirty-one {out = 31;} | 
+                    thirty-two {out = 32;} | 
+                    thirty-three {out = 33;} | 
+                    thirty-four {out = 34;} | 
+                    thirty-five {out = 35;} | 
+                    thirty-six {out = 36;} | 
+                    thirty-seven {out = 37;} | 
+                    thirty-eight {out = 38;} | 
+                    thirty-nine {out = 39;} | 
+                    forty-one {out = 41;} | 
+                    forty-two {out = 42;} | 
+                    forty-three {out = 43;} | 
+                    forty-four {out = 44;} | 
+                    forty-five {out = 45;} | 
+                    forty-six {out = 46;} | 
+                    forty-seven {out = 47;} | 
+                    forty-eight {out = 48;} | 
+                    forty-nine {out = 49;} | 
+                    fifty-one {out = 51;} | 
+                    fifty-two {out = 52;} | 
+                    fifty-three {out = 53;} | 
+                    fifty-four {out = 54;} | 
+                    fifty-five {out = 55;} | 
+                    fifty-six {out = 56;} | 
+                    fifty-seven {out = 57;} | 
+                    fifty-eight {out = 58;} | 
+                    fifty-nine {out = 59;} | 
+                    sixty-one {out = 61;} | 
+                    sixty-two {out = 62;} | 
+                    sixty-three {out = 63;} | 
+                    sixty-four {out = 64;} | 
+                    sixty-five {out = 65;} | 
+                    sixty-six {out = 66;} | 
+                    sixty-seven {out = 67;} | 
+                    sixty-eight {out = 68;} | 
+                    sixty-nine {out = 69;} | 
+                    seventy-one {out = 71;} | 
+                    seventy-two {out = 72;} | 
+                    seventy-three {out = 73;} | 
+                    seventy-four {out = 74;} | 
+                    seventy-five {out = 75;} | 
+                    seventy-six {out = 76;} | 
+                    seventy-seven {out = 77;} | 
+                    seventy-eight {out = 78;} | 
+                    seventy-nine {out = 79;} | 
+                    eighty-one {out = 81;} | 
+                    eighty-two {out = 82;} | 
+                    eighty-three {out = 83;} | 
+                    eighty-four {out = 84;} | 
+                    eighty-five {out = 85;} | 
+                    eighty-six {out = 86;} | 
+                    eighty-seven {out = 87;} | 
+                    eighty-eight {out = 88;} | 
+                    eighty-nine {out = 89;} | 
+                    ninety-one {out = 91;} | 
+                    ninety-two {out = 92;} | 
+                    ninety-three {out = 93;} | 
+                    ninety-four {out = 94;} | 
+                    ninety-five {out = 95;} | 
+                    ninety-six {out = 96;} | 
+                    ninety-seven {out = 97;} | 
+                    ninety-eight {out = 98;} | 
+                    ninety-nine {out = 99;} 
+                  ) ;
+
+ /* unsigned from 2 to 9 */
+ $u_2_9 = (
+            two {out = 2;} | 
+            three {out = 3;} | 
+            four {out = 4;} | 
+            five {out = 5;} | 
+            six {out = 6;} | 
+            seven {out = 7;} | 
+            eight {out = 8;} | 
+            nine {out = 9;}
+          ) ;
+
+ /* unsigned one */
+ $u_1 = (
+          one | 
+          a
+        ) {out = 1;};
+
+ /* unsigned zero */
+ $u_0 = (
+          zero | 
+          oh
+        ) {out = 0;};
+
+ /* char minus */
+ $c_minus = (
+              minus | 
+              negative
+            ) {out = "-";};
+
+ /* char point */
+ $c_point = (
+              point | 
+              decimal | 
+              dot
+            ) {out = ".";};
+
+ /* void and */
+ $v_and = and;
+
+ /* void million */
+ $v_million = million;
+
+ /* void thousand */
+ $v_thousand = thousand;
+
+ /* void hundred */
+ $v_hundred = hundred;

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<memory_game>
+    
+     <intro>Vamos a jugar a un juego de memoria.\pause=1000
+    Os voy a poner unas cartas y tenéis que agruparlas por parejas. \pause=2000
+    Os las pondré boca abajo, y vosotros me decís qué cartas queréis que gire! \pause=1000
+    Si decís dos cartas que sean iguales, se quedarán al derecho. \pause=1000
+    El juego se acabará cuando hayáis encontrado todas las parejas.
+    </intro>
+    <time_intro>30</time_intro>
+    <gesture_intro>alz_speaking_02</gesture_intro> 
+    <item>
+        <question>Antes de empezar, necesito que me indiqueis un nivel de juego</question>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>10</wait_time>
+    </item>
+</memory_game>

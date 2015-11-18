@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repoAD/!svn/ver/18807/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_presentation
+END
+asr_bad_recognition.xml
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repoAD/!svn/ver/17411/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_presentation/asr_bad_recognition.xml
+END
+presentation_glasses.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repoAD/!svn/ver/16703/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_presentation/presentation_glasses.xml
+END
+presentation_riddles.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repoAD/!svn/ver/16690/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_presentation/presentation_riddles.xml
+END
+presentation_flow_control.xml
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repoAD/!svn/ver/17897/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_presentation/presentation_flow_control.xml
+END
+presentation_jokes.xml
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repoAD/!svn/ver/16946/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_presentation/presentation_jokes.xml
+END
+presentation_without_order.xml
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/repoAD/!svn/ver/18807/catkin_projects/interaction_common/unstable/data/recipes/alz_scenarios/alz_presentation/presentation_without_order.xml
+END

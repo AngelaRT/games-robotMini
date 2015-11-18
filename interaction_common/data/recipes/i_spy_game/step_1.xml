@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<recipe name="step_1">
+  <precondition>
+   <atom quantifier="exist" delete="now">
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="user"/>
+      <slot name="sema" val="IN_STEP_1" rel="equal"/>
+      <slot name="id" rel="bind" var="present_user_id"/>
+      <slot name="this" rel="bind" var="present_user_atom"/>
+    </atom>
+</precondition>
+
+
+<body order="sequence">
+    <action name="out_step_1" actor="etts">
+      <roboml:args>
+        <arg name="text_to_speech" value="que ves?"/>
+      </roboml:args>
+    </action>
+</body>
+
+<assignpost>
+  <atom>
+    <slot name="this" var="present_user_atom"/>
+    <slot name="sema" val="_NO_VALUE_"/>
+  </atom>
+</assignpost>
+
+</recipe>

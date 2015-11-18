@@ -1,0 +1,80 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $user_talking;
+
+$user_talking = ($greet | $day_centre | $present_robot | $present_capabilities | $present_micro
+                       | $present_speaking_mode | $present_scenarios | $present_conversation | $present_multimedia
+                       | $present_weather | $present_phys_stim| $present_maggie | $present_mbot
+                       | $present_jokes | $yes | $no | $cerilla | $more_riddles
+                       | $glasses | $no_glasses | $no_maggie | $present_surveys | $goodbye | $pause
+                       | $resume | $previous | $stop_presentation | $end_state_presentation);
+
+$greet = ("hola mini" | "hola minimagui") {<@presentation_option "intro1">};
+
+$day_centre = ( ["estamos" | "estas"] "en el centro de dia" ["parque de las avenidas"]){<@presentation_option "intro2">};
+
+$master = ( ["estamos" | "estas"] ("en clase"| ["con los"] "alumnos" | "master" | "con los alumnos de master") ){<@presentation_option "intro2">};
+
+$present_robot = ("presentate" | "hablales de ti" | "diles quien eres" | "diles a estas personas quien eres"){<@presentation_option "presentRobot">};
+
+$present_capabilities = (["cuentanos" | "dinos" ] ["cosas" | "alguna cosa" | "cosillas"] "sobre ti" ){<@presentation_option "presentCapabilities">};
+
+$present_micro = (["y" | "para que sirve"] "este microfono"){<@presentation_option "presentMicro">};
+
+$present_speaking_mode = ("tengo que hablar asi" | ["tengo que"] "hablar de esta forma" | ["tengo que"] "hablar de esta manera"){<@presentation_option "presentSpeakMode">};
+
+$present_scenarios = (["diles" | "cuentales" | "cuenta"] ["a estas personas"]
+              ("que sabes hacer" | "lo que puedes hacer" | "de lo que eres capaz")){<@presentation_option "presentScenariosIntro">};
+
+
+$present_conversation = ("puedes entretenerme" | "eres entretenida" | "si me aburro" | "me puedes entretener"){<@presentation_option "presentScenariosConversation">};
+
+$present_multimedia = (["mostrar" | "enseñar"] ("fotos" | "videos" | "fotos y videos")){<@presentation_option "presentScenariosMultimedia">};
+
+$present_weather = ("que tiempo va a hacer"){<@presentation_option "presentScenariosWeather">};
+
+$present_phys_stim = ("secreto que te han contado" | "secreto que te han dicho"){<@presentation_option "presentScenariosPhys">};
+
+$present_maggie = ("otros robots" | "robots laboratorio" | ( "el" |"nuestro") "laboratorio" | "habla" ["nos"] "de magui"){<@presentation_option "presentMaggie">};
+
+$present_mbot = ( ["que me dices del"]["robot"] "emebot"){<@presentation_option "presentMBot">};
+
+$glasses = (["Te voy a poner" | "mira que guapa estas con"] "estas gafas"){<@dialog_option "putGlasses">};
+
+$no_glasses = (["te quito"] "las gafas" | "te las quito" ){<@dialog_option "takeOffGlasses">};
+
+$no_maggie = (["bueno"] "magui"){<@presentation_option "noMaggie">};
+
+$present_surveys = (["queremos" | "quieren"] "ver mas detalles" | "y ahora que" ["va a pasar"] | "a partir de ahora" ){<@presentation_option "presentSurveys">};
+
+$goodbye = ("tenemos que irnos" | "deberias descansar" ["un poco"] | "estaras cansada" | "debes de estar cansada" | "despidete"){<@presentation_option "goodbye">};
+
+
+$pause = ( "haz una pausa" | "para un momento" | "espera un momento" ){<@presentation_option "pause">};
+
+$resume = ("continua" | "ya puedes continuar" | "ya puedes seguir" ){<@presentation_option "resume">};
+
+$previous = ("repite lo ultimo" | "puedes repetir"){<@presentation_option "previous">};
+
+
+$stop_presentation = ("mini callate" ["un rato"] | "eres una pesada" | "deja de hablar" | "dejalo ya"){<@presentation_option "stop">};
+
+
+$present_jokes = (["puedes contar" | "me cuentas" | "nos cuentas" | "te sabes"] "otro chiste" | "mas chistes"){<@dialog_option "presentJokes">};
+
+$yes = ("si" | "vale" | "okey" | "genial" | "de acuerdo" | "venga" | "por supuesto" | "claro") {<@dialog_option "yes">};
+
+$no = ("mejor no" | "en otro momento" | "no nos apetece" | "no hace falta" | "no es necesario") {<@dialog_option "no">};
+
+
+$cerilla = ( ["mini"] ["es" | "era"] "la cerilla"){<@dialog_option "cerilla">};
+
+$more_riddles = (["puedes contar" | "me cuentas" | "nos cuentas" | "te sabes"] "otra adivinanza" | "mas adivinanzas"){<@dialog_option "moreRiddles">};
+
+$end_state_presentation = (["mini"] "para la presentacion" ["mini"]| ["mini"] "termina la presentacion" ["mini"] | ["mini"] "finaliza la presentacion" ["mini"]) {<@dialog_option "exit_presentation">};
+
+
+

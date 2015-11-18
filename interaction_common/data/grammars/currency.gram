@@ -1,0 +1,277 @@
+#ABNF 1.0 UTF-8;
+
+language  es-ES;
+mode  voice;
+tag-format <semantics/1.0>;
+public $root  = $currency;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     currency                                             	 */
+ /* @rule        currency                                             	 */
+ /* @version     6.3                                                     */
+ /* @author      Colibro Daniele                                         */
+ /* @date        Dec 4, 2001                                             */
+ /*                                                                      */
+ /* @example     doscientos y veinti_cinco euros                         */
+ /* @semantic     "EUR225.00"                              	             */
+ /* @example     siete euros y veinti_cinco                              */
+ /* @semantic     "EUR7.25"                                	             */
+ /* @example     doce y cincuenta_y_cinco                                */
+ /* @semantic     "EUR12.55"                               	             */
+ /* @example     mil y trescientos coma dos céntimos de euro             */
+ /* @semantic     "EUR1300.02"                             	             */
+ /* @example     mil y trescientos coma dos euros                        */
+ /* @semantic     "EUR1300.20"                             	             */
+ /* Description:                                                         */
+ /* This grammar allows the user to insert a currency amount             */
+ /* in Euro (EUR).                                                       */
+ /* The range for Euro amounts is from 0.01 and 999,999.99 euro          */
+ /*                                                                      */
+ /************************************************************************/
+ 
+ /* Simple rules: this section contains the vocabularies used in the grammar (quite tedious) */
+
+ $zero = cero {out = 0;} ;
+
+ $one = (
+          uno | 
+          un
+        ) {out = 1;} ;
+
+ $n2to9 = (
+            dos {out = 2;} | 
+            tres {out = 3;} | 
+            cuatro {out = 4;} | 
+            cinco {out = 5;} | 
+            seis {out = 6;} | 
+            siete {out = 7;} | 
+            ocho {out = 8;} | 
+            nueve {out = 9;} 
+          ) ;
+
+ $n10to99 = (
+              diez {out = 10;} | 
+              once {out = 11;} | 
+              doce {out = 12;} | 
+              trece {out = 13;} | 
+              catorce {out = 14;} | 
+              quince {out = 15;} | 
+              dieci_séis {out = 16;} | 
+              dieci_siete {out = 17;} | 
+              dieci_ocho {out = 18;} | 
+              dieci_nueve {out = 19;} | 
+              veinte {out = 20;} | 
+              veinti_uno {out = 21;} | 
+              veinti_un {out = 21;} | 
+              veinti_dós {out = 22;} | 
+              veinti_trés {out = 23;} | 
+              veinti_cuatro {out = 24;} | 
+              veinti_cinco {out = 25;} | 
+              veinti_séis {out = 26;} | 
+              veinti_siete {out = 27;} | 
+              veinti_ocho {out = 28;} | 
+              veinti_nueve {out = 29;} | 
+              treinta {out = 30;} | 
+              treinta_y_uno {out = 31;} | 
+              treinta_y_un {out = 31;} | 
+              treinta_y_dos {out = 32;} | 
+              treinta_y_tres {out = 33;} | 
+              treinta_y_cuatro {out = 34;} | 
+              treinta_y_cinco {out = 35;} | 
+              treinta_y_seis {out = 36;} | 
+              treinta_y_siete {out = 37;} | 
+              treinta_y_ocho {out = 38;} | 
+              treinta_y_nueve {out = 39;} | 
+              cuarenta {out = 40;} | 
+              cuarenta_y_uno {out = 41;} | 
+              cuarenta_y_un {out = 41;} | 
+              cuarenta_y_dos {out = 42;} | 
+              cuarenta_y_tres {out = 43;} | 
+              cuarenta_y_cuatro {out = 44;} | 
+              cuarenta_y_cinco {out = 45;} | 
+              cuarenta_y_seis {out = 46;} | 
+              cuarenta_y_siete {out = 47;} | 
+              cuarenta_y_ocho {out = 48;} | 
+              cuarenta_y_nueve {out = 49;} | 
+              cincuenta {out = 50;} | 
+              cincuenta_y_uno {out = 51;} | 
+              cincuenta_y_un {out = 51;} | 
+              cincuenta_y_dos {out = 52;} | 
+              cincuenta_y_tres {out = 53;} | 
+              cincuenta_y_cuatro {out = 54;} | 
+              cincuenta_y_cinco {out = 55;} | 
+              cincuenta_y_seis {out = 56;} | 
+              cincuenta_y_siete {out = 57;} | 
+              cincuenta_y_ocho {out = 58;} | 
+              cincuenta_y_nueve {out = 59;} | 
+              sesenta {out = 60;} | 
+              sesenta_y_uno {out = 61;} | 
+              sesenta_y_un {out = 61;} | 
+              sesenta_y_dos {out = 62;} | 
+              sesenta_y_tres {out = 63;} | 
+              sesenta_y_cuatro {out = 64;} | 
+              sesenta_y_cinco {out = 65;} | 
+              sesenta_y_seis {out = 66;} | 
+              sesenta_y_siete {out = 67;} | 
+              sesenta_y_ocho {out = 68;} | 
+              sesenta_y_nueve {out = 69;} | 
+              setenta {out = 70;} | 
+              setenta_y_uno {out = 71;} | 
+              setenta_y_un {out = 71;} | 
+              setenta_y_dos {out = 72;} | 
+              setenta_y_tres {out = 73;} | 
+              setenta_y_cuatro {out = 74;} | 
+              setenta_y_cinco {out = 75;} | 
+              setenta_y_seis {out = 76;} | 
+              setenta_y_siete {out = 77;} | 
+              setenta_y_ocho {out = 78;} | 
+              setenta_y_nueve {out = 79;} | 
+              ochenta {out = 80;} | 
+              ochenta_y_un {out = 81;} | 
+              ochenta_y_uno {out = 81;} | 
+              ochenta_y_dos {out = 82;} | 
+              ochenta_y_tres {out = 83;} | 
+              ochenta_y_cuatro {out = 84;} | 
+              ochenta_y_cinco {out = 85;} | 
+              ochenta_y_seis {out = 86;} | 
+              ochenta_y_siete {out = 87;} | 
+              ochenta_y_ocho {out = 88;} | 
+              ochenta_y_nueve {out = 89;} | 
+              noventa {out = 90;} | 
+              noventa_y_uno {out = 91;} | 
+              noventa_y_un {out = 91;} | 
+              noventa_y_dos {out = 92;} | 
+              noventa_y_tres {out = 93;} | 
+              noventa_y_cuatro {out = 94;} | 
+              noventa_y_cinco {out = 95;} | 
+              noventa_y_seis {out = 96;} | 
+              noventa_y_siete {out = 97;} | 
+              noventa_y_ocho {out = 98;} | 
+              noventa_y_nueve {out = 99;} 
+            ) ;
+
+ $n1hto9h = (
+              cien {out = 100;} | 
+              ciento {out = 100;} | 
+              doscientos {out = 200;} | 
+              trescientos {out = 300;} | 
+              quatrocientos {out = 400;} | 
+              quinientos {out = 500;} | 
+              seiscientos {out = 600;} | 
+              setecientos {out = 700;} | 
+              ochocientos {out = 800;} | 
+              noveciento {out = 900;} 
+            ) ;
+
+ $and_opt = y;
+
+ $EUR = (
+          euro | 
+          euros
+        );
+ 
+ /* Compound rules: this section contains other rules obtained from the simple rules */
+
+ $n1to9 = (
+            $one  | 
+            $n2to9 
+          ) ;
+
+ $n0to9 = (
+            $zero  | 
+            $n1to9 
+          ) ;
+
+ $n1to99 = (
+             $one  | 
+             $n2to9  | 
+             $n10to99 
+           ) ;
+
+ $n2to99 = (
+             $n2to9  | 
+             $n10to99 
+           ) ;
+
+ $n2to999 = (
+              ($n1hto9h {out = rules.latest();} [$and_opt] [$n1to99 {out += rules.latest();}]) | 
+              $n2to99 {out = rules.latest();}
+            ) ;
+
+ $n1kto999k = (
+                $n2to999 {out = rules.latest();} mil {out *= 1000;} | 
+                mil {out = 1000;}
+              ) ;
+ 
+ /************************************************************************/
+ /* Rules for the integer part of the euro currency                      */
+ /* from 100 to 999k step 100 */
+
+ $n1hto999k = (
+                $n1kto999k {out = rules.latest();} [ [$and_opt] $n1hto9h {out += rules.latest();}] | 
+                $n1hto9h {out = rules.latest();}
+              ) ;
+ 
+ /* from 1 to 999k step 1 */
+
+ $n1to999k = {out = 0;}[$n1hto999k {out += rules.latest();} [$and_opt]] $n1to99 {out += rules.latest();};
+ 
+ /************************************************************************/
+ /* Rules for the decimal part of the euro currency                      */
+ /* The qualifier "centesimo" is not present */
+
+ $decnocent = {out = "";}(
+                             $n10to99 {out += rules.latest();} | 
+                             $n0to9 {out += rules.latest() + "0";} | 
+                             ( $zero {out += rules.latest();} $n0to9 {out += rules.latest();}) 
+                          ) [$EUR];
+                          
+ /* The qualifier "centesimo" is present */
+ $deccent = {out = "";} (
+							$n10to99 {out += rules.latest();} | 
+							$n0to9  {out = "0" + rules.latest();} | 
+							( $zero {out += rules.latest();} $n0to9 {out += rules.latest();}) 
+						) (céntimos | céntimo) [de $EUR];
+
+ /* decimal part spoken as digit digit */
+ $decdigit = ( $n1to9  $n0to9 ( [ céntimos [de $EUR]] | [$EUR]))  {out = "." + rules.n1to9 + rules.n0to9;};
+ 
+ /* Decimal point */
+
+ $point = (
+            punto | 
+            coma
+          );
+
+ $point_e = (
+              punto | 
+              coma | 
+              y
+            );
+ 
+ /************************************************************************/
+ /* Rules for the composition of the euro integer and decimal part       */
+
+ $euro = {var f1, d1;} {out = ""}
+        (
+           [$EUR] ($zero  |$n1to999k) {d1 = rules.latest(); f1 = ".00";} [$EUR] [ ( $point_e $decnocent  | 
+																					 [$point_e] $deccent 
+																				   ) {f1 = "." + rules.latest();}
+																				 ] | 
+           [$EUR] $n1hto999k {d1 = rules.latest(); f1 = ".00";} [$EUR] [ ( $point $decnocent  | 
+                                                                           [$point_e] $deccent 
+                                                                          ) {f1 = "." + rules.latest();}
+                                                                        ] | 
+           $deccent  {d1 = "0"; f1 = "." + rules.latest();} | 
+           ($zero | $n1to999k | $n1hto999k) {d1 = rules.latest();} $EUR y medio  {f1 = ".50";} | 
+           ($zero | $n1to999k | $n1hto999k) {d1 = rules.latest();}[$EUR] $point $decdigit {f1 = rules.latest();} | 
+            medio euro {d1 = "0";} {f1 = ".50";}
+         ) {out += d1 + f1; };
+  
+ /************************************************************************/
+ /************************************************************************/
+ /* Public rule                                                          */
+ /************************************************************************/
+ /************************************************************************/
+
+ public $currency = $euro {out = "EUR" + rules.euro;};

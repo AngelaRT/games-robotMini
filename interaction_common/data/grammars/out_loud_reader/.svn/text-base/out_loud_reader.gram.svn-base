@@ -1,0 +1,19 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $choice_rule;
+
+$choice_rule = (
+    "empezar":OUT_LOUD_READER_START_STOP |
+    "pausa":OUT_LOUD_READER_START_STOP |
+
+    "libro anterior":OUT_LOUD_READER_GOTO_PREV_BOOK |
+
+    "libro siguiente":OUT_LOUD_READER_GOTO_NEXT_BOOK |
+
+    "inicio del libro":OUT_LOUD_READER_GOTO_BOOK_BEGINNING
+
+){<@choice $value>};
+

@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+
+  <!-- ############################################################## -->
+  <!-- #######                  INTRO TO SAYINGS                ##### -->
+  <!-- ############################################################## -->
+
+
+<!-- start telling sayings -->
+<recipe name="start_sayings">
+
+  <precondition>
+    <atom quantifier="exist">
+    <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="st_tell_sayings" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="start_sayings_atom"/>
+        </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="start_sayings_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Intro of sayings game -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 En la anterior sesión,
+          me estuvisteis enseñando refranes,\\pause=1000 porque yo no me sabía ni uno.\\pause=1000 Qué vergüenza.
+          \\pause=1500 Qué os parece si me los volvéis a recordar,\\pause=1000 porque hay algunos en los que todavía dudo un poco.
+          \\pause=1000 Yo empiezo a recitar el refrán y vosotros lo termináis.\\pause=1000 así me lo aprendo del todo.
+          \\pause=1000 A ver qué os parece. "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="sayings_secuence" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--------------------------------------------------------------->
+
+<!-- repeat sayings -->
+<recipe name="repeat_sayings">
+
+  <precondition>
+    <atom quantifier="exist">
+    <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="st_repeat_sayings" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="repeat_sayings_atom"/>
+        </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="repeat_sayings_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <goal recipe_name="repeat_sayings_no_precond" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--------------------------------------------------------------->
+
+<!-- repeat sayings by goal-->
+<recipe name="repeat_sayings_no_precond">
+
+  <body order="sequence">
+
+    <!-- Intro of sayings game -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=2000 Veo que os han gustado los refranes. | \\pause=2000 Si que os gustan los refranes.
+          | Venga, vamos a jugar de nuevo con los refranes. "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Sayings game rule -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1000 Acordaros.\\pause=1000 Yo empiezo y vosotros termináis el refrán."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="sayings_secuence" initiator="any"/>
+
+  </body>
+</recipe>
+
+
+  <!-- ############################################################## -->
+  <!-- #######                  SAYINGS SECUENCE                ##### -->
+  <!-- ############################################################## -->
+
+
+<!-- Sayings secuence -->
+<recipe name="sayings_secuence">
+
+  <body order="sequence">
+
+    <!-- List of sayings -->
+    <goal recipe_name="saying_1" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!-- Sayings secuence 2 -->
+<recipe name="sayings_secuence2">
+
+  <body order="sequence">
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_11" initiator="any"/>
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_12" initiator="any"/>
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_13" initiator="any"/>
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_14" initiator="any"/>
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_15" initiator="any"/>
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_16" initiator="any"/>
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_17" initiator="any"/>
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_18" initiator="any"/>
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_19" initiator="any"/>
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_20" initiator="any"/>
+
+    <goal recipe_name="request_repeat_sayings , end_sayings , end_skill " initiator="any"/>
+
+  </body>
+</recipe>
+
+
+  <!-- ############################################################## -->
+  <!-- #######                     ETTS COMMON                  ##### -->
+  <!-- ############################################################## -->
+
+<!-- Next saying -->
+<recipe name="next_saying">
+
+<body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=2000 Vamos con el siguiente.|  A ver este. | Seguro que conocéis este."   type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+</body>
+</recipe>
+
+<!--------------------------------------------------------------->
+
+<!-- Common sentences for a wrong or no answer -->
+<recipe name="saying_wrong">
+
+<body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value=" Venga, os lo sabéis seguro. Lo repito. | Volved a intentarlo. Vamos.  "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a second wrong or no answer -->
+<recipe name="saying_wrong_twice">
+
+<body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value=" Estoy segura que os lo sabíais. | Seguro que lo habéis oído mil veces. | Os lo sabéis de sobra. "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying_good">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value=" Qué listos. | correcto! | fantastico! | genial! | muy bien!! | muy bien! | magnífico! "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+</body>
+</recipe>
+
+
+<!--------------------------------------------------------------->
+
+
+  <!-- ############################################################## -->
+  <!-- #######                     USER REQUEST                 ##### -->
+  <!-- ############################################################## -->
+
+<!-- Ask to follow sayings game -->
+<recipe name="request_more_sayings">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Queréis seguir jugando a los refranes? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="add_grammar" actor="asr">
+        <roboml:args>
+            <arg name="grammar" value="si_no.gram" type="string"/>
+        </roboml:args>
+    </action>
+
+    <goal recipe_name="follow_sayings , no_more_sayings , end_sayings , end_skill " initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--------------------------------------------------------------->
+
+<!-- Follow with sayings game -->
+<recipe name="follow_sayings">
+<precondition>
+<atom quantifier="exist">
+    <slot name="type" val="asr_loquendoOK"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="sino" rel="equal" val="si" />
+    <slot name="confidence" rel=">" val="0.4" type="number" />
+    <slot name="this" rel="bind" var="more_sayings_atom"/>
+ </atom>
+</precondition>
+  <body order="sequence">
+
+    <assignment>
+    <atom>
+      <slot name="this" var="more_sayings_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value=" fantastico! | genial! | muy bien!! | muy bien! | magnífico! "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_11" initiator="any"/>
+
+</body>
+</recipe>
+
+<!--------------------------------------------------------------->
+
+<!-- Ask for more sayings -->
+<recipe name="request_repeat_sayings">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Queréis volver a jugar? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="add_grammar" actor="asr">
+        <roboml:args>
+            <arg name="grammar" value="si_no.gram" type="string"/>
+        </roboml:args>
+    </action>
+
+    <goal recipe_name="more_sayings , no_more_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--------------------------------------------------------------->
+
+<!-- More sayings -->
+<recipe name="more_sayings">
+<precondition>
+<atom quantifier="exist">
+    <slot name="type" val="asr_loquendoOK"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="sino" rel="equal" val="si" />
+    <slot name="confidence" rel=">" val="0.4" type="number" />
+    <slot name="this" rel="bind" var="more_sayings_atom"/>
+ </atom>
+</precondition>
+  <body order="sequence">
+
+    <assignment>
+    <atom>
+      <slot name="this" var="more_sayings_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value=" fantastico! | genial! | muy bien!! | muy bien! | magnífico! "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="repeat_sayings_no_precond" initiator="any"/>
+
+</body>
+</recipe>
+
+<!--------------------------------------------------------------->
+
+<!-- No more sayings -->
+<recipe name="no_more_sayings">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="sino" rel="equal" val="no" />
+      <slot name="confidence" rel=">" val="0.4" type="number" />
+      <slot name="this" rel="bind" var="no_more_sayings_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+    <assignment>
+    <atom>
+      <slot name="this" var="no_more_sayings_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value=" Pues a otra cosa mariposa. "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+</body>
+</recipe>
+
+<!--------------------------------------------------------------->
+
+<!-- End sayings -->
+<recipe name="end_sayings">
+<precondition>
+  <atom quantifier="exist">
+  <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="st_option" rel="equal" val="st_end_sayings" />
+      <slot name="confidence" rel=">" val="0.4" type="number" />
+      <slot name="this" rel="bind" var="end_sayings_atom"/>
+      </atom>
+</precondition>
+
+  <body order="sequence">
+
+    <assignment>
+    <atom>
+      <slot name="this" var="end_sayings_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value=" Pues a otra cosa mariposa. "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+</body>
+</recipe>
+
+

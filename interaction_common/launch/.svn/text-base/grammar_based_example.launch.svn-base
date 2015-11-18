@@ -1,0 +1,11 @@
+<!-- This launcher execute a example of full multimodal interaction. The robot performs echo by voice
+of all input information that recieve the interaction manager.
+No arguments are  neccessary.-->
+<launch>
+<arg name="debug" default="INFO"/>
+   <include file="$(find dialog_manager)/launch/voice_dialog.launch">
+    <arg name="robot" value="alz"/>
+    <arg name="init_file" value="init_grammar_based_example.xml" />
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+</launch>

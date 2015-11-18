@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+
+<!---------------------------------------------------------------->
+<!-- Without preconditions always execute the body -->
+<recipe name="test_no_atomos">
+
+  <precondition>
+  </precondition>
+
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Hola Mundo. El body se ha ejecutado. Ninguna condición había sido establecida"   type="string"/>
+          <arg name="engine"  value="google"   type="string"/>
+          <arg name="language"  value="es"   type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+
+
+<!---------------------------------------------------------------->
+<!-- The body only is executed when Voice Activity Detection is performed -->
+<recipe name="test_one_atomos">
+
+  <precondition>
+    <!-- Slots for Voice Activity Detection -->
+    <atom>
+        <slot name="type" val="VAD"/>
+        <slot name="subtype" val="user"/>
+        <slot name="this" rel="bind" var="nombre_atomo" />
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="El body se ha ejecutado"   type="string"/>
+          <arg name="engine"  value="google"   type="string"/>
+          <arg name="language"  value="es"   type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+
+
+<!---------------------------------------------------------------->
+<!-- The body is executed only when Voice Activity detection and User Come In
+     are performed by multimodal fusion dialog. Are necessary both atoms!!!. Only
+     one of them it not valid to execute the body -->
+<recipe name="test_two_atoms">
+
+  <precondition>
+    <!-- Slots for Voice Activity Detection -->
+    <atom>
+        <slot name="type" val="VAD"/>
+        <slot name="subtype" val="user"/>
+        <slot name="this" rel="bind" var="nombre_atomo_1" />
+    </atom>
+    <!-- Slot for User Come In -->
+    <atom>
+        <slot name="type" val="user_come_in"/>
+        <slot name="subtype" val="user"/>
+        <slot name="this" rel="bind" var="nombre_atomo_2" />
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="El body se ha ejecutado"   type="string"/>
+          <arg name="engine"  value="loquendo"   type="string"/>
+          <arg name="language"  value="es"   type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+
+
+<!---------------------------------------------------------------->
+<!-- The global atom is always unified by Iwaky, so body is executed -->
+<recipe name="test_globals_atom">
+
+  <precondition>
+    <!-- Slots for globals atom -->
+    <atom>
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="globals"/>
+      <slot name="this" rel="bind" var="nombre_atomo_1" />
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="El body se ha ejecutado"   type="string"/>
+          <arg name="engine"  value="loquendo"   type="string"/>
+          <arg name="language"  value="es"   type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+
+

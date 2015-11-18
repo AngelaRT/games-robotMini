@@ -1,0 +1,2990 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+  <!-- ############################################################## -->
+  <!-- #######                  LIST OF SAYINGS                ##### -->
+  <!-- ############################################################## -->
+
+
+<!-- Start saying 1: A buen entendedor, pocas palabras bastan-->
+<recipe name="saying_1">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A buen entendedor? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying1_good , saying1_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying1_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying1_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying1_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_1_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 1 after a wrong or no answer -->
+<recipe name="saying1_wrong">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying1_wrong_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+    <slot name="this" var="saying1_wrong_atom"/>
+    <slot name="consumed" val="true"/>
+    </atom>
+    </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+    <roboml:args>
+    <arg name="sentence"  value="\\pause=1500 A buen entendedor? "   type="string"/>
+    <arg name="engine"  value="loquendo"  type="string"/>
+    <arg name="emotion"  value="happy"  type="string"/>
+    <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+    </roboml:args>
+    </action>
+
+    <goal recipe_name="saying1_good , saying1_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 1 after a wrong or no answer -->
+<recipe name="saying1_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying1_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying1_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_1_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_1_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A buen entendedor,\\pause=1000 pocas palabras bastan"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_2" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 2: Más vale pájaro en mano que ciento volando -->
+<recipe name="saying_2">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Más vale pájaro en mano? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying2_good , saying2_wrong , end_sayings , end_skill" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying2_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying2_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying2_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_2_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 2 after a wrong or no answer -->
+<recipe name="saying2_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying2_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying2_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Más vale pájaro en mano? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying2_good , saying2_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying2_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying2_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying2_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_2_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_2_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Más vale pájaro en mano,\\pause=1000 que ciento volando."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_3" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 3:Quien a buen árbol se arrima … buena sombra le cobija. -->
+<recipe name="saying_3">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Quien a buen árbol se arrima? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying3_good , saying3_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying3_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying3_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying3_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_3_complete" initiator="any"/>
+
+</body>
+</recipe>
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 3 after a wrong or no answer -->
+<recipe name="saying3_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying3_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying3_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Quien a buen árbol se arrima? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying3_good , saying3_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying3_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying3_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying3_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_3_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_3_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Quien a buen árbol se arrima, \\pause=1000 buena sombra le cobija."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_4" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 4: Dime con quién andas ... y te diré quien eres. -->
+<recipe name="saying_4">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Dime con quién andas? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying4_good , saying4_wrong , end_sayings , end_skill" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying4_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying4_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying4_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_4_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 4 after a wrong or no answer -->
+<recipe name="saying4_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying4_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying4_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Dime con quién andas? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying4_good , saying4_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying4_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying4_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying4_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_4_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_4_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Dime con quién andas,\\pause=1000 y te diré quien eres."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_5" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 5: A quien madruga … Dios le ayuda. -->
+<recipe name="saying_5">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A quien madruga? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying5_good , saying5_wrong , end_sayings , end_skill" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying5_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying5_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying5_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_5_complete" initiator="any"/>
+
+</body>
+</recipe>
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 5 after a wrong or no answer -->
+<recipe name="saying5_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying5_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying5_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A quien madruga? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying5_good , saying5_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying5_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying5_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying5_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_5_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_5_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A quien madruga,\\pause=1000 Dios le ayuda."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_6" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 6: El que se fue a Sevilla, … perdió su silla. -->
+<recipe name="saying_6">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 El que se fue a Sevilla? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying6_good , saying6_wrong , end_sayings , end_skill" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying6_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying6_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying6_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_6_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 6 after a wrong or no answer -->
+<recipe name="saying6_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying6_wrong_atom"/>
+   </atom>
+</precondition>
+
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying6_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 El que se fue a Sevilla? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying6_good , saying6_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying6_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying6_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying6_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_6_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_6_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 El que se fue a Sevilla, \\pause=1000 perdió su silla."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_7" initiator="any"/>
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 7: A palabras necias … oídos sordos. -->
+<recipe name="saying_7">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A palabras necias? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying7_good , saying7_wrong , end_sayings , end_skill" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying7_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying7_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying7_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_7_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 7 after a wrong or no answer -->
+<recipe name="saying7_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying7_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying7_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A palabras necias? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying7_good , saying7_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying7_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying7_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying7_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_7_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_7_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A palabras necias,\\pause=1000 oídos sordos."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_8" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 8: Más vale tarde, que nunca. -->
+<recipe name="saying_8">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Más vale tarde? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying8_good , saying8_wrong , end_sayings , end_skill" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying8_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying8_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying8_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_8_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 8 after a wrong or no answer -->
+<recipe name="saying8_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying8_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying8_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Más vale tarde? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying8_good , saying8_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying8_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying8_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying8_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_8_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_8_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Más vale tarde,\\pause=1000 que nunca."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_9" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 9: El que ríe el último, … ríe mejor. -->
+<recipe name="saying_9">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 El que ríe el último? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying9_good , saying9_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying9_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying9_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying9_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_9_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 9 after a wrong or no answer -->
+<recipe name="saying9_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying9_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying9_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 El que ríe el último? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying9_good , saying9_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying9_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying9_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying9_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_9_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_9_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 El que ríe el último,\\pause=1000 ríe mejor."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_10" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 10: Quién bien te quiere ... te hará llorar. -->
+<recipe name="saying_10">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Quién bien te quiere? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying10_good , saying10_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying10_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying10_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying10_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_10_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 10 after a wrong or no answer -->
+<recipe name="saying10_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying10_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying10_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Quién bien te quiere? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying10_good , saying10_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying10_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying10_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying10_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_10_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_10_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Quién bien te quiere, \\pause=1000 te hará llorar."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="request_more_sayings" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 11: Perro ladrador, … poco mordedor.-->
+<recipe name="saying_11">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Perro ladrador? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying11_good , saying11_wrong , end_sayings , end_skill" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying11_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying11_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying11_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_11_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 11 after a wrong or no answer -->
+<recipe name="saying11_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying11_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying11_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Perro ladrador? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying11_good , saying11_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying11_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying11_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying11_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_11_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_11_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Perro ladrador,\\pause=1000 poco mordedor."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_12" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 12: No por mucho madrugar … amanece más temprano. -->
+<recipe name="saying_12">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 No por mucho madrugar? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying12_good , saying12_wrong , end_sayings , end_skill" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying12_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying12_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying12_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_12_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 12 after a wrong or no answer -->
+<recipe name="saying12_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying12_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying12_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 No por mucho madrugar? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying12_good , saying12_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying12_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying12_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying12_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_12_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_12_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 No por mucho madrugar,\\pause=1000 amanece más temprano."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_13" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 13: Ojos que no ven, … corazón que no siente. -->
+<recipe name="saying_13">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Ojos que no ven? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying13_good , saying13_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying13_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying13_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying13_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_13_complete" initiator="any"/>
+
+</body>
+</recipe>
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 13 after a wrong or no answer -->
+<recipe name="saying13_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying13_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying13_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Ojos que no ven? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying13_good , saying13_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying13_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying13_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying13_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_13_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_13_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Ojos que no ven,\\pause=1000 corazón que no siente."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_14" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 14: Se pilla antes a un mentiroso ... que a un cojo. -->
+<recipe name="saying_14">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Se pilla antes a un mentiroso? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying14_good , saying14_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying14_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying14_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying14_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_14_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 14 after a wrong or no answer -->
+<recipe name="saying14_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying14_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying14_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Se pilla antes a un mentiroso? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying14_good , saying14_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying14_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying14_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying14_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_14_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_14_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Se pilla antes a un mentiroso, que a un cojo."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_15" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 15: De tal palo … tal astilla. -->
+<recipe name="saying_15">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 De tal palo? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying15_good , saying15_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying15_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying15_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying15_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_15_complete" initiator="any"/>
+
+</body>
+</recipe>
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 15 after a wrong or no answer -->
+<recipe name="saying15_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying15_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying15_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 De tal palo? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying15_good , saying15_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying15_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying15_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying15_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_15_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_15_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 De tal palo,\\pause=1000 tal astilla."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_16" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 16: En boca cerrada … no entran moscas. -->
+<recipe name="saying_16">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 En boca cerrada? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying16_good , saying16_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying16_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying16_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying16_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_16_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 16 after a wrong or no answer -->
+<recipe name="saying16_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying16_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying16_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 En boca cerrada? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying16_good , saying16_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying16_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying16_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying16_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_16_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_16_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 En boca cerrada,\\pause=1000 no entran moscas."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_17" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 17: A caballo regalado … no le mires el diente. -->
+<recipe name="saying_17">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A caballo regalado? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying17_good , saying17_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying17_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying17_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying17_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_17_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 17 after a wrong or no answer -->
+<recipe name="saying17_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying17_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying17_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A caballo regalado? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying17_good , saying17_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying17_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying17_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying17_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_17_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_17_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 A caballo regalado,\\pause=1000 no le mires el diente."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_18" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 18: Aunque la mona se vista de seda … mona se queda. -->
+<recipe name="saying_18">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Aunque la mona se vista de seda? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying18_good , saying18_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying18_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying18_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying18_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_18_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 18 after a wrong or no answer -->
+<recipe name="saying18_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying18_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying18_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Aunque la mona se vista de seda? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying18_good , saying18_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying18_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying18_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying18_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_18_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_18_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Aunque la mona se vista de seda,\\pause=1000 mona se queda."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_19" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 19: Más vale maña … que fuerza. -->
+<recipe name="saying_19">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Más vale maña? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying19_good , saying19_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying19_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying19_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying19_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_19_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 19 after a wrong or no answer -->
+<recipe name="saying19_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying19_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying19_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Más vale maña? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying19_good , saying19_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying19_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying19_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying19_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_19_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_19_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Más vale maña,\\pause=1000 que fuerza."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_20" initiator="any"/>
+
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 20: No es oro todo … lo que reluce. -->
+<recipe name="saying_20">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 No es oro todo? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying20_good , saying20_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying20_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying20_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying20_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_20_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 20 after a wrong or no answer -->
+<recipe name="saying20_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying20_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying20_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 No es oro todo? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying20_good , saying20_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying20_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying20_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying20_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_20_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_20_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 No es oro todo lo que reluce."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="next_saying" initiator="any"/>
+    <goal recipe_name="saying_21" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!--============================================================-->
+
+<!-- Start saying 21: Cree el ladrón que todos … son de su condición. -->
+<recipe name="saying_21">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Cree el ladrón que todos? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying21_good , saying21_wrong , end_sayings , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Common sentences for a good answer -->
+<recipe name="saying21_good">
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="YES" />
+      <slot name="this" rel="bind" var="saying21_answer_atom"/>
+   </atom>
+</precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+    <atom>
+      <slot name="this" var="saying21_answer_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_good" initiator="any"/>
+    <goal recipe_name="saying_21_complete" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Repeat saying 21 after a wrong or no answer -->
+<recipe name="saying21_wrong">
+
+ <precondition>
+  <atom quantifier="exist">
+      <slot name="type" val="saying_answer"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="answer" rel="equal" val="NO" />
+      <slot name="this" rel="bind" var="saying21_wrong_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="saying21_wrong_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong" initiator="any"/>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Cree el ladrón que todos? "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="saying21_good , saying21_wrong_twice , end_sayings , end_skill" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying21_wrong_twice">
+
+  <precondition>
+    <atom quantifier="exist">
+    <slot name="type" val="saying_answer"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false" rel="equal"/>
+    <slot name="answer" rel="equal" val="NO" />
+    <slot name="this" rel="bind" var="saying21_wrong_twice_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+  <atom>
+  <slot name="this" var="saying21_wrong_twice_atom"/>
+  <slot name="consumed" val="true"/>
+  </atom>
+  </assignment>
+
+    <goal recipe_name="saying_wrong_twice" initiator="any"/>
+    <goal recipe_name="saying_21_complete" initiator="any"/>
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="saying_21_complete">
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\pause=1500 Cree el ladrón que todos,\\pause=1000 son de su condición."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="request_repeat_sayings , end_sayings , end_skill " initiator="any"/>
+
+  </body>
+</recipe>

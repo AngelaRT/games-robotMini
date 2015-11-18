@@ -1,0 +1,9 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = $sino;
+
+$sino = ("si":si | "vale":si | "okey":si | "genial":si | "de acuerdo":si | "venga":si | "por supuesto":si | "claro":si | "mejor no":no | "en otro momento":no | "no nos apetece":no | "no hace falta":no | "no es necesario":no | "no":no ){<@sino $value>};
+

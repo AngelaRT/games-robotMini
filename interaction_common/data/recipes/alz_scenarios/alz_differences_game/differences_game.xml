@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<recipe name="start_differences_game">
+
+  <!-- first recipe no conditions, always execute the body -->
+  <precondition>
+    <atom quatifier="exist">
+        <slot name="type" val="state_machine_update"/>
+        <slot name="subtype" val="user"/>
+        <!-- este estado habrá que cambiarle -->
+        <slot name="state" val="memory_game_session" rel="equal"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="state_differences_game_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="CONFIRMATION"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for start game session -->
+    <!-- De momento mantenemos el actor porque se ejecuta en alz_memory_game.cpp pero seguramente esto no seguirá siendo así -->
+   <!--  <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="differences_game"  type="string"/>
+<!--           <arg name="game_to_play"  value="presentSession"  type="string"/>
+ -->      <!-- </roboml:args>
+    </action> -->
+
+    <!-- Execute the recipe that waits for the presentation to end -->
+    <goal recipe_name="differences_game_finishes, exit_differences_game" initiator="any"/>
+
+    <!-- The 'state' atom is consumed here when we leave the presentation state.
+    We cannot consume it elsewhere so it remains alive as long as we remain in the state 'presentation' -->
+    <assignment>
+      <atom>
+        <slot name="this" var="state_differences_game_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- To remove the presentation grammar. There is no delete, so we set the general grammar again-->
+    <action name="set_grammar" actor="asr">
+        <roboml:args>
+        <arg name="grammar" value="alz_general.gram" type="string"/>
+        </roboml:args>
+    </action>
+
+    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+          <arg name="state"  value="waiting"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Presenter speaks to the robot. This is a general recipe to communicate with the presentation
+node. We bind the semantic value received to a variable and send it to the presentation node -->
+<recipe name="wait_for_presenter_differences_game">
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="game_option" rel="bind" var="option_var" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="this" rel="bind" var="asr_ok_game_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="asr_ok_game_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="CONFIRMATION"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+    <!-- <goal recipe_name="easy_level_command" initiator="any"/> -->
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!-- Robot advertises when the presentation finishes -->
+<recipe name="differences_game_finishes">
+  <precondition>
+    <atom>
+      <slot name="type" val="presentation_dialog_finished"/>
+      <slot name="subtype" val="user"/>
+      <slot name="part_finished" val="goodbye" rel="equal" />
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="this" rel="bind" var="game_finished_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid repeating the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="game_finished_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!-- When the presenter asks for the presentation to end, this recipe is triggered-->
+<recipe name="exit_differences_game">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="game_dialog_option" rel="equal" val="exit_differences_game" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="exit_differences_game_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="exit_differences_game_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Yawn with etts (to make sure the next time the robot speaks it's ok)-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\item=Breath_03 \\pause=1500 \\emphasis-- De acuerdo"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+      </action>
+
+  </body>
+</recipe>
+
+

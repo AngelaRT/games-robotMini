@@ -1,0 +1,12 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+public $root = $root_maggieSelf;
+
+public $root_maggieSelf = $body;
+
+public $body = ("cabeza":head | "ojo|ojos|parpado|parpados":eye | "cuello":neck |
+		"hombro":shoulder | "brazo":arm | "mano":hand |
+		"base|(ruedas de abajo)":base){<@body $value>};
+

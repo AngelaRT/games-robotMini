@@ -1,0 +1,48 @@
+#ABNF 1.0 UTF-8;
+
+language  es-ES;
+mode  voice;
+tag-format <semantics/1.0>;
+root  $digits;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     digits                                               	 */
+ /* @rule        digits                                               	 */
+ /* @version     6.3                                                     */
+ /* @author      Colibro Daniele                                         */
+ /* @date        May 7, 2001                                             */
+ /*                                                                      */
+ /* @example     siete cero siete                                        */
+ /* @semantic     "707"                                      	         */
+ /* @example     cero cero uno dos seis seis seis                        */
+ /* @semantic     "0012666"                                  	         */
+ /* @example     nueve ocho cero                                         */
+ /* @semantic     "980"                                      	         */
+ /* @example     tres tres tres cinco cuatro                             */
+ /* @semantic     "33354"                                    	         */
+ /* @example     seis ocho nueve cinco cinco uno cero                    */
+ /* @semantic     "6895510"                                  	         */
+ /* Description:                                                         */
+ /* This grammar allows the user to insert a digit sequence.             */
+ /* The sequence lenght is arbitrary.                                    */
+ /*                                                                      */
+ /************************************************************************/
+
+ public $digits = $more_number;
+
+ $more_number = {out = "";}($number  {out += rules.latest();})<[#[length,minlength,1]#]-[#[length,maxlength,]#]>;
+
+ $number = $simple_number;
+
+ $simple_number = (
+                    cero {out = 0;} | 
+                    uno {out = 1;} | 
+                    dos {out = 2;} | 
+                    tres {out = 3;} | 
+                    cuatro {out = 4;} | 
+                    cinco {out = 5;} | 
+                    seis {out = 6;} | 
+                    siete {out = 7;} | 
+                    ocho {out = 8;} | 
+                    nueve {out = 9;} 
+                  ) ;

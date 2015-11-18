@@ -1,0 +1,9 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = $digitos;
+
+$digitos = uno | dos | tres | cuatro | cinco | seis | siete | ocho | nueve | cero;
+

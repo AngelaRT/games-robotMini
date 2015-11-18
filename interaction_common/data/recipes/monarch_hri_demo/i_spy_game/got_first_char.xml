@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<recipe name="got_first_char">
+  <precondition>
+    <atom quantifier="exist">
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="user"/>
+      <slot name="sema" val="FIRST_CHAR" rel="equal"/>
+      <slot name="first_char" rel= "bind" var="first_char_var"/>
+      <slot name="id" rel="bind" var="present_user_id"/>
+      <slot name="this" rel="bind" var="present_user_atom"/>
+    </atom>
+    <atom quantifier="exist">
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="globals"/>
+      <slot name="this" rel="bind" var="globals_atom"/>
+    </atom>
+  </precondition>
+
+
+  <body order="sequence">
+    <action name="say_text" actor="etts">
+      <roboml:args>
+        <arg name="text_to_speech" value="Intento palabras por la letrita $first_char_var" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="try_word" actor="I_spy">
+      <roboml:args>
+        <arg name="first_char" value="$first_char_var" type="string"/>
+      </roboml:args>
+      <roboml:return_args>
+        <arg name="new_word" var="new_word_var" type="string"/>
+      </roboml:return_args>
+    </action>
+
+	<!-- How to bind return_args, still in construction...  -->
+    <!--action name="say_text" actor="etts">
+      <roboml:args>
+        <arg name="text_to_speech" value="Esta es la palabra $new_word_var" type="string"/>
+      </roboml:args>
+    </action>
+
+    <assignment>
+	<atom>
+	  <slot name="new_word" value="$new_word_var"/>
+	  <slot name="this" var="present_user_atom"/>
+	</atom>
+    </assignment-->
+  </body>
+
+  <assignpost>
+    <atom>
+      <slot name="sema" val="_NO_VALUE_"/>
+      <slot name="this" var="present_user_atom"/>
+    </atom>
+    <atom>
+      <slot name="status" val="trying_words"/>
+      <slot name="this" var="globals_atom"/>
+    </atom>
+  </assignpost>
+
+</recipe>

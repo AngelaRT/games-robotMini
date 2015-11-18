@@ -1,0 +1,56 @@
+#ABNF 1.0 UTF-8;
+
+language  es-ES;
+mode  voice;
+tag-format <semantics/1.0>;
+public $root = $root_bool;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     boolean                                                 */
+ /* @rule        boolean                                              	 */
+ /* @version     6.3                                                     */
+ /* @author      Colibro Daniele                                         */
+ /* @date        May 10, 2001                                            */
+ /*                                                                      */
+ /* @example     exactamente                                             */
+ /* @semantic     "true"                                    	         */
+ /* @example     exactamente_si                                          */
+ /* @semantic     "true"                                    	         */
+ /* @example     correcto                                                */
+ /* @semantic     "true"                                    	         */
+ /* @example     afirmativo                                              */
+ /* @semantic     "true"                                    	         */
+ /* @example     si                                                      */
+ /* @semantic     "true"                                    	         */
+ /* @example     si_si                                                   */
+ /* @semantic     "true"                                    	         */
+ /* @example     no                                                      */
+ /* @semantic     "false"                                   	         */
+ /* @example     no_no                                                   */
+ /* @semantic     "false"                                   	         */
+ /*                                                                      */
+ /* Description: This grammar allows the user to answer a simple         */
+ /* question affermatively or negatively.                                */
+ /*                                                                      */
+ /************************************************************************/
+
+ public $root_bool = $yno ;
+
+ $yno = (
+          $yes | 
+          $no 
+        );
+
+ $yes = (
+          exactamente | 
+          exactamente_si | 
+          correcto | 
+          afirmativo | 
+          si | 
+          si_si
+        ) {out = "true";};
+
+ $no = (
+         no | 
+         no_no | negativo | "te equivocas"
+       ) {out = "false";};

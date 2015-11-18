@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repoAD/!svn/ver/19062/catkin_projects/interaction_common/unstable/data/init_files/alz_scenarios
+END
+init_story_telling.xml
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repoAD/!svn/ver/16147/catkin_projects/interaction_common/unstable/data/init_files/alz_scenarios/init_story_telling.xml
+END
+init_alz_presentation.xml
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repoAD/!svn/ver/16558/catkin_projects/interaction_common/unstable/data/init_files/alz_scenarios/init_alz_presentation.xml
+END
+init_alz_basic_states.xml
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repoAD/!svn/ver/19062/catkin_projects/interaction_common/unstable/data/init_files/alz_scenarios/init_alz_basic_states.xml
+END

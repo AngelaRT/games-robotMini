@@ -1,0 +1,9 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = $sino;
+
+$sino = ("si":SI | "no":NO | "afirmativo":SI | "vale":SI | "negativo":NO | "de acuerdo":SI | "incorrecto":NO | "okey":SI | "chevere":SI){<@Respuesta $value>};
+

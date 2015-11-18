@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<recipe name="did_not_understood">
+  <!---------------------------------------------------------------->
+  <precondition>
+    <atom quantifier="exist">
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="user"/>
+      <!--<slot name="user_speaking" val='stop' rel="equal"/> -->
+      <!--<slot name="echo_accomplished" val="false" rel="equal"/> -->
+      <slot name="asr_transcription_confidence" val="0.6" rel="<"/>
+      <slot name="id" rel="bind" var="present_user_id"/>
+      <slot name="this" rel="bind" var="present_user_atom"/>
+    </atom>
+    <atom quantifier="exist">
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="globals"/>
+      <slot name="this" rel="bind" var="globals_atom"/>
+    </atom>
+  </precondition>
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <action name="say_text" actor="etts">
+      <!-- <roboml:args>
+        <arg name="text_to_speech"
+             value="No he entendido lo que has dicho"
+             type="string"/>
+      </roboml:args> -->
+      <roboml:random>
+        <!-- outcome 1 -->
+        <roboml:random_outcome p="0.5">
+          <roboml:args>
+            <arg name="text_to_speech"
+                 value="No he entendido lo que has dicho"
+                 type="string"/>
+          </roboml:args>
+        </roboml:random_outcome>
+        <!-- outcome 2 -->
+        <roboml:random_outcome p="0.5">
+          <roboml:args>
+            <arg name="text_to_speech"
+                 value="Que has dicho"
+                 type="string"/>
+          </roboml:args>
+        </roboml:random_outcome>
+      </roboml:random>
+
+      <!-- <assignment>
+      </assignment> -->
+    </action>
+  </body>
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <atom>
+      <slot name="asr_transcription_confidence"
+            val="0.6"
+            type="number"/> <!-- super dirty hack -->
+      <slot name="user_speaking"
+            val="_NO_VALUE_"
+            type="string"/>
+      <slot name="echo_accomplished"
+            val="true"/>
+      <slot name="this" var="present_user_atom"/>
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+</recipe>

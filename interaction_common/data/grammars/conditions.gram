@@ -1,0 +1,10 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+public $root = $conditions;
+
+$side = ("izquierda|izquierdo":left | "derecha|derecho":right |"ambas|ambos":both){<@side $value>};
+$verb = ("toque|toco":touch){@verb $value};
+
+$conditions = [magui] (cuando | si) [te] $verb [$<maggieSelf.gram#body>] [$side];

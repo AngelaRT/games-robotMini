@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!-- #################################################################################################### -->
+<!-- # Recipe that  triggers when an user is detected                                 # -->
+<!-- #################################################################################################### -->
+<recipe name="give_greetings">
+
+  <precondition>
+  <atom>
+    <!-- Conditions: a new user has come in the scene-->
+    <slot name="type" val="user_come_in"/>
+    <slot name="subtype" val="user"/>
+    <slot name="consumed" val="false"/>
+    <!-- Atom is named as user_come_in_atom -->
+    <slot name="this" rel="bind" var="user_come_in_atom"/>
+  </atom>
+    
+  </precondition>
+
+
+  <body order="sequence">
+
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Hola!. Por fin veo a alguien por aqui."  type="string"/>
+          <arg name="language" value="es" type="string"/>
+          <arg name="engine"  value="loquendo" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_surprise" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Consume the atom to no repeat this recipe -->
+    <assignment>
+      <atom>
+        <slot name="this" var="user_come_in_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Set the grammar to recognize the greetings -->
+    <action name="set_grammar" actor="asr">
+        <roboml:args>
+            <!-- Grammar to set on asr grammar based engine (without absolute path and without extension .gram) -->
+            <arg name="grammar" value="enrollOrLogin.gram" type="string"/>
+        </roboml:args>
+     </action>
+
+    <!-- Go to the next recipes -->
+    <goal recipe_name="greeting_response_OK , greeting_response_nothing , greeting_response_leave" 
+          initiator="any"/>
+
+    <!-- The dialog has finised, say it -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Adios. Nos vemos mas tarde."  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Perform a gesture to say goodbay -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_sad" type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+
+  <assignpost>
+  </assignpost>
+
+</recipe>
+
+
+
+
+
+
+
+

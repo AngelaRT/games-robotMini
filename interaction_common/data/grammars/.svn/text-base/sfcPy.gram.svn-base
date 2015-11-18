@@ -1,0 +1,108 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+public $root = $gram;
+
+$gram = $fp1 | $fp2 | $fc | $ky | $nn | $no | $ad | $nd | $sd;
+
+/* action-directive */
+$ad = ($action|$condition|$then|$atonce|$selseqinit|$branchend|$loop|$runseq|$stopseq|$rmseq){<@da "ad">};
+
+/*$cmd = */
+
+/* articulos */
+$aDet = el | la | lo | los | las;
+$aIn = un | una | uno | unos | unas;
+$art = $aDet | $aIn;
+
+/* conventional-opening */
+$fp1 = ((magui | hola | muy_buenas) [magui]){<@da "fp1">};
+$fp2 = ("que_tal" | "como estas"){<@da "fp2">};
+
+/* conventional-closing */
+$fc = adios [magui]{<@da "fc">};
+
+/* response acknowledgement or yes answer */
+$ky = (okei|vale|de_acuerdo|si|afirmativo|correcto|[que|muy] bien)[magui]{<@da "ky">};
+
+/* no answer */
+$nn = (no|negativo|incorrecto|[que|muy] mal)[magui]{<@da "nn">};
+
+/* other answer */
+$no = (no_lo_se | no_se | ni_idea) {<@da "no">};
+
+
+/* actions */
+$rise = ( "levanta"|"sube" ){<@verb "move"><@limit "Top">};
+$down = "baja"{<@verb "move"><@limit "Down">};
+$spin = ( "gira"|"pones"|"mueve" ){<@verb "spin"><@body "Base">};
+$fwd = ( "avanza" | "ven" | "ve_para_adelante" ){<@verb "fwd"><@body "Base"><@limit "Front">};
+$rev = ( "retrocede" | "atras" | "ves_para_atras" ){<@verb "fwd"><@body "Base"><@limit "Back">};
+$startfollowme = ( "me sigues" | "comienzas a seguirme" |"sigueme" ){<@verb "startfollowme">};
+$stopfollowme = ( "dejas de seguirme" ){<@verb "stopfollowme">};
+
+/* conditions */
+$touch = ( toco | toque ){<@verb "touch">};
+
+$eye = ( ( "ojo" | "parpado" )[$left | $right] ){<@body "Eye">};
+$arm = ( ("brazo" | "hombro") [$left | $right] ){<@body "Arm">};
+$neck = ( "cabeza" | "cuello" ){<@body "Neck">};
+$hand = ( ( "mano" ) [$left | $right] ){<@body "Hand">};
+$back = ( "espalda" ){<@body "Back">};
+
+$body4rise = $eye | $arm | $neck;
+$body4spin = $neck; 
+$body4touch = $arm | $neck | $hand | $back;
+
+$left = ( "izquierdo" |"izquierda" ){<@axis "left">};
+$right = ( "derecho" |"derecha" ){<@axis "right">};
+$straight = ("recto" |"centro" | "centrado"){<@axis "Center">};
+$axis = $left | $right | $straight;
+
+$action1 = ( ( $rise | $down ) [$aDet] [$body4rise] ){<@sintaxis "1">};
+$action2 = ( $spin [$aDet] [$body4spin] [a_la] [$axis] ){<@sintaxis "2">};
+$action3 = ( $fwd | $rev ){<@sintaxis "3">};
+$action4 = ( $startfollowme | $stopfollowme ){<@sintaxis "4">};
+
+$action = ( $action1 | $action2 | $action3 | $action4 ){<@type "action">};
+
+$then = (despues  [de ($action | $condition)] | lo siguiente | a continuacion){<@type "then">};
+$touched = ([magui] (cuando | si | esperas [a | que]) [te] $touch  [$body4touch]);
+
+$condition = ( $touched ){<@type "condition">};
+
+ 
+
+/* nd - answers */
+$simpleseqEx = ( [baile | secuencia] simple ) {<@da "nd"><@obj "simpleseq">};
+$atonceEx = ( [varios] [bailes | secuencias] en paralelo ) {<@da "nd"><@obj "atonce">};
+$selseqEx = ( seleccion [de (bailes | secuencias)] ) {<@da "nd"><@obj "selseq">};
+$bodyEx = ( $eye | $arm | $neck | $hand | $back )  {<@da "nd"><@obj "body">};
+$sideEx = $axis {<@da "nd"><@obj "axis">};
+$actionEx = accion {<@da "nd"><@obj "action">};
+$conditionEx = condicion {<@da "nd"><@obj "condition">};
+$cardinalEx = $cardinal {<@da "nd"><@obj "cardinal">};  
+$ordinalEx = $ordinal {<@da "nd"><@obj "ordinal">};  
+
+$nd = $simpleseqEx | $atonceEx | $selseqEx | $bodyEx | $sideEx | $actionEx | $conditionEx | $ordinalEx | $cardinalEx;
+
+/* statement-non-opinion */
+$sd = ([$GARBAGE|en (el|la)]($cardinal| $ordinal)[secuencia|baile]){<@da "sd">};
+
+/* comandos estructurales de edicion de la secuencia */
+$selseqinit = ((( abres | consideras | creas ) $cardinal ( opciones | posibilidades )) | (puedo hacer $cardinal cosas)){<@type "selseq">};
+$atonce =(a_la_vez [haces] [$cardinal] [cosas]){<@type "atonce">};
+$branchend = (Terminas | Por ultimo | para terminar | Y finalmente | despues [de (todo | algo)] ($action | [esperas a que] $condition)) {<@type "branchend">};
+$conclution = ( (despues de [hacer [alguna de]] las [$cardinal] [ramas]) | ([luego|y] ( cierras | unes | terminas) las [$cardinal] opciones) ){<@type "conclution">};
+$loop = [despues | (por ultimo)] ((vuelves al principio)|(repites la secuencia)) {<@type "loop">};
+
+/* comandos de ejecucion de la secuencia */
+$runseq = ([magui] ejecuta la secuencia){<@type "runseq">};
+$stopseq = ([magui] ( (para [de ejecutar [la secuencia]]) | (estate quieta) )){<@type "stopseq">};
+$rmseq = ([magui] (nueva | borra_la) secuencia){<@type "rmseq">};
+
+/* numeros */
+$cardinal = ( un:1 | uno:1 | una:1 | dos:2 | tres:3 | cuatro:4 | cinco:5 | seis:6 | siete:7 | ocho:8 | nueve:9  ){<@cardinal $value>}; 
+$ordinal = (primer:1|primero:1|primera:1 | segun:2|segundo:2|segunda:2 | tercer:3|tercero:3|tercera:3 | cuarto:4|cuarta:4 | quinto:5|quinta:5 | sexto:6|sexta:6 | septimo:7|septima:7 | octavo:8|octava:8 | noveno:9|novena:9 ){<@ordinal $value><@type "ordinal">};
+

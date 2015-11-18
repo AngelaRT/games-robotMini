@@ -1,0 +1,36 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <semantics/1.0>;
+
+public $root = [$GARBAGE] $action;
+
+$action =
+(
+    "subelo" { out.Action = "subir"; } |
+    "bajalo" { out.Action = "bajar"; } |
+    "sube el brazo derecho" { out.Action = "subir"; out.BodyPart = "brazo_derecho"; } |
+    "sube el brazo izquierdo" { out.Action = "subir"; out.BodyPart = "brazo_izquierdo"; } |
+    "baja el brazo derecho" { out.Action = "bajar"; out.BodyPart = "brazo_derecho"; } |
+    "baja el brazo izquierdo" { out.Action = "bajar"; out.BodyPart = "brazo_izquierdo"; } |
+    "girala a la derecha" { out.Action = "girarderecha"; } |
+    "girala a la izquierda" { out.Action = "girarizquierda"; } |
+    "gira la cabeza a la derecha" { out.Action = "girarderecha"; out.BodyPart = "cabeza"; } |
+    "gira la cabeza a la izquierda" { out.Action = "girarizquierda"; out.BodyPart = "cabeza"; } |
+    "vete a la derecha" { out.Action = "moverderecha"; out.BodyPart = "base"; } |
+    "vete a la izquierda" { out.Action = "moverizquierda"; out.BodyPart = "base"; } |
+    "retrocede" { out.Action = "retroceder"; out.BodyPart = "base"; } |
+    "avanza" { out.Action = "avanzar"; out.BodyPart = "base"; } |
+    "estate quieta" { out.Action = "parar"; } |
+    "parate" { out.Action = "parar"; } |
+    "para" { out.Action = "parar"; } |
+    "dejalo ya" { out.Action = "parar"; } |
+    "no lo hagas mas" { out.Action = "parar"; } |
+    "vete al caragdor" {out.Action = "cargador"; out.BodyPart = "base";} |
+    "acercate al caragdor" {out.Action = "cargador"; out.BodyPart = "base";} |
+    "vete a la puerta" {out.Action = "puerta"; out.BodyPart = "base";} |
+    "acercate a la puerta" {out.Action = "puerta"; out.BodyPart = "base";} |
+    "acercate a la television" {out.Action = "television"; out.BodyPart = "base";} |
+    "vete a la television" {out.Action = "television"; out.BodyPart = "base";}
+);
+

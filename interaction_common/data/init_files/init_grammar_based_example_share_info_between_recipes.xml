@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<iminit>
+  <triggerables>
+    <recipe name="parent_recipe" max_instances="1"/>
+    <recipe name="daughter_recipe" max_instances="1"/>
+  </triggerables>
+
+  <recipefiles>
+    <file>multimodal_basic_examples/grammar_based_example_share_info_between_recipes.xml</file>
+  </recipefiles>
+
+  <actionfiles>
+    <file>default_actions.xml</file>
+  </actionfiles>
+</iminit>

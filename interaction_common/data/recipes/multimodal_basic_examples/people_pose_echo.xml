@@ -1,0 +1,179 @@
+<!-- #################################################################################################### -->
+<!-- # Receta que se dispara cuando se obtiene datos de posicion e identificacion de usuarios           # -->
+<!-- #################################################################################################### -->
+<recipe name="people_tracking_echo">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from people pose list (users detection, identification and tracking) -->
+    <atom>
+      <!-- Condiciones de la receta-->
+      <slot name="type" val="people_pos"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false"/>
+      <!-- Variables -->
+      <slot name="number_user_detected" rel="bind" var="number_user_detected_var" />
+      <slot name="number_user_gazing_robot" rel="bind" var="number_user_gazing_robot_var" />
+      <slot name="interaction_distance_average_all_users" rel="bind" var="interaction_distance_average_all_users_var" />
+      <slot name="user_name_0" rel="bind" var="user_name_0_var" />
+      <slot name="interaction_distance_0" rel="bind" var="interaction_distance_0_var" />
+      <slot name="gazing_0" rel="bind" var="gazing_0_var" />
+      <slot name="gender_1" rel="bind" var="gender_1_var" />
+      <slot name="user_name_1" rel="bind" var="user_name_1_var" />
+      <slot name="interaction_distance_1" rel="bind" var="interaction_distance_1_var" />
+      <slot name="gazing_1" rel="bind" var="gazing_1_var" />
+      <slot name="gender_1" rel="bind" var="gender_1_var" />
+      <!-- Nombre del atomo-->
+      <slot name="this" rel="bind" var="people_pos_atom"/>
+    </atom>
+  </precondition>
+  <!---------------------------------------------------------------->
+
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Veo $number_user_detected_var personas. Su nombre es $user_name_0_var" type="string"/>
+          <arg name="engine"  value="ivona"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_head_rotation" type="string"/>
+      </roboml:args>
+    </action>
+
+
+  </body>
+
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <atom>
+        <slot name="this" var="people_pos_atom" />
+        <slot name="consumed" val="true" />
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+
+
+
+<!-- #################################################################################################### -->
+<!-- # Receta que se dispara cuando un usuario entra en la escena                                       # -->
+<!-- #################################################################################################### -->
+<recipe name="user_come_in">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from people pose list (users detection, identification and tracking) -->
+    <atom>
+      <!-- Condiciones de la receta-->
+	  <slot name="type" val="user_come_in"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false"/>
+      <!-- Nombre del atomo-->
+      <slot name="this" rel="bind" var="user_come_in_atom"/>
+    </atom>
+  </precondition>
+  <!---------------------------------------------------------------->
+
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Hola | Encantado de verte | Buenas | Hola. Que tal? | Bienvenido" type="string"/>
+          <arg name="engine"  value="ivona"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_head_rotation" type="string"/>
+      </roboml:args>
+    </action>
+
+
+  </body>
+
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <atom>
+        <slot name="this" var="user_come_in_atom" />
+        <slot name="consumed" val="true" />
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+
+<!-- #################################################################################################### -->
+<!-- # Receta que se dispara cuando un usuario sale de la escena                                        # -->
+<!-- #################################################################################################### -->
+<recipe name="user_leaving">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from people pose list (users detection, identification and tracking) -->
+    <atom>
+      <!-- Condiciones de la receta-->
+     <slot name="type" val="user_leaving"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false"/>
+      <!-- Nombre del atomo-->
+      <slot name="this" rel="bind" var="user_leaving_atom"/>
+    </atom>
+  </precondition>
+  <!---------------------------------------------------------------->
+
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Adios |  Hasta otra | No te vayas | Hasta luego | No me abandones" type="string"/>
+          <arg name="engine"  value="ivona"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_head_rotation" type="string"/>
+      </roboml:args>
+    </action>
+
+
+  </body>
+
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <atom>
+        <slot name="this" var="user_leaving_atom" />
+        <slot name="consumed" val="true" />
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+

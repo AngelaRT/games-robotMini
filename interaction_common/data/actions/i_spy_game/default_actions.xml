@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!--bml name="direct">
+  <roboml:args>
+    <arg name="command" type="direct"/>
+  </roboml:args>
+</bml-->
+
+<bml name="out_step_0">
+  <roboml:args>
+   <arg name="text" default="veo veo" type="string"/>
+  </roboml:args>
+</bml>
+
+<bml name="out_step_1">
+  <roboml:args>
+   <arg name="text_to_speech" default="que ves" type="string"/>
+  </roboml:args>
+</bml>
+
+<bml name="out_step_2">
+  <roboml:args>
+   <arg name="text_to_speech" default="una cosita" type="string"/>
+  </roboml:args>
+</bml>
+
+<bml name="out_step_3">
+  <roboml:args>
+   <arg name="text_to_speech" default="y que cosita es?" type="string"/>
+  </roboml:args>
+</bml>
+
+<bml name="out_step_4">
+  <roboml:args>
+   <arg name="text_to_speech" default="Empieza con la letrita letritaaa..." type="string"/>
+  </roboml:args>
+</bml>
+
+<bml name="say_first_char">
+</bml>
+
+<bml name="out_match_yes">
+  <roboml:args>
+   <arg name="text_to_speech" default="Si! Enhorabuena!" type="string"/>
+  </roboml:args>
+</bml>
+
+<bml name="check_word">
+  <roboml:args>
+   <arg name="word" default="_NO_VALUE_" type="string"/>
+  </roboml:args>
+</bml>
+
+<bml name="try_word">
+  <roboml:args>
+    <arg name="first_char" value="_NO_VALUE_" type="string"/>
+  </roboml:args>
+  <roboml:return_args>
+    <arg name="new_word" value="_NO_VALUE_" var="new_word_var" type="string"/>
+  </roboml:return_args>
+</bml>
+
+<bml name="change_turn">
+<roboml:args>
+    <arg name="turn" default="_NO_VALUE_" type="string"/>
+</roboml:args>
+</bml>
+
+
+<bml name="load_grammar">
+  <roboml:args>
+   <arg name="grammar_file" default="_NO_VALUE_" type="string"/>
+  </roboml:args>
+</bml>
+
+<bml name="neg">
+  <roboml:args>
+    <arg name="text_to_speech" value="Nooooo" type="string"/>
+  </roboml:args>
+</bml>
+
+<bml name="aff">
+  <roboml:args>
+    <arg name="text_to_speech" value="Si. Has acertado. Te toca." type="string"/>
+  </roboml:args>
+</bml>
+
+<bml name="say_text">
+  <roboml:args>
+    <arg name="text_to_speech" value="_NO_VALUE_" type="string"/>
+  </roboml:args>
+</bml>
+
+<!-- This are required default actions for any IM setup -->
+
+<bml name="abort_action">
+</bml>

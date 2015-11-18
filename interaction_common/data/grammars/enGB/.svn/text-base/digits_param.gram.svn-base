@@ -1,0 +1,58 @@
+#ABNF 1.0 UTF-8;
+
+language  en-GB;
+mode  voice;
+tag-format <semantics/1.0>;
+root  $digits;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     digits                                               	*/
+ /* @rule        digits                                               	*/
+ /* @version     6.3                                                     */
+ /* @author      Colibro Daniele, Fissore Luciano, Vair Claudio          */
+ /* @date        March 27, 2001                                          */
+ /*                                                                      */
+ /* @example     seven oh seven                                          */
+ /* @semantic    <@digits "707">                                      	*/
+ /* @example     double zero one two triple six                          */
+ /* @semantic    <@digits "0012666">                                  	*/
+ /* @example     nine eight naught                                       */
+ /* @semantic    <@digits "980">                                      	*/
+ /* @example     triple three five four                                  */
+ /* @semantic    <@digits "33354">                                    	*/
+ /* @example     six eight nine double five one oh                       */
+ /* @semantic    <@digits "6895510">                                  	*/
+ /* Description:                                                         */
+ /* This grammar allows the user to insert a digit sequence.             */
+ /* The sequence lenght is arbitrary.                                    */
+ /* The output variable that contains the user value is @digits.      	*/
+ /*                                                                      */
+ /************************************************************************/
+
+ public $digits = $more_number;
+
+ $more_number = {out = "";}($number {out += rules.number})<[#[length,minlength,1]#]-[#[length,maxlength,]#]>;
+
+ $number = (
+             $simple_number {out = "" + rules.latest();} | 
+             double $simple_number  {var num; num = rules.latest(); out = "" + num + num;} | 
+             (
+               treble | 
+               triple
+             ) $simple_number {var num; num = rules.latest(); out = "" + num + num + num;}
+           ) ;
+
+ $simple_number = (
+                    zero {out = 0;} | 
+                    oh {out = 0;} | 
+                    naught {out = 0;} | 
+                    one {out = 1;} | 
+                    two {out = 2;} | 
+                    three {out = 3;} | 
+                    four {out = 4;} | 
+                    five {out = 5;} | 
+                    six {out = 6;} | 
+                    seven {out = 7;} | 
+                    eight {out = 8;} | 
+                    nine {out = 9;} 
+                  ) ;

@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the story_telling_skill to stop -->
+<recipe name="stop_story">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="story_telling_stop" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="story_telling_stop_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Dejo de contartela. | Ya me callo."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="story_telling_stop_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action to story_telling_pause -->
+    <action name="story_telling_pause_resume" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="data"  value="0"  type="number"/>
+      </roboml:args>
+    </action>
+
+    <!-- Change show liveliness from talking to waiting -->
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="waiting" type="string"/>
+        </roboml:args>
+     </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the story_telling_skill to pause -->
+<!-- Msg data: 0 for pause, 1 for resume -->
+<recipe name="pause_story">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="story_telling_pause" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="story_telling_pause_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Hago una pausa"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="story_telling_pause_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action to story_telling_pause -->
+    <action name="story_telling_pause_resume" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="data"  value="0"  type="number"/>
+      </roboml:args>
+    </action>
+
+    <!-- Change show liveliness from talking to waiting -->
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="waiting" type="string"/>
+        </roboml:args>
+     </action>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the story_telling_skill to resume -->
+<!-- Msg data: 0 for pause, 1 for resume -->
+<recipe name="resume_story">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="story_telling_resume" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="story_telling_resume_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Continúo contando"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="story_telling_resume_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action to story_telling_pause -->
+    <action name="story_telling_pause_resume" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="data"  value="1"  type="number"/>
+      </roboml:args>
+    </action>
+
+    <!-- Change show liveliness from talking to waiting -->
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="repeat_story">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="story_telling_repeat" />
+        <slot name="st_id" rel="equal" val="" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="story_telling_repeat_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Te lo repito"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="story_telling_repeat_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action to story_telling_repeat -->
+    <action name="story_telling_repeat" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="data"  value="0"  type="number"/>
+      </roboml:args>
+    </action>
+
+    <!-- Change show liveliness from talking to waiting -->
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+
+    <goal recipe_name="end_st_poem , stop_story , end_skill" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the story_telling_skill to repeat the last one -->
+<recipe name="previous_story">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="story_telling_previous" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="story_telling_previous_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Paso a la previa."   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="story_telling_previous_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action to story_telling_previous -->
+    <action name="story_telling_previous" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="data"  value="0"  type="number"/>
+      </roboml:args>
+    </action>
+
+    <!-- Change show liveliness from waiting to talking -->
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the story_telling_skill to go to the next one -->
+<recipe name="next_story">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="story_telling_next" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="story_telling_next_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Paso a la siguiente"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="story_telling_next_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action to story_telling_next -->
+    <action name="story_telling_next" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="data"  value="0"  type="number"/>
+      </roboml:args>
+    </action>
+
+    <!-- Change show liveliness from waiting to talking -->
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for a general tale -->
+<recipe name="goto_general_tale">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" rel="equal" val="false"/>
+        <slot name="st_option" rel="equal" val="story_telling_goto_tale" />
+        <slot name="st_id" rel="equal" val="" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="st_type" rel="bind" var="st_type_var" />
+        <slot name="this" rel="bind" var="goto_general_tale_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="A ver si te gusta este  | Vamos con este | Perfecto. A ver si te gusta"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="goto_general_tale_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action for telling a story-->
+    <action name="story_telling_goto_tale" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="story_reference"  value="$st_type_var"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Change show liveliness from waiting to talking -->
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+     </action>
+
+    <goal recipe_name="end_story , end_poem , end_curiosity , end_anecdote , end_joke" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for a specific tale -->
+<recipe name="goto_specific_tale">
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="st_option" rel="equal" val="story_telling_goto_tale" />
+        <slot name="st_id" rel="!=" val="" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="st_id" rel="bind" var="st_id_var" />
+        <slot name="this" rel="bind" var="goto_specific_tale_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Te lo voy a contar | Me lo se. Te lo cuento. "   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <assignment>
+      <atom>
+        <slot name="this" var="goto_specific_tale_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Action to story_telling_goto_tale -->
+    <action name="story_telling_goto_tale" actor="story_telling_skill">
+      <roboml:args>
+          <arg name="story_reference"  value="$st_id_var"  type="string"/>
+      </roboml:args>
+    </action>
+
+        <!-- Change show liveliness from waiting to talking -->
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="talking" type="string"/>
+        </roboml:args>
+    </action>
+
+    <goal recipe_name="end_story , end_poem , end_curiosity , end_anecdote , end_joke" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the story_telling_skill to go to another story -->
+<recipe name="end_story">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="activity_finished"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="activity" rel="equal" val="STORY" />
+        <slot name="this" rel="bind" var="end_story_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Y así se acaba esta historia | Colorín colorado, este cuento se ha acabado"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_happy" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="end_story_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Change show liveliness from waiting to talking -->
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="waiting" type="string"/>
+        </roboml:args>
+     </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Quieres que te cuente otra historia?"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="add_grammar" actor="asr">
+        <roboml:args>
+            <arg name="grammar" value="si_no.gram" type="string"/>
+        </roboml:args>
+    </action>
+
+    <goal recipe_name="yes_another_story , no_more" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User request another story -->
+<recipe name="yes_another_story">
+  <precondition>
+  <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="sino" rel="equal" val="si" />
+      <slot name="confidence" rel=">" val="0.4" type="number" />
+      <slot name="this" rel="bind" var="another_story_atom"/>
+   </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="another_story_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+      <action name="say_text" actor="etts">
+        <roboml:args>
+            <arg name="sentence"  value="A ver si te gusta este | Vamos con este | Perfecto. A ver si te gusta"   type="string"/>
+            <arg name="engine"  value="loquendo"  type="string"/>
+            <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+        </roboml:args>
+      </action>
+
+
+      <!-- Action from Gesture Player -->
+      <action name="perform_gesture" actor="gesture_player">
+        <roboml:args>
+            <arg name="gesture_filename"  value="alz_yes" type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Action for telling a story-->
+      <action name="story_telling_goto_tale" actor="story_telling_skill">
+        <roboml:args>
+            <arg name="story_reference"  value="STORY"  type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Change show liveliness from waiting to talking -->
+
+      <action name="liveliness_status_update" actor="show_liveliness">
+          <roboml:args>
+              <arg name="status" value="talking" type="string"/>
+          </roboml:args>
+       </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the story_telling_skill to go to another poem -->
+<recipe name="end_poem">
+<precondition>
+  <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="activity_finished"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="activity" rel="equal" val="POEM" />
+      <slot name="this" rel="bind" var="end_poem_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="end_poem_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+  <!-- Change show liveliness from waiting to talking -->
+
+  <action name="liveliness_status_update" actor="show_liveliness">
+      <roboml:args>
+          <arg name="status" value="waiting" type="string"/>
+      </roboml:args>
+   </action>
+
+  <action name="say_text" actor="etts">
+    <roboml:args>
+        <arg name="sentence"  value="Quieres que te cuente otro poema?"   type="string"/>
+        <arg name="engine"  value="loquendo"  type="string"/>
+        <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+    </roboml:args>
+  </action>
+
+  <action name="add_grammar" actor="asr">
+      <roboml:args>
+          <arg name="grammar" value="si_no.gram" type="string"/>
+      </roboml:args>
+  </action>
+
+  <goal recipe_name="yes_another_poem , no_more" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User request another poem -->
+<recipe name="yes_another_poem">
+  <precondition>
+  <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="sino" rel="equal" val="si" />
+      <slot name="confidence" rel=">" val="0.4" type="number" />
+      <slot name="this" rel="bind" var="another_poem_atom"/>
+   </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="another_poem_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+      <action name="say_text" actor="etts">
+        <roboml:args>
+            <arg name="sentence"  value="A ver si te gusta este  | Vamos con este | Perfecto. A ver si te gusta"   type="string"/>
+            <arg name="engine"  value="loquendo"  type="string"/>
+            <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+        </roboml:args>
+      </action>
+
+
+      <!-- Action from Gesture Player -->
+      <action name="perform_gesture" actor="gesture_player">
+        <roboml:args>
+            <arg name="gesture_filename"  value="alz_yes" type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Action for telling a story-->
+      <action name="story_telling_goto_tale" actor="story_telling_skill">
+        <roboml:args>
+            <arg name="story_reference"  value="POEM"  type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Change show liveliness from waiting to talking -->
+
+      <action name="liveliness_status_update" actor="show_liveliness">
+          <roboml:args>
+              <arg name="status" value="talking" type="string"/>
+          </roboml:args>
+       </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the story_telling_skill to go to another curiosity -->
+<recipe name="end_curiosity">
+<precondition>
+  <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="activity_finished"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="activity" rel="equal" val="CURIOSITY" />
+      <slot name="this" rel="bind" var="end_curiosity_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="end_curiosity_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+  <!-- Change show liveliness from waiting to talking -->
+
+  <action name="liveliness_status_update" actor="show_liveliness">
+      <roboml:args>
+          <arg name="status" value="waiting" type="string"/>
+      </roboml:args>
+   </action>
+
+  <action name="say_text" actor="etts">
+    <roboml:args>
+        <arg name="sentence"  value="Quieres que te cuente otra curiosidad?"   type="string"/>
+        <arg name="engine"  value="loquendo"  type="string"/>
+        <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+    </roboml:args>
+  </action>
+
+  <action name="add_grammar" actor="asr">
+      <roboml:args>
+          <arg name="grammar" value="si_no.gram" type="string"/>
+      </roboml:args>
+  </action>
+
+  <goal recipe_name="yes_another_curiosity , no_more" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User request another curiosity -->
+<recipe name="yes_another_curiosity">
+  <precondition>
+  <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="sino" rel="equal" val="si" />
+      <slot name="confidence" rel=">" val="0.4" type="number" />
+      <slot name="this" rel="bind" var="another_curiosity_atom"/>
+   </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="another_curiosity_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+      <action name="say_text" actor="etts">
+        <roboml:args>
+            <arg name="sentence"  value="A ver si te gusta esta  | Vamos con esta | Perfecto. A ver si te gusta"   type="string"/>
+            <arg name="engine"  value="loquendo"  type="string"/>
+            <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+        </roboml:args>
+      </action>
+
+
+      <!-- Action from Gesture Player -->
+      <action name="perform_gesture" actor="gesture_player">
+        <roboml:args>
+            <arg name="gesture_filename"  value="alz_yes" type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Action for telling a story-->
+      <action name="story_telling_goto_tale" actor="story_telling_skill">
+        <roboml:args>
+            <arg name="story_reference"  value="CURIOSITY"  type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Change show liveliness from waiting to talking -->
+
+      <action name="liveliness_status_update" actor="show_liveliness">
+          <roboml:args>
+              <arg name="status" value="talking" type="string"/>
+          </roboml:args>
+       </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the story_telling_skill to go to another anecdote -->
+<recipe name="end_anecdote">
+<precondition>
+  <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="activity_finished"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="activity" rel="equal" val="ANECDOTE" />
+      <slot name="this" rel="bind" var="end_anecdote_atom"/>
+   </atom>
+</precondition>
+
+<body order="sequence">
+
+  <!-- Consume the atom to avoid the repetition of the recipe again -->
+  <assignment>
+    <atom>
+      <slot name="this" var="end_anecdote_atom"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignment>
+
+  <!-- Change show liveliness from waiting to talking -->
+
+  <action name="liveliness_status_update" actor="show_liveliness">
+      <roboml:args>
+          <arg name="status" value="waiting" type="string"/>
+      </roboml:args>
+   </action>
+
+  <action name="say_text" actor="etts">
+    <roboml:args>
+        <arg name="sentence"  value="Quieres que te cuente otra anécdota?"   type="string"/>
+        <arg name="engine"  value="loquendo"  type="string"/>
+        <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+    </roboml:args>
+  </action>
+
+  <action name="add_grammar" actor="asr">
+      <roboml:args>
+          <arg name="grammar" value="si_no.gram" type="string"/>
+      </roboml:args>
+  </action>
+
+  <goal recipe_name="yes_another_anecdote , no_more" initiator="any"/>
+
+</body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User request another curiosity -->
+<recipe name="yes_another_anecdote">
+  <precondition>
+  <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="sino" rel="equal" val="si" />
+      <slot name="confidence" rel=">" val="0.4" type="number" />
+      <slot name="this" rel="bind" var="another_anecdote_atom"/>
+   </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="another_anecdote_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+      <action name="say_text" actor="etts">
+        <roboml:args>
+            <arg name="sentence"  value="A ver si te gusta esta  | Vamos con esta | Perfecto. A ver si te gusta"   type="string"/>
+            <arg name="engine"  value="loquendo"  type="string"/>
+            <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+        </roboml:args>
+      </action>
+
+
+      <!-- Action from Gesture Player -->
+      <action name="perform_gesture" actor="gesture_player">
+        <roboml:args>
+            <arg name="gesture_filename"  value="alz_yes" type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Action for telling a story-->
+      <action name="story_telling_goto_tale" actor="story_telling_skill">
+        <roboml:args>
+            <arg name="story_reference"  value="ANECDOTE"  type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Change show liveliness from waiting to talking -->
+
+      <action name="liveliness_status_update" actor="show_liveliness">
+          <roboml:args>
+              <arg name="status" value="talking" type="string"/>
+          </roboml:args>
+       </action>
+
+  </body>
+</recipe>
+
+
+<!---------------------------------------------------------------->
+
+<!-- User asks for the story_telling_skill to go to another joke -->
+<recipe name="end_joke">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="activity_finished"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="activity" rel="equal" val="JOKE" />
+        <slot name="this" rel="bind" var="end_joke_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="end_joke_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Change show liveliness from waiting to talking -->
+
+    <action name="liveliness_status_update" actor="show_liveliness">
+        <roboml:args>
+            <arg name="status" value="waiting" type="string"/>
+        </roboml:args>
+     </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Quieres que te cuente otro chiste?"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="add_grammar" actor="asr">
+        <roboml:args>
+            <arg name="grammar" value="si_no.gram" type="string"/>
+        </roboml:args>
+    </action>
+
+    <goal recipe_name="yes_another_joke , no_more" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User request another joke -->
+<recipe name="yes_another_joke">
+  <precondition>
+  <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="sino" rel="equal" val="si" />
+      <slot name="confidence" rel=">" val="0.4" type="number" />
+      <slot name="this" rel="bind" var="another_joke_atom"/>
+   </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="another_joke_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+      <action name="say_text" actor="etts">
+        <roboml:args>
+            <arg name="sentence"  value="A ver si te gusta este | Vamos con este | Perfecto. A ver si te gusta"   type="string"/>
+            <arg name="engine"  value="loquendo"  type="string"/>
+            <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+        </roboml:args>
+      </action>
+
+
+      <!-- Action from Gesture Player -->
+      <action name="perform_gesture" actor="gesture_player">
+        <roboml:args>
+            <arg name="gesture_filename"  value="alz_yes" type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Action for telling a story-->
+      <action name="story_telling_goto_tale" actor="story_telling_skill">
+        <roboml:args>
+            <arg name="story_reference"  value="JOKE"  type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Change show liveliness from waiting to talking -->
+
+      <action name="liveliness_status_update" actor="show_liveliness">
+          <roboml:args>
+              <arg name="status" value="talking" type="string"/>
+          </roboml:args>
+       </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- User request another story -->
+<recipe name="no_more">
+  <precondition>
+  <atom quantifier="exist">
+      <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+      <slot name="type" val="asr_loquendoOK"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="sino" rel="equal" val="no" />
+      <slot name="confidence" rel=">" val="0.4" type="number" />
+      <slot name="this" rel="bind" var="no_more_atom"/>
+   </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="no_more_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+      <action name="say_text" actor="etts">
+        <roboml:args>
+            <arg name="sentence"  value="Vale.\\pause=1000 Dime qué otra cosa quieres que te cuente "   type="string"/>
+            <arg name="engine"  value="loquendo"  type="string"/>
+            <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+        </roboml:args>
+      </action>
+
+      <!-- Change show liveliness from waiting to talking -->
+
+      <action name="liveliness_status_update" actor="show_liveliness">
+          <roboml:args>
+              <arg name="status" value="waiting" type="string"/>
+          </roboml:args>
+       </action>
+
+  </body>
+</recipe>
+
+

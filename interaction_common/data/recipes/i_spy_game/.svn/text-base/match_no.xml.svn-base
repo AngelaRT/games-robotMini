@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<recipe name="match_no">
+  <precondition>
+   <atom quantifier="exist">
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="user"/>
+      <slot name="match" val="NO" rel="equal"/>
+      <slot name="id" rel="bind" var="present_user_id"/>
+      <slot name="this" rel="bind" var="present_user_atom"/>
+    </atom>
+</precondition>
+
+
+<body order="sequence">
+    <action name="neg" actor="I_spy"></action>
+</body>
+
+<assignpost>
+  <atom>
+    <slot name="match" val="_NO_VALUE_"/>
+    <slot name="this" var="present_user_atom"/>
+  </atom>
+</assignpost>
+
+</recipe>

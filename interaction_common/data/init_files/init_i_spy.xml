@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+ 
+<iminit>
+  <triggerables>
+    <recipe name="load_grammar" max_instances="1"/>
+    <recipe name="step_1" max_instances="1"/>
+    <recipe name="step_3" max_instances="1"/>
+    <recipe name="got_first_char" max_instances="1"/>
+    <recipe name="user_negation" max_instances="1"/>
+    <recipe name="user_affirmation" max_instances="1"/>
+  </triggerables>
+ 
+  <recipefiles>
+    <file>i_spy_game/load_grammar.xml</file>
+    <file>i_spy_game/step_0.xml</file>
+    <file>i_spy_game/step_1.xml</file>
+    <file>i_spy_game/step_2.xml</file>
+    <file>i_spy_game/step_3.xml</file>
+    <file>i_spy_game/step_4.xml</file>
+    <file>i_spy_game/got_first_char.xml</file>
+    <file>i_spy_game/check_word.xml</file>
+    <file>i_spy_game/user_affirmation.xml</file>
+    <file>i_spy_game/user_negation.xml</file>
+    <file>i_spy_game/match_yes.xml</file>
+    <file>i_spy_game/match_no.xml</file>
+  </recipefiles>
+
+  <actionfiles>
+    <file>i_spy_game/default_actions.xml</file>
+  </actionfiles>
+</iminit>

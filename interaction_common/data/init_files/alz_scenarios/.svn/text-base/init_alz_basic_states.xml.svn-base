@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<iminit>
+  <triggerables>
+    <recipe name="alz_general" max_instances="1"/>
+    <recipe name="go_to_presentation" max_instances="1"/>
+    <recipe name="go_to_autopresentation" max_instances="1"/>
+<!--     <recipe name="go_to_memory_game" max_instances="1"/> 
+ -->    <recipe name="go_to_selected_game" max_instances="1"/>     
+    <recipe name="go_to_game_session" max_instances="1"/>
+    <recipe name="go_to_story_telling_one" max_instances="1"/>
+    <recipe name="go_to_story_telling_group" max_instances="1"/>
+    <recipe name="go_to_story_telling_planned" max_instances="1"/>
+    <recipe name="go_to_sleep" max_instances="1"/>
+    <!--<recipe name="user_touches_for_tickle" max_instances="1"/>-->
+    <recipe name="change_to_talking" max_instances="1"/>
+    <recipe name="say_hello_everybody" max_instances="1"/>
+    <!-- ASR results -->
+    <recipe name="asr_loquendo_no_results" max_instances="1"/>
+    <recipe name="asr_loquendo_small_confidence" max_instances="1"/>
+    <recipe name="asr_communication_problems" max_instances="1"/>
+    <!-- Presentation state -->
+    <recipe name="start_alz_presentation" max_instances="1"/>
+    <recipe name="wait_for_presenter" max_instances="1"/>
+    <!--<recipe name="exit_presentation" max_instances="1"/>-->
+    <!--<recipe name="another_joke" max_instances="1"/>
+    <recipe name="another_riddle" max_instances="1"/>
+    <recipe name="with_glasses" max_instances="1"/>
+    <recipe name="user_touches_for_pause" max_instances="1"/>
+    <recipe name="user_touches_for_resume" max_instances="1"/>
+    <recipe name="user_touches_for_previous" max_instances="1"/>-->
+    <!-- Story-telling state -->
+    <!--<recipe name="start_story_telling_scenario" max_instances="1"/>
+    <recipe name="stop_story" max_instances="1"/>
+    <recipe name="pause_story" max_instances="1"/>
+    <recipe name="resume_story" max_instances="1"/>
+    <recipe name="repeat_story" max_instances="1"/>
+    <recipe name="goto_general_tale" max_instances="1"/>
+    <recipe name="goto_specific_tale" max_instances="1"/>
+    <recipe name="start_sayings" max_instances="1"/>
+    <recipe name="repeat_sayings" max_instances="1"/>
+    <recipe name="start_poems" max_instances="1"/>
+    <recipe name="repeat_poem" max_instances="1"/>
+    <recipe name="poem_vida_calderon" max_instances="1"/>
+    <recipe name="poem_copla1_manrique" max_instances="1"/>
+    <recipe name="poem_pirata_espronceda" max_instances="1"/>
+    <recipe name="poem_tenorio_zorrilla" max_instances="1"/>-->
+    <!-- Game session state -->
+    <recipe name="start_game_session" max_instances="1"/>
+    <recipe name="wait_for_presenter_game" max_instances="1"/>
+    <!--<recipe name="exit_game_session" max_instances="1"/>-->
+    <!-- Differences game -->
+    <recipe name="start_differences_game" max_instances="1"/>
+    <recipe name="wait_for_presenter_differences_game" max_instances="1"/>
+    <recipe name="exit_differences_game" max_instances="1"/>
+    <!-- Memory game session state -->
+    <recipe name="start_memory_game" max_instances="1"/>
+    <recipe name="wait_for_presenter_memory_game" max_instances="1"/>
+    <recipe name="exit_memory_game" max_instances="1"/>
+    <recipe name="easy_level_command" max_instances="1"/>
+    <recipe name="medium_level_command" max_instances="1"/>
+    <recipe name="hard_level_command" max_instances="1"/>
+    <recipe name="card_one_command" max_instances="1"/>
+    <recipe name="card_two_command" max_instances="1"/>
+    <recipe name="card_three_command" max_instances="1"/>
+    <recipe name="card_four_command" max_instances="1"/>
+    <recipe name="card_five_command" max_instances="1"/>
+    <recipe name="card_six_command" max_instances="1"/>
+    <recipe name="card_seven_command" max_instances="1"/>
+    <recipe name="card_eight_command" max_instances="1"/>
+    <recipe name="card_nine_command" max_instances="1"/>
+    <recipe name="card_ten_command" max_instances="1"/>
+    <recipe name="card_eleven_command" max_instances="1"/>
+    <recipe name="card_twelve_command" max_instances="1"/>
+    <recipe name="hint_command" max_instances="1"/>
+    <recipe name="restart_command" max_instances="1"/>
+
+    <recipe name="diff_game_asr_loquendo_no_results" max_instances="1"/>
+    <recipe name="diff_game_asr_loquendo_small_confidence" max_instances="1"/>
+    
+  </triggerables>
+
+  <recipefiles>
+    <file>alz_scenarios/alz_general.xml</file>
+    <file>alz_scenarios/alz_presentation/presentation_without_order.xml</file>
+    <file>alz_scenarios/alz_presentation/presentation_flow_control.xml</file>
+    <file>alz_scenarios/alz_presentation/presentation_jokes.xml</file>
+    <file>alz_scenarios/alz_presentation/presentation_riddles.xml</file>
+    <file>alz_scenarios/alz_presentation/presentation_glasses.xml</file>
+    <file>alz_scenarios/alz_presentation/asr_bad_recognition.xml</file>
+
+    <file>alz_scenarios/alz_memory_game/memory_game.xml</file>
+    <file>alz_scenarios/alz_differences_game/differences_game.xml</file>
+    <file>alz_scenarios/alz_differences_game/differences_game_bad_recognition.xml</file>
+    <file>alz_scenarios/alz_game_session/game_session.xml</file>
+    <!--<file>alz_scenarios/alz_story_telling/story_telling_scenario_planned.xml</file>
+    <file>alz_scenarios/alz_story_telling/story_telling_scenario_basics.xml</file>
+    <file>alz_scenarios/alz_story_telling/story_telling_scenario_sayings.xml</file>
+    <file>alz_scenarios/alz_story_telling/story_telling_scenario_sayings_list.xml</file>
+    <file>alz_scenarios/alz_story_telling/story_telling_scenario_poems.xml</file>-->
+  </recipefiles>
+
+  <actionfiles>
+    <file>alz_scenarios/default_actions.xml</file>
+  </actionfiles>
+</iminit>
+

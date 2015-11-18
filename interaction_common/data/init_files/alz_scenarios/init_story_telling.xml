@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<iminit>
+  <triggerables>
+    <recipe name="start_story_telling_scenario" max_instances="1"/>
+    <recipe name="start_skill" max_instances="1"/>
+    <recipe name="stop_skill" max_instances="1"/>
+    <recipe name="pause_skill" max_instances="1"/>
+    <recipe name="goto_tale" max_instances="1"/>
+    <recipe name="asr_loquendo_no_results" max_instances="1"/>
+    <recipe name="asr_loquendo_small_confidence" max_instances="1"/>
+  </triggerables>
+
+  <recipefiles>
+    <file>alz_scenarios/alz_story_telling/story_telling_scenario.xml</file>
+    <file>alz_scenarios/asr_bad_recognition.xml</file>
+  </recipefiles>
+
+  <actionfiles>
+    <file>alz_scenarios/default_actions.xml</file>
+  </actionfiles>
+</iminit>

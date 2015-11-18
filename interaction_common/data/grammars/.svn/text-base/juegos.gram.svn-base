@@ -1,0 +1,32 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+public $root = $integrador;
+
+$juego = (
+    "adivinar personajes":AKINATOR |
+    "habla mas bajo":BAJARVOLUMEN |
+    "callate ya":CALLARSE |
+    "no sigas diciendo mas cosas":CALLARSE |
+    "escondite":ESCONDITE | "quien soy":ESCONDITE |
+    "ahorcado":HANGMAN |
+    "deja de hacer esto":PARAR | "dejalo ya":PARAR | "estate quieta":PARAR |
+    "callate un momento":PAUSESPEECH |
+    "reconocer animales":PELUCHES | "reconocer peluches":PELUCHES | "peluches":PELUCHES | "jugar con los peluches":PELUCHES | "animales":PELUCHES | "jugar con los animales":PELUCHES |
+    "ya puedes seguir hablando":RESUMESPEECH |
+    "persigueme":SIGUEME | "pilla pilla":SIGUEME | "seguir":SIGUEME |
+    "sigueme":SIGUEME | "vamonos de paseo":SIGUEME |
+    "vamos a dar una vuelta":SIGUEME | "vente conmigo":SIGUEME |
+    "habla mas alto":SUBIRVOLUMEN |
+    "tres en raya":TICTACTOE |
+    "habla lo mas alto posible":VOLUMENMAX |
+    "habla lo mas bajo posible":VOLUMENMIN
+    ){<@Game $value>};
+
+$integrador = [$GARBAGE] $juego;
+
+
+
+
+

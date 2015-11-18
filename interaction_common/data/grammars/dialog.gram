@@ -1,0 +1,65 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+public $root = $dialog;
+
+
+/* gramatica utilizada por la clase Cdialog. Gramatica basada en DASML */
+
+$dialog = ($fp | $fc | $ky | $nn | $nd | $ad | $sd | $u | $e);
+
+/* conventional-opening */
+$fp = hola [magui]{<@da "fp">};
+
+/* conventional-closing */
+$fc = adios [magui]{<@da "fc">};
+
+/* response acknowledgement or yes answer */
+$ky = (okei|vale|de_acuerdo|si|afirmativo){<@da "ky">};
+
+/* no answer */
+$nn = no{<@da "ny">};
+
+/* Dispreferred answers */
+$nd = ("([baile | secuencia] simple)":simpleseq | "([varios] [bailes | secuencias] en paralelo)":atonce | "(seleccion [de (bailes | secuencias) )":selseq){<@da "nd"><@type $value>};
+
+/* action-directive */
+$ad = ($action|$condition|$side|$then|$atonce|$selseqinit|$loop|$runseq|$stopseq|$rmseq){<@da "ad">};
+
+/* statement-non-opinion */
+$sd = (([$GARBAGE|en (el|la)]($cardinal| $ordinal)[$GARBAGE|"baile"])|$conclution|$branchend){<@da "sd">};
+
+/* uninterpretable */
+$u = $GARBAGE {<@da "u">};
+
+/* turn-exit */
+$e = [quiero] (sal|termina|salir|terminar) {<@da "e">};
+
+/* numeros */
+$cardinal = ( "un | uno | una":1 | "dos":2 | "tres":3 | "cuatro":4 | "cinco":5 | "seis":6 | "siete":7 | "ocho":8 | "nueve":9  ){<@cardinal $value>}; 
+$uncontable = ("varios | varias | distintos | distintas":2 | "alguno | alguna":1 ){<@uncontable $value>};
+$ordinal = ("primer|primero|primera":1 | "segun|segundo|segunda":2 | "tercer|tercero|tercera":3 | "cuarto|cuarta":4 | "quinto|quinta":5 | "sexto|sexta":6 | "septimo|septima":7 | "octavo|octava":8 | "noveno|novena":9 ){<@ordinal $value><@type "ordinal">};
+
+/* acciones y condiciones */
+/*$action = ([magui] $verb [$howmuch] [$<maggieSelf.gram#body>] [$side] [$howmuch]){<@type "action">};*/
+$action = ([magui] $verb [$<maggieSelf.gram#body>] [$side]){<@type "action">};
+$condition = ([magui] (cuando | si |esperas [a | que]) [te] $verb [$<maggieSelf.gram#body>] [$side]){<@type "condition">};
+$then = (despues  [de ($action | $condition)] | lo siguiente | a continuacion){<@type "then">};
+
+$verb = ("levanta|levantas|sube|subes|abre|abres":rise | "baja|bajas|cierra|cierras":down | "gira|giras":spin |"mueve":move | "toque|toco":touch){<@verb $value>};
+$side = ("izquierda|izquierdo":left | "derecha|derecho":right |"ambas|ambos":both){<@side $value>};
+$howmuch = ("[muy]poco|[un] poquitin":0.2 | "ni_mucho_ni_poco|algo":0.5 | "mucho|a_tope|todo":1.0){<@howmuch $value>}; 
+
+/* comandos de edicion de la secuencia */
+$selseqinit = ((( abres | consideras | creas ) ($cardinal|$uncontable) ( opciones | posibilidades )) | (puedo hacer $cardinal cosas)){<@type "selseq">};
+$atonce =(a_la_vez [haces] [$cardinal|$uncontable] [cosas]){<@type "atonce">};
+$branchend = (Terminas | Por ultimo | para terminar | Y finalmente | despues [de (todo | algo)] ($action | [esperas a que] $condition)) {<@type "branchend">};
+$conclution = ( (despues de [hacer [alguna de]] las [$cardinal] [ramas]) | ([luego|y] ( cierras | unes | terminas) las [$cardinal] opciones) ){<@type "conclution">};
+$loop = [despues | (por ultimo)] ((vuelves al principio)|(repites la secuencia)) {<@type "loop">};
+
+/* comandos de ejecucion de la secuencia */
+$runseq = ([magui] ejecuta la secuencia){<@type "runseq">};
+$stopseq = ([magui] ( (para de ejecutar [la secuencia]) | (estate quieta) )){<@type "stopseq">};
+$rmseq = ([magui] (nueva | borra) secuencia){<@type "rmseq">};
+

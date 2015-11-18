@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!---------------------------------------------------------------->
+
+<!-- Presenter asks the robot to tell more riddles -->
+<recipe name="another_riddle">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="dialog_option" rel="equal" val="cerilla" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="riddle_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="riddle_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+
+    </assignment>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_test_02" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis+ Sí!  \\pause=1200  Qué bien!!
+          \\pause=1300 \\emphasis habeis acertado! \\pause=1000 es la cerilla!
+          \\pause=1500 os cuento otra adivinanza?"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <goal recipe_name="yes_another_riddle , no_more_riddles" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Presenter asks the robot to tell more riddles -->
+<recipe name="yes_another_riddle">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="dialog_option" rel="equal" val="yes" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="yes_riddles_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="yes_riddles_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+
+    </assignment>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_happy" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="esta os la sabeis seguro. \\pause=1600 Oro parece \\pause=1200 plata no es \\pause=1200
+          el que no lo adivine \\pause=1200 tonto es. \\pause=1000
+          \\item=Laugh_02 \\pause=1200"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <goal recipe_name="another_riddle_2" initiator="any"/>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="another_riddle_2">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="dialog_option" rel="equal" val="moreRiddles" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="riddles_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="riddles_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+
+    </assignment>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_sad" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis-- Pues \\pause=600 \\emphasis no se me ocurre ninguna!
+          \\pause=1500 por que no seguimos hablando de otras cosas?"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_back_to_normal" type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<recipe name="no_more_riddles">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="dialog_option" rel="equal" val="no" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="no_riddles_atom"/>
+     </atom>
+
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="no_riddles_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+
+    </assignment>
+
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="alz_sad" type="string"/>
+      </roboml:args>
+    </action>
+
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis- De acuerdo. \\pause=1000 ya no cuento más adivinanzas \\pause=1000"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+

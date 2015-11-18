@@ -1,0 +1,20 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+public $root = $GARBAGE;
+
+$side = ("izquierda|izquierdo":left | "derecha|derecho":right |"ambas|ambos":both){<@side $value>};
+$verb = ("levanta|levantas|sube|subes|abre|abres":rise | "baja|bajas|cierra|cierras":down | "gira|giras":spin |"mueve":move ){<@verb $value>};
+$howmuch = ("[muy]poco":2 | "ni_mucho_ni_poco|algo":5 | "mucho|a_tope|todo":10){<@howmuch $value>}; 
+$actions = [magui] $verb [$howmuch] [$<maggieSelf.gram#body>] [$side] [$howmuch];
+
+
+
+/*
+acciones:
+- levantar o bajar el brazo izquierdo, el derecho o ambos
+- abrir o cerrar los ojos
+- girar a la izquierda o a la derecha 
+- mover la cabeza a izquierda o derecha
+*/

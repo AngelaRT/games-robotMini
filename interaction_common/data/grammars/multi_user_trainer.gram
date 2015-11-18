@@ -1,0 +1,15 @@
+#ABNF 1.0 ISO-8859-1;
+
+/* A grammar used to control the training proces while teaching the robot when two users are interactiong between them 
+   Author: Víctor Gonzalez-Pacheco 
+   Date: July 2012 */
+
+language en-GB;
+tag-format <loq-semantics/1.0>;
+public $root = $command; 
+
+$command = [$GARBAGE] $cmd [$GARBAGE];
+$cmd = ("pause":PAUSE | "change":PAUSE | "stop":PAUSE | "next":CONTINUE | "continue":CONTINUE | "carry on":CONTINUE | "keep going":CONTINUE  | "resume":CONTINUE | "start":START | "begin":START | "that's it":END | "finish":END | "exit":END | "quit":END){<@CMD $value>};
+
+
+/*$cmd = ("pause":PAUSE | "change":PAUSE | "stop":PAUSE | "next":CONTINUE | "continue":CONTINUE | "carry on":CONTINUE | "keep going":CONTINUE  | "resume":CONTINUE | "start":START | "begin":START | "that's it":END | "exit":END | "end":END){<@CMD $value>};*/

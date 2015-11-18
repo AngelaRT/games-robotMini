@@ -1,0 +1,353 @@
+#ABNF 1.0 UTF-8;
+
+language  es-ES;
+mode  voice;
+tag-format <semantics/1.0>;
+public $root = $date;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     date                                                 	 */
+ /* @rule        date                                                 	 */
+ /* @version     6.3                                                     */
+ /* @author      Colibro Daniele                                         */
+ /* @date        Aug 1, 2001                                             */
+ /*                                                                      */
+ /* @example     el_cero dos de julio mil_novecientos noventa_y_siete    */
+ /* @semantic     "19970702"                                   	         */
+ /* @example     dos julio de noventa_y_siete                            */
+ /* @semantic     "??970702"                                   	         */
+ /* @example     el_veinticuatro dos del dos_mil cuatro                  */
+ /* @semantic     "20040224"                                   	         */
+ /* @example     dos_mil y dos                                           */
+ /* @semantic     "2002????"                                   	         */
+ /* @example     siete de abril                                          */
+ /* @semantic     "????0407"                                   	         */
+ /* Description:                                                         */
+ /* This grammar allows the user to insert a date in the format          */
+ /* year/month/day (yyyymmdd)                                            */
+ /* Can be also prompted for the couple day-month , the couple month-year*/
+ /* or the year only                                                     */
+ /* The range is between 19000101 and 20991231                           */
+ /* This grammar assumes that February has always 29 days                */
+ /*                                                                      */
+ /************************************************************************/
+ /* Simple rules: this section contains the vocabularies used in the grammar (quite tedious) */
+ /* Day-Month slice */
+
+ $n0 = cero;
+
+ $the0 = el_cero;
+
+ $first = (
+            primero  | 
+            el_primero
+          ) {out = "01";};
+
+ $n1to9 = (
+            uno {out = "01";} | 
+            dos {out = "02";} | 
+            tres {out = "03";} | 
+            cuatro {out = "04";} | 
+            cinco {out = "05";} | 
+            seis {out = "06";} | 
+            siete {out = "07";} | 
+            ocho {out = "08";} | 
+            nueve {out = "09";} 
+          ) ;
+
+ $the1to9 = (
+              el_uno {out = "01";} | 
+              el_dos {out = "02";} | 
+              el_tres {out = "03";} | 
+              el_cuatro {out = "04";} | 
+              el_cinco {out = "05";} | 
+              el_seis {out = "06";} | 
+              el_siete {out = "07";} | 
+              el_ocho {out = "08";} | 
+              el_nueve {out = "09";} 
+            ) ;
+
+ $n10to29 = (
+              diez {out = "10";} | 
+              once {out = "11";} | 
+              doce {out = "12";} | 
+              trece {out = "13";} | 
+              catorce {out = "14";} | 
+              quince {out = "15";} | 
+              dieciséis {out = "16";} | 
+              diecisiete {out = "17";} | 
+              dieciocho {out = "18";} | 
+              diecinueve {out = "19";} | 
+              veinte {out = "20";} | 
+              veintiuno {out = "21";} | 
+              veintidós {out = "22";} | 
+              veintitrés {out = "23";} | 
+              veinticuatro {out = "24";} | 
+              veinticinco {out = "25";} | 
+              veintiséis {out = "26";} | 
+              veintisiete {out = "27";} | 
+              veintiocho {out = "28";} | 
+              veintinueve {out = "29";} 
+            ) ;
+
+ $the10to29 = (
+                el_diez {out = "10";} | 
+                el_once {out = "11";} | 
+                el_doce {out = "12";} | 
+                el_trece {out = "13";} | 
+                el_catorce {out = "14";} | 
+                el_quince {out = "15";} | 
+                el_dieciséis {out = "16";} | 
+                el_diecisiete {out = "17";} | 
+                el_dieciocho {out = "18";} | 
+                el_diecinueve {out = "19";} | 
+                el_veinte {out = "20";} | 
+                el_veintiuno {out = "21";} | 
+                el_veintidós {out = "22";} | 
+                el_veintitrés {out = "23";} | 
+                el_veinticuatro {out = "24";} | 
+                el_veinticinco {out = "25";} | 
+                el_veintiséis {out = "26";} | 
+                el_veintisiete {out = "27";} | 
+                el_veintiocho {out = "28";} | 
+                el_veintinueve {out = "29";} 
+              ) ;
+
+ $n30 = treinta {out = "30";} ;
+
+ $the30 = el_treinta {out = "30";} ;
+
+ $n31 = treinta_y_uno {out = "31";} ;
+
+ $the31 = el_treinta_y_uno {out = "31";} ;
+
+ $month29 = febrero {out = "02";} ;
+
+ $month30 = (
+              abril {out = "04";} | 
+              junio {out = "06";} | 
+              septiembre {out = "09";} | 
+              noviembre {out = "11";} 
+            ) ;
+
+ $month31 = (
+              enero {out = "01";} | 
+              marzo {out = "03";} | 
+              mayo {out = "05";} | 
+              julio {out = "07";} | 
+              agosto {out = "08";} | 
+              octubre {out = "10";} | 
+              diciembre {out = "12";} 
+            ) ;
+
+ $month29num = dos {out = "02";} ;
+
+ $month30num = (
+                 cuatro {out = "04";} | 
+                 seis {out = "06";} | 
+                 nueve {out = "09";} | 
+                 once {out = "11";} 
+               ) ;
+
+ $month31num = (
+                 uno {out = "01";} | 
+                 tres {out = "03";} | 
+                 cinco {out = "05";} | 
+                 siete {out = "07";} | 
+                 ocho {out = "08";} | 
+                 diez {out = "10";} | 
+                 doce {out = "12";} 
+               ) ;
+ /* Year slice */
+
+ $n1to99 = (
+             uno {out = "01";} | 
+             dos {out = "02";} | 
+             tres {out = "03";} | 
+             cuatro {out = "04";} | 
+             cinco {out = "05";} | 
+             seis {out = "06";} | 
+             siete {out = "07";} | 
+             ocho {out = "08";} | 
+             nueve {out = "09";} | 
+             diez {out = "10";} | 
+             once {out = "11";} | 
+             doce {out = "12";} | 
+             trece {out = "13";} | 
+             catorce {out = "14";} | 
+             quince {out = "15";} | 
+             dieciséis {out = "16";} | 
+             diecisiete {out = "17";} | 
+             dieciocho {out = "18";} | 
+             diecinueve {out = "19";} | 
+             veinte {out = "20";} | 
+             veintiuno {out = "21";} | 
+             veintidós {out = "22";} | 
+             veintitrés {out = "23";} | 
+             veinticuatro {out = "24";} | 
+             veinticinco {out = "25";} | 
+             veintiséis {out = "26";} | 
+             veintisiete {out = "27";} | 
+             veintiocho {out = "28";} | 
+             veintinueve {out = "29";} | 
+             treinta {out = "30";} | 
+             treinta_y_uno {out = "31";} | 
+             treinta_y_dos {out = "32";} | 
+             treinta_y_tres {out = "33";} | 
+             treinta_y_cuatro {out = "34";} | 
+             treinta_y_cinco {out = "35";} | 
+             treinta_y_seis {out = "36";} | 
+             treinta_y_siete {out = "37";} | 
+             treinta_y_ocho {out = "38";} | 
+             treinta_y_nueve {out = "39";} | 
+             cuarenta {out = "40";} | 
+             cuarenta_y_uno {out = "41";} | 
+             cuarenta_y_dos {out = "42";} | 
+             cuarenta_y_tres {out = "43";} | 
+             cuarenta_y_cuatro {out = "44";} | 
+             cuarenta_y_cinco {out = "45";} | 
+             cuarenta_y_seis {out = "46";} | 
+             cuarenta_y_siete {out = "47";} | 
+             cuarenta_y_ocho {out = "48";} | 
+             cuarenta_y_nueve {out = "49";} | 
+             cincuenta {out = "50";} | 
+             cincuenta_y_uno {out = "51";} | 
+             cincuenta_y_dos {out = "52";} | 
+             cincuenta_y_tres {out = "53";} | 
+             cincuenta_y_cuatro {out = "54";} | 
+             cincuenta_y_cinco {out = "55";} | 
+             cincuenta_y_seis {out = "56";} | 
+             cincuenta_y_siete {out = "57";} | 
+             cincuenta_y_ocho {out = "58";} | 
+             cincuenta_y_nueve {out = "59";} | 
+             sesenta {out = "60";} | 
+             sesenta_y_uno {out = "61";} | 
+             sesenta_y_dos {out = "62";} | 
+             sesenta_y_tres {out = "63";} | 
+             sesenta_y_cuatro {out = "64";} | 
+             sesenta_y_cinco {out = "65";} | 
+             sesenta_y_seis {out = "66";} | 
+             sesenta_y_siete {out = "67";} | 
+             sesenta_y_ocho {out = "68";} | 
+             sesenta_y_nueve {out = "69";} | 
+             setenta {out = "70";} | 
+             setenta_y_uno {out = "71";} | 
+             setenta_y_dos {out = "72";} | 
+             setenta_y_tres {out = "73";} | 
+             setenta_y_cuatro {out = "74";} | 
+             setenta_y_cinco {out = "75";} | 
+             setenta_y_seis {out = "76";} | 
+             setenta_y_siete {out = "77";} | 
+             setenta_y_ocho {out = "78";} | 
+             setenta_y_nueve {out = "79";} | 
+             ochenta {out = "80";} | 
+             ochenta_y_uno {out = "81";} | 
+             ochenta_y_dos {out = "82";} | 
+             ochenta_y_tres {out = "83";} | 
+             ochenta_y_cuatro {out = "84";} | 
+             ochenta_y_cinco {out = "85";} | 
+             ochenta_y_seis {out = "86";} | 
+             ochenta_y_siete {out = "87";} | 
+             ochenta_y_ocho {out = "88";} | 
+             ochenta_y_nueve {out = "89";} | 
+             noventa {out = "90";} | 
+             noventa_y_uno {out = "91";} | 
+             noventa_y_dos {out = "92";} | 
+             noventa_y_tres {out = "93";} | 
+             noventa_y_cuatro {out = "94";} | 
+             noventa_y_cinco {out = "95";} | 
+             noventa_y_seis {out = "96";} | 
+             noventa_y_siete {out = "97";} | 
+             noventa_y_ocho {out = "98";} | 
+             noventa_y_nueve {out = "99";} 
+           ) ;
+
+ $century = (
+              mil_novecientos {out = "1900";} | 
+              dos_mil {out = "2000";} 
+            ) ;
+
+ $and_opt = y;
+ /* Compound rules: this section contains other rules obtained from the simple rules */
+ /* Day-Month Slice */
+
+ $all_zero = (
+               $n0 | 
+               $the0
+             );
+
+ $day_29 = (
+             [$all_zero] $n1to9  | 
+             $the1to9  | 
+             $n10to29  | 
+             $the10to29  | 
+             $first 
+           ) ;
+
+ $day_30 = (
+             $n30  | 
+             $the30 
+           ) ;
+
+ $day_31 = (
+             $n31  | 
+             $the31 
+           ) ;
+
+ $month_name = (
+                 $month29  | 
+                 $month30  | 
+                 $month31 
+               ) {out = rules.latest() + "??";};
+
+ $month_31 = (
+                 [  del | de] [$n0] $month31num  | 
+                 [ del | de ] $month31 
+             ) {out = rules.latest();};
+
+ $only_month30 = (
+                   [  del | de] [$n0] $month30num  | 
+                   [del | de] $month30 
+                 ) {out = rules.latest();};
+
+ $only_month29 = ( [ del | de ] [$n0] $month29num  | 
+                   [del | de ] $month29 
+                 ) {out = rules.latest();};
+
+ $month_30 = (
+               $month_31  | 
+               $only_month30 
+             ) ;
+
+ $month_29 = (
+               $month_30  | 
+               $only_month29 
+             ) ;
+
+ $day_mon_29 = ( $day_29  $month_29 ) {out = rules.month_29 + rules.day_29;};
+
+ $day_mon_30 = ( $day_30  $month_30 ) {out = rules.month_30 + rules.day_30;};
+
+ $day_mon_31 = ( $day_31  $month_31 ) {out = rules.month_31 + rules.day_31;};
+
+ $day_mon = (
+              $day_mon_29  | 
+              $day_mon_30  | 
+              $day_mon_31 
+            ) ;
+ /* Year Slice */
+
+ $year = ( $century {out = rules.latest();} [$and_opt] [$n1to99 {var sum; sum = out/1 + rules.latest()/1;}{out = "" + sum;}]);
+
+ $compound_year = (
+                    [del | de ] $year {out = rules.latest();} | 
+                    ( del | de) $n1to99 {out = "??" + rules.n1to99;}
+                  ) ;
+ /* Public Rule */
+
+ public $date = (
+                  ( $day_mon $compound_year) {out = rules.compound_year + rules.day_mon;} | 
+                  ( $month_name $compound_year ) {out = rules.compound_year + rules.month_name;} | 
+                  $day_mon {out = "????"+ rules.day_mon;} | 
+                  $year  {out = rules.year + "????";}
+                );

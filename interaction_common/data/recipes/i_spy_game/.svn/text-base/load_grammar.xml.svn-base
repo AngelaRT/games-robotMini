@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!-- top level activity -->
+<recipe name="load_grammar">
+
+<!-- preconditions: unification and bindings -->
+<!-- values of names and vals of the atom slots are checked hndUserInput function in soundboard.cc file -->
+<precondition>
+   <atom quantifier="exist">
+      <!-- object type and subtype -->
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="globals"/>
+      <!-- arguments -->
+      <!-- rel, val, var, type, enum -->
+      <!-- string relations: =, ==, equal, !=, not equal, substr, !substr, inverse substr, or a RE relation -->
+      <!-- number relations: =, ==, equal, <=, leq, >=, geq, !=, not equal -->
+      <slot name="grammar_loaded" val="false" rel="equal"/>
+
+      <!-- bindings -->
+      <slot name="grammar_file" rel="bind" var="grammar_file_var"/>
+      <slot name="this" rel="bind" var="globals_atom"/>
+    </atom>
+</precondition>
+
+<!-- interrupt the recipe when this condition fails -->
+<whilecondition>
+</whilecondition>
+
+<body order="sequence">
+
+    <action name="load_grammar" actor="load_grammar" action_space="speech">
+          <roboml:args>
+            <arg name="grammar_file" value="$grammar_file_var" type="string"/>
+          </roboml:args>
+    </action>
+
+</body>
+
+<!-- set right after execution ends -->
+<assignpost>
+  <atom>
+    <slot name="grammar_loaded" val="true"/>
+    <slot name="this" var="globals_atom"/>
+  </atom>
+</assignpost>
+
+</recipe>

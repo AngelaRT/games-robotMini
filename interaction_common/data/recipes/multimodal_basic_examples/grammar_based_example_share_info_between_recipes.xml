@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<recipe name="parent_recipe">
+
+  <!-- first recipe no conditions, always execute the body -->
+  <precondition>
+     <atom>
+        <slot name="type" val="im"/>
+        <slot name="subtype" val="globals"/>
+        <!--<slot name="consumed" val="false" rel="equal"/>-->
+        <slot name="this" rel="bind" var="share_atom"/>
+     </atom>
+  </precondition>
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+
+    <!-- ====== Actions to recognize user language ========= -->
+
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value=""   type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Dime tu idioma."   type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Set the grammar to recognize language -->
+    <action name="set_grammar" actor="asr">
+        <roboml:args>
+            <arg name="grammar" value="idiomas.gram" type="string"/>
+        </roboml:args>
+     </action>
+
+
+    <!-- Execute the recipe that wait for user says the language -->
+    <goal recipe_name="daughter_recipe" initiator="any"/>
+
+
+    <assignment>
+        <atom>
+            <slot name="Idioma" val="$idioma_var" />
+            <slot name="this" rel="bind" var="share_atom"/>
+        </atom>
+    </assignment>
+
+
+    <!-- ====== Actions to says goodbye ========= -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="El idioma es la receta padre es $idioma_var."   type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <!-- Consumed the atom for avaoid repeat the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="share_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+  </body>
+
+</recipe>
+
+
+
+
+
+<!-- User says his language to the robot -->
+<recipe name="daughter_recipe">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions that recieve a greet using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="Idioma"  rel="bind" var="idioma_var" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="language_atom"/>
+     </atom>
+     <atom>
+        <slot name="type" val="im"/>
+        <slot name="subtype" val="globals"/>
+        <slot name="this" rel="bind" var="share_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consumed the atom for avaoid repeat the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="language_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Tu idioma es $idioma_var"   type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+
+  <assignpost>
+    <atom>
+        <slot name="Idioma" val="$idioma_var" />
+        <slot name="this" rel="bind" var="share_atom"/>
+    </atom>
+  </assignpost>
+
+
+</recipe>
+

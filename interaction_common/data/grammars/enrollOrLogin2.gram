@@ -1,0 +1,19 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <semantics/1.0>;
+
+public $root = $language;
+
+$language = 
+(
+    "identificarme"  { out.option = "login";  out.lang = "es"; } |
+    "registrarme"    { out.option = "enroll"; out.lang = "es"; } |
+    "salir"          { out.option = "exit";   out.lang = "es"; } |
+    "identify!en-us" { out.option = "login";  out.lang = "en"; } |
+    "sign up!en-us" { out.option = "enroll"; out.lang = "en"; } |
+    "login|\\SAMPA=xsampa;(lA:g_}In)"                            { out.option = "login";  out.lang = "en"; } |
+    "enroll|\\SAMPA=xsampa;(Inr\oUl)|\\SAMPA=xsampa;(Enr\oUl)"   { out.option = "enroll"; out.lang = "en"; } |
+    "exit|\\SAMPA=xsampa;(Ek_hs@t_h)|\\SAMPA=xsampa;(Eg_}zIt_h)" { out.option = "exit";   out.lang = "en"; } 
+);
+

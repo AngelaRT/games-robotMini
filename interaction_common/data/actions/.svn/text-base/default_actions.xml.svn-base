@@ -1,0 +1,65 @@
+
+<!--
+  - Declare de template of actions implemented on Multimodal Fission Dialog
+  -->
+
+<!-- To use the powerfull of etts (voice, non verbal sounds, music...) -->
+<bml name="say_text">
+  <roboml:args>
+      <!-- If engine is non_verbal the values possibles are: "SINGING"|"CONFIRMATION"|"THINKING"|"WARNING"|"DIALOG"|"HELLO"|"ERROR"|"AMAZING"
+      If engine is music_score a partiture is valid, example:  BPM=85,A6,Ab2,C5,1/4-C3
+      Fo other engines, sentence could be any text -->
+      <arg name="sentence" value="_NO_VALUE_" type="string"/>
+      <!-- engine values =  "loquendo","google","microsfot","festival","non_verbal","music_score","console" -->
+      <arg name="engine"  value="loquendo" type="string"/>
+      <!-- emotion values = "happy","tranquility","sad","nervous" -->
+      <arg name="emotion" value="happy" type="string"/>
+      <!-- language values: any google format language, example: "es","en" -->
+      <arg name="language" value="es" type="string"/>
+      <!-- priority: QUEUE_SENTENCE | SHUTUP_IMMEDIATLY_AND_SAY_SENTENCE | SHUTUP_AND_SAY_SENTENCE | PAUSE | RESUME -->
+      <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      <!-- volume (1-100), 0 is VOLUME_LAST_USED -->
+      <arg name="volume" value="0" type="number"/>
+  </roboml:args>
+</bml>
+
+
+<!-- To set a grammar on asr grammar-based recognizer -->
+<bml name="set_grammar">
+  <roboml:args>
+      <!-- Grammar to set on asr grammar based engine (without absolute path and without extension .gram) -->
+      <arg name="grammar" value="_NO_VALUE_" type="string"/>
+  </roboml:args>
+</bml>
+
+
+<!-- To add a new grammar on grammar-based recognizer (don't remove the currect grammars loaded on asr) -->
+<bml name="add_grammar">
+    <roboml:args>
+        <!-- Grammar to add on asr grammar based engine (without absolute path and without extension .gram) -->
+        <arg name="grammar" value="_NO_VALUE_" type="string"/>
+    </roboml:args>
+</bml>
+
+
+<!-- To perform a multimodal gesture (cummunicative expression) -->
+<bml name="perform_gesture">
+    <roboml:args>
+        <!-- XML name of the file (without absolute path and without .xml extension) of the gesture to play -->
+        <arg name="gesture_filename" value="_NO_VALUE_" type="string"/>
+    </roboml:args>
+</bml>
+
+
+<!-- To show anything on tablet -->
+<bml name="show_on_tablet">
+    <roboml:args>
+        <!-- Url to show -->
+        <arg name="url" value="_NO_VALUE_" type="string"/>
+        <arg name="text" value="_NO_VALUE_" type="string"/>
+        <arg name="type" value="_NO_VALUE_" type="string"/>
+    </roboml:args>
+</bml>
+
+
+

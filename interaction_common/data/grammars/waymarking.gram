@@ -1,0 +1,25 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $waymarking;
+
+$waymarking = $lugares | $ids | $op | $acciones | $codigos | $tipodeaccion;
+
+
+$lugares = ("zona be" | "zona de" | "zona a" |"edificio betancur" | "tercera planta" | "departamento de ingenieria de sistemas y automatica zona ce"| "zona ce" |
+"despacho de la profesora Malfaz" |"laboratorio de magui"  | "laboratorio de robotica 2"  | "departamento de ingenieria de sistemas y automatica zona be" |
+"departamento de ingenieria de electricidad"  | "laboratorio de robotica 3"  | "servicios"  | "television"  | "tele"  | "tercera planta"  |"zona" | "planta tercera" ){<@lugares $value>};
+
+$ids = ("uno"  | "1 punto 3"  | "1 punto 3 ce" |"1 punto 3 ce once" | "1 punto 3 ce 12"  | "1 punto 3 ce 13"  | "1 punto 3 be"  | "1 punto 3 de"  | "1 punto 3 ce 14"  | "1 punto 3 ce ese"  | "1 punto 3 c 12 tv"  | "1 punto 3 be" |"1 punto 3 a" |"1 punto 3 ce"){<@ids $value>};
+
+$op = ("si":si | "no":no | "okey":si | "vale":si | "negativo":no | "de acuerdo":si | "incorrecto":no ){<@op $value>};
+
+$acciones = ("sigue el contorno por la derecha"  | "sigue el contorno por la izquierda"  | "usa la habilidad ir a un punto" | "sigue el pasillo por la izquierda" | "sigue el pasillo por la derecha" |"sigue el pasillo a tu izquierda"| "sigue el pasillo a tu derecha" | "pasillo"){<@acciones $value>};
+
+$codigos = ("0" | "1" | "2" | "3"){<@codigos $value>};
+
+$tipodeaccion = ("si" | "no"){<@tipodeaccion $value>};
+
+

@@ -1,0 +1,23 @@
+#ABNF 1.0 ISO-8859-1;
+
+language es-ES;
+tag-format <loq-semantics/1.0>;
+
+public $root = [$GARBAGE] $correo;
+
+
+ public $correo = (
+                "leeme las cabeceras":CABECERAS | "resumeme los correos":CABECERAS | "dime los titulares":CABECERAS | "de que tratan los mensajes":CABECERAS | 
+		"número uno":"1" | "primer mensaje":"1" | "primero":"1" |
+		"número dos":"2" | "segundo mensaje":"2" | "segundo":"2" |
+		"número tres":"3" | "tercer mensaje":"3" | "tercero":"3" |
+		"número cuatro":"4" | "cuarto mensaje":"4" | "cuarto":"4" |
+		"número cinco":"5" | "quinto mensaje":"5" | "quinto":"5" |
+		"anterior mensaje":ANTERIOR | "mensaje anterior":ANTERIOR | "anterior":ANTERIOR |
+ 	        "siguiente mensaje":SIGUIENTE | "mensaje siguiente":SIGUIENTE | "siguiente":SIGUIENTE |
+		"borrar un mensaje":BORRAR | "borrar mensaje":BORRAR | "quiero eliminar un mensaje":BORRAR | "eliminar mensaje":BORRAR
+		"quiero salir":SALIR | "salir del correo electronico":SALIR | "salir del correo":SALIR |
+		"leeme el correo electronico":COMPROBAR | "quiero saber mi correo":COMPROBAR | "tengo correo nuevo":COMPROBAR | "leeme el correo":COMPROBAR | "cuantos correos nuevos tengo":COMPROBAR | "quiero comprobar el correo":COMPROBAR | "quiero actualizar la bandeja de entrada":COMPROBAR |
+		"repitelo por favor":ULTIMO | "repitelo":ULTIMO | "ultimo":ULTIMO |
+		"leeme todos":TODOS | "quiero leerlos todos":TODOS | "leer todos los correos":TODOS
+				  ){<@Comando $value>};

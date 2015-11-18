@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+
+<!-- default values for atom slots -->
+<default_atoms>
+
+  <!-- user atom -->
+  <atom>
+    <slot name="type" val="im"/>
+    <slot name="subtype" val="user"/>
+    <slot name="sema" val="_NO_VALUE_"/> <!-- IN_STEP_1,2,3,4,5,... -->
+    <slot name="match" val= "_NO_VALUE_"/>
+    <!--slot name="test_word" val= "_NO_VALUE_"/-->
+    <slot name="test_word" val= "mesa"/>
+    <slot name="new_word" val= "_NO_VALUE" type="string"/>
+    <slot name="first_char" val= "s"/>
+    <slot name="turn" val= "USER"/>
+    <slot name="step_0_handled" val= "FALSE"/>
+    <slot name="words" val=""/>
+    <slot name="confidence" val="1"/>   <!-- Loquendo ASR confidence -->
+    <slot name="g_confidence" val="1"/> <!-- Google ASR confidence -->
+  </atom>
+
+  <!-- globals atom -->
+  <atom>
+    <slot name="type" val="im"/>
+    <slot name="subtype" val="globals"/>
+    <slot name="grammar_loaded" val="false" type="string"/>
+    <slot name="time" val= "_NO_VALUE_" type="number" var="_im_time"/>
+    <slot name="grammar_file" val="I_spy_game.gram"/>
+    <slot name="status" val= "_NO_VALUE_" type="string" var="status_var"/>
+    <slot name="r_val" val= "1" type="number"/>
+    <slot name="beat_handled" val="false"/>
+
+  </atom>
+
+</default_atoms>

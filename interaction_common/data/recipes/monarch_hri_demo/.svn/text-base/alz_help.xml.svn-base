@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!-- top level activity -->
+<recipe name="help">
+
+<!-- preconditions: unification and bindings -->
+<precondition>
+   <atom quantifier="exist">
+      <!-- object type and subtype -->
+      <slot name="type" val="im"/>
+      <slot name="subtype" val="user"/>
+      <!-- arguments -->
+      <slot name="SKILL" val="HELP" rel="equal"/>
+      <!-- bindings -->
+      <slot name="id" rel="bind" var="present_user_id"/>
+      <slot name="this" rel="bind" var="the_globals_atom"/>
+    </atom>
+</precondition>
+
+<!-- interrupt the recipe when this condition fails -->
+<whilecondition>
+</whilecondition>
+
+<body order="sequence">
+  <assignment>
+      <atom>
+        <slot name="this" var="the_globals_atom"/>
+      </atom>
+    </assignment>
+
+    <action name="say_text" actor="etts" action_space="speech">
+          <roboml:args>
+            <arg name="say_text" value="Obedezco a las siguientes ordenes.\
+                                reconocer medicinas. adivinar personajes. noticias deportivas. tiempo meteorologico. jugar con los peluches. contar chistes. ir de paseo. nivel de las baterias. presentarme. subir y bajar el volumen. cantar. tres en raya. controlar la television. mover mi cuerpo"\
+                 type="string"/>
+          </roboml:args>
+    </action>
+
+</body>
+
+<!-- set right after execution ends -->
+<assignpost>
+  <atom>
+    <!-- set object which name is equal to the one stored in var -->
+    <slot name="this" var="present_user_atom"/>
+    <!-- Clear preconditions values... -->
+    <slot name="SKILL" val="NULL"/>
+  </atom>
+</assignpost>
+
+</recipe>

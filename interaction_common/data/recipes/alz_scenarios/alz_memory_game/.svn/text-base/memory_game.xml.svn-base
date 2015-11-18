@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<recipe name="start_memory_game">
+
+  <!-- first recipe no conditions, always execute the body -->
+  <precondition>
+    <atom quatifier="exist">
+        <slot name="type" val="state_machine_update"/>
+        <slot name="subtype" val="user"/>
+        <slot name="state" val="memory_game_session" rel="equal"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="state_memory_game_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="CONFIRMATION"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Add the grammar for the game-->
+    <!-- <action name="add_grammar" actor="asr">
+        <roboml:args>
+            <arg name="grammar" value="alz_memory_game.gram" type="string"/>
+        </roboml:args>
+     </action> -->
+
+    <!-- Action for start game session -->
+<!--     <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="memory_game"  type="string"/>
+<!--           <arg name="game_to_play"  value="presentSession"  type="string"/>
+ -->     <!--  </roboml:args>
+    </action> -->
+
+    <!-- Execute the recipe that waits for the presentation to end -->
+    <goal recipe_name="memory_game_finishes, exit_memory_game" initiator="any"/>
+
+    <!-- The 'state' atom is consumed here when we leave the presentation state.
+    We cannot consume it elsewhere so it remains alive as long as we remain in the state 'presentation' -->
+    <assignment>
+      <atom>
+        <slot name="this" var="state_memory_game_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- To remove the presentation grammar. There is no delete, so we set the general grammar again-->
+    <action name="set_grammar" actor="asr">
+        <roboml:args>
+        <arg name="grammar" value="alz_general.gram" type="string"/>
+        </roboml:args>
+    </action>
+
+    <action name="request_state" actor="state_machine_node">
+      <roboml:args>
+          <arg name="state"  value="waiting"  type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+
+<!-- Presenter speaks to the robot. This is a general recipe to communicate with the presentation
+node. We bind the semantic value received to a variable and send it to the presentation node -->
+<recipe name="wait_for_presenter_memory_game">
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="game_option" rel="bind" var="option_var" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="this" rel="bind" var="asr_ok_game_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="asr_ok_game_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="CONFIRMATION"   type="string"/>
+          <arg name="engine"  value="non_verbal"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+    <!-- <goal recipe_name="easy_level_command" initiator="any"/> -->
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!-- Robot advertises when the presentation finishes -->
+<recipe name="memory_game_finishes">
+  <precondition>
+    <atom>
+      <slot name="type" val="presentation_dialog_finished"/>
+      <slot name="subtype" val="user"/>
+      <slot name="part_finished" val="goodbye" rel="equal" />
+      <slot name="consumed" val="false" rel="equal"/>
+      <slot name="this" rel="bind" var="game_finished_atom"/>
+    </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid repeating the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="game_finished_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+  </body>
+</recipe>
+
+<!---------------------------------------------------------------->
+<!-- When the presenter asks for the presentation to end, this recipe is triggered-->
+<recipe name="exit_memory_game">
+  <precondition>
+    <atom quantifier="exist">
+        <!-- Conditions to receive an "asr_ok" using a loquendo semantic grammar-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="game_dialog_option" rel="equal" val="exit_memory_game" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="exit_memory_game_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="exit_memory_game_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- Yawn with etts (to make sure the next time the robot speaks it's ok)-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\item=Breath_03 \\pause=1500 \\emphasis-- De acuerdo"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+      </action>
+
+  </body>
+</recipe>
+
+
+
+
+<!------------------------------------------------------------------------------>
+<!-------------------- MEMORY GAME DIALOG -------------------------------------->
+<!------------------------------------------------------------------------------>
+
+<recipe name="easy_level_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="easy_level" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="easy_level_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="easy_level_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Empecemos con algo sencillo | Vamos a jugar con el nivel fácil"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="easy_level"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+<recipe name="medium_level_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="medium_level" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="medium_level_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="medium_level_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Vale, ni muy fácil ni muy difícil | Estupendo! Nivel medio"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="medium_level"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+<recipe name="hard_level_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="hard_level" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="hard_level_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="hard_level_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="\\emphasis Guau!! Eres todo un valiente! | Vale! Me gusta el nivel difícil! | Ya verás como no es tan complicado"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="hard_level"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+<recipe name="card_one_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="one" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="one_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="one_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta uno! | Carta uno! | Primera carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="one"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_two_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="two" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="two_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="two_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta dos | Carta dos! | Segunda carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="two"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_three_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="three" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="three_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="three_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta tres | Carta tres! | Tercera carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="three"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_four_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="four" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="four_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="four_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta cuatro | Carta cuatro! | Cuarta carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="four"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_five_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="five" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="five_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="five_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta cinco | Carta cinco! | Quinta carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="five"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_six_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="six" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="six_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="six_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta seis | Carta seis! | Sexta carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="six"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_seven_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="seven" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="seven_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="seven_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta siete | Carta siete! | Séptima carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="seven"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_eight_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="eight" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="eight_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="eight_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta ocho | Carta ocho! | Octava carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="eight"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_nine_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="nine" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="nine_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="nine_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta nueve | Carta nueve! | Novena carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="nine"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_ten_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="ten" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="ten_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="ten_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta diez | Carta diez! | Décima carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="ten"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_eleven_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="eleven" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="eleven_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="eleven_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta once | Carta once! | Undécima carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="eleven"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+<recipe name="card_twelve_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="twelve" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="twelve_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="twelve_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Giremos la carta doce | Carta doce! | Duodécima carta!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="twelve"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+<recipe name="hint_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="get_hint" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="hint_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="hint_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Vale! Os doy una pista! | Venga, ahí va una pequeña ayuda!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="get_hint"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>
+
+<recipe name="restart_command">
+  <precondition>
+     <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="memGameCommand" rel="equal" val="restart" />
+        <slot name="confidence" rel=">" val="0.4" type="number" />
+        <slot name="this" rel="bind" var="restart_command_atom"/>
+      </atom>
+  </precondition>
+
+  <body order="sequence">
+
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="restart_command_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Vale! Volvemos a jugar! | Sí! Juguemos otra vez!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action for game -->
+    <action name="game_session_alz" actor="alz_memory_game">
+      <roboml:args>
+          <arg name="game_to_play"  value="restart"  type="string"/>
+      </roboml:args>
+    </action>
+  </body>
+</recipe>

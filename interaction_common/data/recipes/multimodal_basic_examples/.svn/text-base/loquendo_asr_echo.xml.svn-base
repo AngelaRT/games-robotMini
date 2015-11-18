@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!-- #################################################################################################### -->
+<!-- # Receta que se dispara cuando Loquendo ASR reconoce algo                                          # -->
+<!-- #################################################################################################### -->
+<recipe name="asr_loquendo_results_echo">
+  <!---------------------------------------------------------------->
+  <precondition>
+    <!-- Atom from Loquendo ASR with results -->
+    <atom quantifier="exist">
+        <!-- Condiciones de la receta-->
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <!-- Declaramos variables -->
+        <slot name="words" rel= "bind" var="asr_transcription_var"/>
+        <slot name="confidence" rel= "bind" var="confidence_var"/>
+        <!-- Asignamos un nombre a este atomo para poder referirnos a él-->
+        <slot name="this" rel="bind" var="loquendo_asr_atom_results"/>
+    </atom>
+  </precondition>
+  <!---------------------------------------------------------------->
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Loquendo ASR reconocde que has dicho $asr_transcription_var con una confianza del $confidence_var"  type="string"/>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_yes" type="string"/>
+      </roboml:args>
+    </action>
+
+  </body>
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <!--Variamos el atomo para que no vueva a cumplirse las precondiciones-->
+    <atom>
+      <!-- set object which name is equal to the one stored in var -->
+      <slot name="this" var="loquendo_asr_atom_results"/>
+      <slot name="consumed" val="true"/>
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+<!-- #################################################################################################### -->
+<!-- # Receta que se dispara cuando Loquendo ASR no logra transcribir el audio                          # -->
+<!-- #################################################################################################### -->
+<recipe name="asr_loquendo_no_results_echo">
+  <!---------------------------------------------------------------->
+  <precondition>
+
+    <!-- Atom from Loquendo ASR without results -->
+    <atom quantifier="exist">
+       <!-- Condiciones de la receta-->
+      <slot name="type" val="asr_loquendoFail"/>
+      <slot name="subtype" val="user"/>
+      <slot name="consumed" val="false" rel="equal"/>
+      <!-- asignamos un nombre a este atomo para poder referirnos a él-->
+      <slot name="this" rel="bind" var="loquendo_asr_no_results_atom"/>
+    </atom>
+
+  </precondition>
+  <!---------------------------------------------------------------->
+
+  <!---------------------------------------------------------------->
+  <body order="sequence">
+    <!-- Action from TTS -->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="Loquendo no ha entendido lo que me has dicho."  type="string"/>
+          <arg name="engine"  value="google"  type="string"/>
+          <arg name="emotion"  value="happy"  type="string"/>
+          <arg name="language"  value="es"  type="string"/>
+      </roboml:args>
+    </action>
+
+
+    <!-- Action from Gesture Player -->
+    <action name="perform_gesture" actor="gesture_player">
+      <roboml:args>
+          <arg name="gesture_filename"  value="alz_no" type="string"/>
+      </roboml:args>
+    </action>
+
+
+
+  </body>
+  <!---------------------------------------------------------------->
+  <assignpost>
+    <atom>
+        <!-- set object which name is equal to the one stored in var -->
+        <slot name="this" var="loquendo_asr_no_results_atom"/>
+        <slot name="consumed" val="true"/>
+    </atom>
+  </assignpost>
+  <!---------------------------------------------------------------->
+
+</recipe>
+
+
+
+

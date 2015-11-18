@@ -1,0 +1,364 @@
+#ABNF 1.0 UTF-8;
+
+language  en-US;
+mode  voice;
+tag-format <semantics/1.0>;
+root  $currency;
+ /************************************************************************/
+ /*                                                                      */
+ /* @grammar     currency                                             	*/
+ /* @rule        currency                                             	*/
+ /* @version     6.3                                                     */
+ /* @author      Toniolo Athos                                           */
+ /* @revisor     Daniele Colibro                                         */
+ /* @date        April 9, 2002                                           */
+ /* @example     four dollars                                            */
+ /* @semantic    <@currency "USD4.00">                                	*/
+ /* @example     two thousand five hundred                               */
+ /* @semantic    <@currency "USD2500.00">                             	*/
+ /* @example     a thousand dollars and twenty-five cents                */
+ /* @semantic    <@currency "USD1000.25">                             	*/
+ /* @example     eleven cents                                            */
+ /* @semantic    <@currency "USD0.11">                                	*/
+ /* @example     dollars nineteen point oh three                         */
+ /* @semantic    <@currency "USD19.03">                               	*/
+ /* @example     nine hundred forty-six                                  */
+ /* @semantic    <@currency "USD946.00">                              	*/
+ /* @example     a_dime                                                  */
+ /* @semantic    <@currency "USD0.10">                                	*/
+ /* @example     three bucks and fifty                                   */
+ /* @semantic    <@currency "USD3.50">                                	*/
+ /* This grammar allows the user to insert a currency amount             */
+ /* in Dollars (USD).                                                    */
+ /* The range for Dollars amounts is from 0.01 and 999,999.99 dollars    */
+ /* The output variable that contains the user value is @currency.    	*/
+ /*                                                                      */
+ /************************************************************************/
+ /* currency (public) */
+
+ public $currency = $s_currency {out = rules.latest()};
+ /* string currency */
+
+ $s_currency = $s_dollars {out = "USD" + rules.s_dollars};
+ /* string dollars */
+
+ $s_dollars = (
+                $s_dollarscents | 
+                $s_dollarsmore | 
+                $s_tendollarscents | 
+                $s_notendollarscents | 
+                $s_zerodollarscents | 
+                $s_cents | 
+                $s_morecents
+              );
+ /* string dollarscents */
+
+ $s_dollarscents = ( $u_amount $v_dollar ( $v_andpoint)<0-1> $dd_01_99 ( $v_cent)<0-1>) {out = rules.u_amount + "." + rules.dd_01_99};
+ /* string dollarsmore */
+
+ $s_dollarsmore = ( ( $v_dollar)<0-1> $u_amount {var dd = "00"} ( $v_dollar)<0-1> ( $v_and $dd_morecents {dd = rules.latest()})<0-1>) {out = rules.u_amount + "." + dd};
+ /* string tendollarscents */
+
+ $s_tendollarscents = ( ( $v_dollar)<0-1> $u_tenamount $c_point $dd_01_99 ( $v_cent)<0-1>) {out = rules.u_tenamount + rules.c_point + rules.dd_01_99};
+ /* string notendollarscents */
+
+ $s_notendollarscents = ( ( $v_dollar)<0-1> $u_notenamount ( $v_andpoint)<0-1> $dd_01_99 ( $v_cent)<0-1>) {out = rules.u_notenamount + "." + rules.dd_01_99};
+ /* string zerodollarscents */
+
+ $s_zerodollarscents = ( ( $v_dollar)<0-1> $u_0 ( $v_andpoint)<0-1> $dd_01_99 ( $v_cent)<0-1>) {out = rules.u_0 + "." + rules.dd_01_99};
+ /* string cents */
+
+ $s_cents = ( $dd_01_99 $v_cent) {out = "0." + rules.dd_01_99};
+ /* string morecents */
+
+ $s_morecents = $dd_morecents {out = "0." + rules.dd_morecents};
+ /* unsigned amount */
+
+ $u_amount = (
+               $u_1000_999999 | 
+               $u_1_999 | 
+               $u_0
+             );
+ /* unsigned tenamount */
+
+ $u_tenamount = (
+                  $u_tens1000_999990 | 
+                  $u_tens10_990
+                );
+ /* unsigned notenamount */
+
+ $u_notenamount = (
+                    $u_notens1001_999999 | 
+                    $u_notens1_999
+                  );
+ /* unsigned tens from 1000 to 999990 */
+
+ $u_tens1000_999990 = ( $u_1_999k {var t = "0"} ( $u_andtens10_990 {t = rules.latest()})<0-1>) {out = "" + (rules.u_1_999k/1 + t/1)};
+ /* unsigned tens from 10 to 990 */
+
+ $u_tens10_990 = (
+                   $u_tens100_990 | 
+                   $u_tens10_90
+                 );
+ /* unsigned tens from 100 to 990 */
+
+ $u_tens100_990 = ( $u_1_9h {var t = "0"} ( $u_andtens10_90 {t = rules.latest()})<0-1>) {out = "" + (rules.u_1_9h/1 + t/1)};
+ /* unsigned notens from 1001 to 999999 */
+
+ $u_notens1001_999999 = ( $u_1_999k {var t = "0"} $u_andnotens1_999 {t = rules.latest()}) {out = "" + (rules.u_1_999k/1 + t/1)};
+ /* unsigned notens from 1 to 999 */
+
+ $u_notens1_999 = (
+                    $u_notens101_999 | 
+                    $u_notens1_99
+                  );
+ /* unsigned notens from 1 to 999 */
+
+ $u_notens101_999 = ( $u_1_9h $u_andnotens1_99) {out = "" + (rules.u_1_9h/1 + rules.u_andnotens1_99/1)};
+ /* unsigned notens from 1 to 99 */
+
+ $u_notens1_99 = (
+                   $u_1_9 | 
+                   $u_notens11_99
+                 );
+ /* unsigned andtens from 10 to 990 */
+
+ $u_andtens10_990 = ( $v_and)<0-1> $u_tens10_990;
+ /* unsigned andtens from 10 to 90 */
+
+ $u_andtens10_90 = ( $v_and)<0-1> $u_tens10_90;
+ /* unsigned andnotens from 1 to 999 */
+
+ $u_andnotens1_999 = ( $v_and)<0-1> $u_notens1_999;
+ /* unsigned andtens from 1 to 99 */
+
+ $u_andnotens1_99 = ( $v_and)<0-1> $u_notens1_99;
+ /* unsigned and from 1 to 999 */
+
+ $u_and1_999 = ( $v_and)<0-1> $u_1_999;
+ /* unsigned and from 1 to 99 */
+
+ $u_and1_99 = ( $v_and)<0-1> $u_1_99;
+ /* unsigned from 1 to 999 thousand */
+
+ $u_1_999k = ( $u_1_999 $v_thousand) {out = rules.u_1_999 + "000"};
+ /* unsigned 1 to 9 hundred */
+
+ $u_1_9h = ( $u_1_9 $v_hundred) {out = rules.u_1_9 + "00"};
+ /* unsigned from 1000 to 999999 */
+
+ $u_1000_999999 = ( $u_1_999k {var t = "0"} ( $u_and1_999 {t = rules.latest()})<0-1>) {out = "" + (rules.u_1_999k/1 + t/1)};
+ /* unsigned from 1 to 999 */
+
+ $u_1_999 = (
+              $u_100_999 | 
+              $u_1_99
+            );
+ /* unsigned from 100 to 999 */
+
+ $u_100_999 = ( $u_1_9h {var t = "0"} ( $u_and1_99 {t = rules.latest()})<0-1>) {out = "" + (rules.u_1_9h/1 + t/1)};
+ /* digit-digit from 01 to 99 */
+
+ $dd_01_99 = (
+               $u_tens10_90 | 
+               $u_notens11_99 | 
+               $dd_1_9 | 
+               $dd_0_9to1_9
+             );
+ /* unsigned from 1 to 99 */
+
+ $u_1_99 = (
+             $u_tens10_90 | 
+             $u_notens11_99 | 
+             $u_1_9
+           );
+ /* unsigned from 0 to 9 */
+
+ $u_0_9 = (
+            $u_1_9 | 
+            $u_0
+          );
+ /* digit-digit from 1 to 9 */
+
+ $dd_1_9 = $u_1_9 {out = "0" + rules.u_1_9};
+ /* unsigned from 1 to 9 */
+
+ $u_1_9 = (
+            $u_2_9 | 
+            $u_1 
+          );
+ /* digit-digit from 0 to 9 - from 1 to 9 */
+
+ $dd_0_9to1_9 = ( $u_0_9 $u_1_9 ) {out = rules.u_0_9 + rules.u_1_9};
+ /* void andpoint */
+
+ $v_andpoint = (
+                 $v_and | 
+                 $c_point
+               );
+ /* digit-digit morecents */
+
+ $dd_morecents = (
+                   a_penny {out = "01"} | 
+                   one_penny {out = "01"} | 
+                   a_nickel {out = "05"} | 
+                   one_nickel {out = "05"} | 
+                   a_dime {out = "10"} | 
+                   one_dime {out = "10"} | 
+                   a_quarter {out = "25"} | 
+                   one_quarter {out = "25"} | 
+                   half_dollar {out = "50"} | 
+                   a_half_dollar {out = "50"} | 
+                   one_half_dollar {out = "50"}
+                 );
+ /* unsigned tens from 10 to 90 */
+
+ $u_tens10_90 = (
+                  ten {out = "10"} | 
+                  twenty {out = "20"} | 
+                  thirty {out = "30"} | 
+                  forty {out = "40"} | 
+                  fifty {out = "50"} | 
+                  sixty {out = "60"} | 
+                  seventy {out = "70"} | 
+                  eighty {out = "80"} | 
+                  ninety {out = "90"}
+                );
+ /* unsigned notens from 11 to 99 */
+
+ $u_notens11_99 = (
+                    eleven {out = "11"} | 
+                    twelve {out = "12"} | 
+                    thirteen {out = "13"} | 
+                    fourteen {out = "14"} | 
+                    fifteen {out = "15"} | 
+                    sixteen {out = "16"} | 
+                    seventeen {out = "17"} | 
+                    eighteen {out = "18"} | 
+                    nineteen {out = "19"} | 
+                    twenty-one {out = "21"} | 
+                    twenty-two {out = "22"} | 
+                    twenty-three {out = "23"} | 
+                    twenty-four {out = "24"} | 
+                    twenty-five {out = "25"} | 
+                    twenty-six {out = "26"} | 
+                    twenty-seven {out = "27"} | 
+                    twenty-eight {out = "28"} | 
+                    twenty-nine {out = "29"} | 
+                    thirty-one {out = "31"} | 
+                    thirty-two {out = "32"} | 
+                    thirty-three {out = "33"} | 
+                    thirty-four {out = "34"} | 
+                    thirty-five {out = "35"} | 
+                    thirty-six {out = "36"} | 
+                    thirty-seven {out = "37"} | 
+                    thirty-eight {out = "38"} | 
+                    thirty-nine {out = "39"} | 
+                    forty-one {out = "41"} | 
+                    forty-two {out = "42"} | 
+                    forty-three {out = "43"} | 
+                    forty-four {out = "44"} | 
+                    forty-five {out = "45"} | 
+                    forty-six {out = "46"} | 
+                    forty-seven {out = "47"} | 
+                    forty-eight {out = "48"} | 
+                    forty-nine {out = "49"} | 
+                    fifty-one {out = "51"} | 
+                    fifty-two {out = "52"} | 
+                    fifty-three {out = "53"} | 
+                    fifty-four {out = "54"} | 
+                    fifty-five {out = "55"} | 
+                    fifty-six {out = "56"} | 
+                    fifty-seven {out = "57"} | 
+                    fifty-eight {out = "58"} | 
+                    fifty-nine {out = "59"} | 
+                    sixty-one {out = "61"} | 
+                    sixty-two {out = "62"} | 
+                    sixty-three {out = "63"} | 
+                    sixty-four {out = "64"} | 
+                    sixty-five {out = "65"} | 
+                    sixty-six {out = "66"} | 
+                    sixty-seven {out = "67"} | 
+                    sixty-eight {out = "68"} | 
+                    sixty-nine {out = "69"} | 
+                    seventy-one {out = "71"} | 
+                    seventy-two {out = "72"} | 
+                    seventy-three {out = "73"} | 
+                    seventy-four {out = "74"} | 
+                    seventy-five {out = "75"} | 
+                    seventy-six {out = "76"} | 
+                    seventy-seven {out = "77"} | 
+                    seventy-eight {out = "78"} | 
+                    seventy-nine {out = "79"} | 
+                    eighty-one {out = "81"} | 
+                    eighty-two {out = "82"} | 
+                    eighty-three {out = "83"} | 
+                    eighty-four {out = "84"} | 
+                    eighty-five {out = "85"} | 
+                    eighty-six {out = "86"} | 
+                    eighty-seven {out = "87"} | 
+                    eighty-eight {out = "88"} | 
+                    eighty-nine {out = "89"} | 
+                    ninety-one {out = "91"} | 
+                    ninety-two {out = "92"} | 
+                    ninety-three {out = "93"} | 
+                    ninety-four {out = "94"} | 
+                    ninety-five {out = "95"} | 
+                    ninety-six {out = "96"} | 
+                    ninety-seven {out = "97"} | 
+                    ninety-eight {out = "98"} | 
+                    ninety-nine {out = "99"}
+                  );
+ /* unsigned from 2 to 9 */
+
+ $u_2_9 = (
+            two { out = "2" } | 
+            three { out = "3" } | 
+            four { out = "4" } | 
+            five { out = "5" } | 
+            six { out = "6" } | 
+            seven { out = "7" } | 
+            eight { out = "8" } | 
+            nine { out = "9" }
+          );
+ /* unsigned one */
+
+ $u_1 = (
+          one | 
+          a
+        ) {out = "1"};
+ /* unsigned zero */
+
+ $u_0 = (
+          zero | 
+          oh
+        ) {out = "0"};
+ /* char point */
+
+ $c_point = (
+              point | 
+              decimal | 
+              dot
+            ) {out = "."};
+ /* void dollar */
+
+ $v_dollar = (
+               dollar | 
+               dollars | 
+               bucks
+             );
+ /* void cent */
+
+ $v_cent = (
+             cent | 
+             cents
+           );
+ /* void and */
+
+ $v_and = and;
+ /* void thousand */
+
+ $v_thousand = thousand;
+ /* void hundred */
+
+ $v_hundred = hundred;
