@@ -5,16 +5,17 @@ tag-format <loq-semantics/1.0>;
 
 public $root = [$GARBAGE] $user_talking;
 
-$user_talking = ($game_differences | $image1_diff0 | $image1_diff1 | $image1_diff2 | $image2_diff0 | $image2_diff1);
+$user_talking = ($game_differences | $image1_diff0 | $image1_diff1 | $image1_diff2 | $image2_diff0 | $image2_diff1 | $image1_noDiff | $image2_noDiff);
 
 $game_differences = ("juego nuevo" | "juego de las diferencias" | "el de las diferencias" | "encontrar las diferencias" | "buscar diferencias"){<@game_option "game_differences">};
 
 $image1_diff0 = ( "la ventana" | "las ventanas" | "la [ventana] de la izquierda" | "la [ventana] de la derecha" | "las rejas [de la ventana]" | "la cruz" | "la cruz de la ventana"){<@game_option "image1_diff0">};
 $image1_diff1 = ( "puerta" | "la puerta" | "las puertas" | "las puertas son distintas" | "el color de la puerta" | "la puerta amarilla" | "la puerta marrón" | "la puerta azul"){<@game_option "image1_diff1">};
 $image1_diff2 = ( "tejado" | "el tejado" | "los tejados" | "los tejados son distintos" | "el color del tejado" | "el tejado rosa" | "el tejado azul"){<@game_option "image1_diff2">};
+$image1_noDiff = ("la chimenea" | "las flores"){<@game_option "image1_noDiff">};
 
 $image2_diff0 = ( "la rama" | "la rama del árbol" | "las ramas" | "el árbol" | "los árboles"){<@game_option "image2_diff0">};
 $image2_diff1 = ( "mariposas" | "las mariposas" | "hay más mariposas [a la izquierda]" | "hay menos mariposas [a la derecha]" | "polillas" | "las polillas" | "moscas" | "las moscas" | "hay más moscas [a la izquierda]" | "hay menos moscas [a la derecha]"){<@game_option "image2_diff1">};
-
+$image2_noDiff = ("el banco" | "los edificios" | "las casas" | "los bloques" | "el arbusto"){<@game_option "image2_noDiff">};
 
 
