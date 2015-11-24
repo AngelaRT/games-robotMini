@@ -588,7 +588,7 @@
   <!-- Add the grammar for the game-->
     <action name="add_grammar" actor="asr">
         <roboml:args>
-            <arg name="grammar" value="$game_grammar" type="string"/>
+            <arg name="grammar" value="alz_game_grammar/$game_grammar" type="string"/>
         </roboml:args>
      </action>
 

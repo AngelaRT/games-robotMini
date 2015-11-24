@@ -26,15 +26,6 @@
       </roboml:args>
     </action>
 
-    <!-- Action for start game session -->
-    <!-- De momento mantenemos el actor porque se ejecuta en alz_memory_game.cpp pero seguramente esto no seguirá siendo así -->
-   <!--  <action name="game_session_alz" actor="alz_memory_game">
-      <roboml:args>
-          <arg name="game_to_play"  value="differences_game"  type="string"/>
-<!--           <arg name="game_to_play"  value="presentSession"  type="string"/>
- -->      <!-- </roboml:args>
-    </action> -->
-
     <!-- Execute the recipe that waits for the presentation to end -->
     <goal recipe_name="differences_game_finishes, exit_differences_game" initiator="any"/>
 
@@ -110,7 +101,7 @@ node. We bind the semantic value received to a variable and send it to the prese
         <slot name="consumed" val="false" rel="equal"/>
         <slot name="no_diff" rel="bind" var="option_var" />
         <slot name="confidence" rel=">" val="0.45" type="number" />
-        <slot name="this" rel="bind" var="asr_ok_game_atom"/>
+        <slot name="this" rel="bind" var="asr_ko_game_atom"/>
      </atom>
   </precondition>
 
@@ -118,12 +109,11 @@ node. We bind the semantic value received to a variable and send it to the prese
     <!-- Consume the atom to avoid the repetition of the recipe again -->
     <assignment>
       <atom>
-        <slot name="this" var="asr_ok_game_atom"/>
+        <slot name="this" var="asr_ko_game_atom"/>
         <slot name="consumed" val="true"/>
       </atom>
     </assignment>
 
-    <!-- non verbal sound of hello-->
     <action name="say_text" actor="etts">
       <roboml:args>
           <arg name="sentence"  value="No, esa no es una diferencia! | Prueba con otra!"   type="string"/>

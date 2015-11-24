@@ -36,14 +36,11 @@ class PostHandler(BaseHTTPRequestHandler):
                 phase=self.grh.getPhase()
                 if phase==1 and self.grh.getLevel()!="zero":
                     self.wfile.write('Level: %s' % self.grh.getLevel())
-                    print '>>>> %s[HTTPServer] Sending.... Level: %s' % (self.grh.getStartString(),self.grh.getLevel())
                 elif phase==2:
                     self.wfile.write('Requested content: %s' % self.grh.getContent())
-                    print '>>> %s[HTTPServer] Sending.... Requested content: %s' % (self.grh.getStartString(),self.grh.getContent())
                 elif phase==3 and self.grh.getRestart():
                     self.wfile.write('Restart: ok')
                     self.grh.reset()
-                    print '>>> %s[HTTPServer] Sending.... Restart: ok'%self.grh.getStartString()
         else:
             self.sendHeaders()  
             self.wfile.write('Requested content: -1')          

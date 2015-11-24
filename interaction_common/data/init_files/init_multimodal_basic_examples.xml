@@ -12,7 +12,8 @@
     <recipe name="user_come_in" max_instances="1"/>
     <recipe name="user_leaving" max_instances="1"/>
     <recipe name="speaker_identification_echo" max_instances="1"/>
-    <recipe name="ibeacon_echo" max_instances="1"/>
+    <recipe name="ibeacon_echo_humans" max_instances="1"/>
+    <recipe name="ibeacon_echo_objects" max_instances="1"/>
 
   </triggerables>
 

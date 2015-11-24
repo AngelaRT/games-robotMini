@@ -54,8 +54,12 @@ void ask4Hint(){
   sendGameCommand("hint");
 }
 
-void startGame(string level, string game){
+void startGame(string game){
+  cout << "START GAME " << game << "\n";
   sendGameCommand(game);
+  gameStarted=true; 
+}
+void setLevelGame(string level, string game){
   if(level!=""){
     if(level=="easy_level")
             numCards=4; //4 cards --> we check to the third position in the array
@@ -65,8 +69,7 @@ void startGame(string level, string game){
             numCards=12; //12 cards --> we check to the eleventh position in the array
     cout << "Level of game established: " << level << "\n";
     sendGameCommand(level);
-  }
-  gameStarted=true;  
+  }   
 }
 
 void dialogCallback_memGame(const std_msgs::String::ConstPtr& msg){
@@ -260,6 +263,7 @@ void play_game(string game,string package){
 
       //Launch browser when Mini refers to its content
       openGameInBrowser(game); 
+      startGame(game);
 
       if (stopPresentation())   return;
       sleep(n_wait_time);
@@ -401,7 +405,7 @@ void process(){
          play_game(requested_dialog,"memory_game_handler");
          string_msg.data = last_presented;
          dialog_finished_pub.publish(string_msg);
-         //requested_dialog="";
+       //  startGame(requested_dialog);
    }
    else if(requested_dialog =="differences_game" && last_presented!="differences_game"){
        last_presented = "differences_game";
@@ -413,7 +417,7 @@ void process(){
        play_game(requested_dialog,"memory_game_handler");
        string_msg.data = last_presented;
        dialog_finished_pub.publish(string_msg);
-       startGame("",requested_dialog);
+      // startGame(requested_dialog);
    }
    else if (requested_dialog == "goodbye"){
       string_msg.data = requested_dialog;
@@ -435,7 +439,7 @@ void process(){
             etts_say_text.publish(etts_msg);
             ask4Hint();
           }else{
-            startGame(requested_dialog,last_presented);
+            setLevelGame(requested_dialog,last_presented);
           }
         }else if (last_presented=="differences_game"){
           if(isADiff(requested_dialog)){

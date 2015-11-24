@@ -52,6 +52,7 @@
     <!-- Differences game -->
     <recipe name="start_differences_game" max_instances="1"/>
     <recipe name="wait_for_presenter_differences_game" max_instances="1"/>
+    <recipe name="wait_for_presenter_no_differences_game" max_instances="1"/>
     <recipe name="exit_differences_game" max_instances="1"/>
     <!-- Memory game session state -->
     <recipe name="start_memory_game" max_instances="1"/>
@@ -73,11 +74,7 @@
     <recipe name="card_eleven_command" max_instances="1"/>
     <recipe name="card_twelve_command" max_instances="1"/>
     <recipe name="hint_command" max_instances="1"/>
-    <recipe name="restart_command" max_instances="1"/>
-
-    <recipe name="diff_game_asr_loquendo_no_results" max_instances="1"/>
-    <recipe name="diff_game_asr_loquendo_small_confidence" max_instances="1"/>
-    
+    <recipe name="restart_command" max_instances="1"/>    
   </triggerables>
 
   <recipefiles>
@@ -91,7 +88,6 @@
 
     <file>alz_scenarios/alz_memory_game/memory_game.xml</file>
     <file>alz_scenarios/alz_differences_game/differences_game.xml</file>
-    <file>alz_scenarios/alz_differences_game/differences_game_bad_recognition.xml</file>
     <file>alz_scenarios/alz_game_session/game_session.xml</file>
     <!--<file>alz_scenarios/alz_story_telling/story_telling_scenario_planned.xml</file>
     <file>alz_scenarios/alz_story_telling/story_telling_scenario_basics.xml</file>

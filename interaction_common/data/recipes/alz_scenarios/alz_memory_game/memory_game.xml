@@ -25,21 +25,6 @@
       </roboml:args>
     </action>
 
-    <!-- Add the grammar for the game-->
-    <!-- <action name="add_grammar" actor="asr">
-        <roboml:args>
-            <arg name="grammar" value="alz_memory_game.gram" type="string"/>
-        </roboml:args>
-     </action> -->
-
-    <!-- Action for start game session -->
-<!--     <action name="game_session_alz" actor="alz_memory_game">
-      <roboml:args>
-          <arg name="game_to_play"  value="memory_game"  type="string"/>
-<!--           <arg name="game_to_play"  value="presentSession"  type="string"/>
- -->     <!--  </roboml:args>
-    </action> -->
-
     <!-- Execute the recipe that waits for the presentation to end -->
     <goal recipe_name="memory_game_finishes, exit_memory_game" initiator="any"/>
 

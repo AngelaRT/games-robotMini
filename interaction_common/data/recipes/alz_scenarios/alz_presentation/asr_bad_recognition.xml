@@ -71,7 +71,7 @@ it with very small confidence, these recipes are activated -->
     <!-- Action from TTS -->
     <action name="say_text" actor="etts">
       <roboml:args>
-          <arg name="sentence"  value="Perdon, no te he entendido | No estoy segura de lo que has dicho | Que? | Como? | puedes repetir? | No te he entendido | Debes hacer la pregunta correcta para que yo te responda como tú te mereces "   type="string"/>
+          <arg name="sentence"  value="Perdon, no te he entendido | No estoy segura de lo que has dicho | Que? | Como? | puedes repetir? | No te he entendido "   type="string"/>
           <arg name="engine"  value="loquendo"  type="string"/>
           <arg name="language"  value="es"  type="string"/>
           <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
