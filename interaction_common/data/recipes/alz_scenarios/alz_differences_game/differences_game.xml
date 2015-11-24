@@ -100,6 +100,41 @@ node. We bind the semantic value received to a variable and send it to the prese
   </body>
 </recipe>
 
+<!-- Presenter speaks to the robot. This is a general recipe to communicate with the presentation
+node. We bind the semantic value received to a variable and send it to the presentation node -->
+<recipe name="wait_for_presenter_no_differences_game">
+  <precondition>
+    <atom quantifier="exist">
+        <slot name="type" val="asr_loquendoOK"/>
+        <slot name="subtype" val="user"/>
+        <slot name="consumed" val="false" rel="equal"/>
+        <slot name="no_diff" rel="bind" var="option_var" />
+        <slot name="confidence" rel=">" val="0.45" type="number" />
+        <slot name="this" rel="bind" var="asr_ok_game_atom"/>
+     </atom>
+  </precondition>
+
+  <body order="sequence">
+    <!-- Consume the atom to avoid the repetition of the recipe again -->
+    <assignment>
+      <atom>
+        <slot name="this" var="asr_ok_game_atom"/>
+        <slot name="consumed" val="true"/>
+      </atom>
+    </assignment>
+
+    <!-- non verbal sound of hello-->
+    <action name="say_text" actor="etts">
+      <roboml:args>
+          <arg name="sentence"  value="No, esa no es una diferencia! | Prueba con otra!"   type="string"/>
+          <arg name="engine"  value="loquendo"  type="string"/>
+          <arg name="priority" value="QUEUE_SENTENCE" type="string"/>
+      </roboml:args>
+    </action>
+    <!-- <goal recipe_name="easy_level_command" initiator="any"/> -->
+  </body>
+</recipe>
+
 <!---------------------------------------------------------------->
 <!-- Robot advertises when the presentation finishes -->
 <recipe name="differences_game_finishes">
