@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+	<name>game_orders</name>
+    <intro>Vamos a jugar a un juego, para perder un poco la vergüenza. \pause=1000 ya que yo soy bastante vergonzosa. \pause=2000 Voy a ir dando ordenes. \pause=1000 y vosotros teneis que hacer lo que yo diga.\pause=1000 Por ejemplo, si digo que levantéis el brazo, \pause=1000 todos tenéis que levantar el brazo como yo.\pause=2000 Listos?</intro>
+    <time_intro>28</time_intro>
+    <gesture_intro>alz_speaking_04</gesture_intro>
+    <item>
+        <question></question>
+        <multimedia_init></multimedia_init>
+        <multimedia_init_type></multimedia_init_type>
+        <gesture_init>alz_phys_stim_breath</gesture_init>
+        <wait_time>10</wait_time>
+        <solution></solution>
+        <multimedia_solut></multimedia_solut>
+        <multimedia_solut_type></multimedia_solut_type>
+        <gesture_solut></gesture_solut>
+        <time_after>3</time_after>
+    </item>
+    <item>
+        <question></question>
+        <multimedia_init>/mnt/external_sd/multimedia/presentation/Exercises/phys_neck.jpg</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_phys_stim_neck</gesture_init>
+        <wait_time>16</wait_time>
+        <solution>perfecto!!</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/presentation/Exercises/phys_neck.jpg</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut></gesture_solut>
+        <time_after>2</time_after>
+    </item>
+    <item>
+        <question>Ahora quiero que pongáis cara de enfadados. </question>
+        <multimedia_init></multimedia_init>
+        <multimedia_init_type></multimedia_init_type>
+        <gesture_init>alz_eyes_angry</gesture_init>
+        <wait_time>7</wait_time>
+        <solution>\item=Ahi \pause=1000 que serios.</solution>
+        <multimedia_solut></multimedia_solut>
+        <multimedia_solut_type></multimedia_solut_type>
+        <gesture_solut></gesture_solut>
+        <time_after>8</time_after>
+    </item>
+    <item>
+        <question></question>
+        <multimedia_init>/mnt/external_sd/multimedia/presentation/Exercises/phys_arm_left.jpg</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_phys_stim_right_arm</gesture_init>
+        <wait_time>12</wait_time>
+        <solution></solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/presentation/Exercises/phys_arm_left.jpg</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut></gesture_solut>
+        <time_after>1</time_after>
+    </item>
+    <item>
+        <question></question>
+        <multimedia_init>/mnt/external_sd/multimedia/presentation/Exercises/phys_arm_right.jpg</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_phys_stim_left_arm</gesture_init>
+        <wait_time>12</wait_time>
+        <solution>Que bien lo hacéis. \item=Laugh_03 \pause=2000 Ala,\pause=1000 pues ya nos hemos soltado un poco.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/presentation/Exercises/phys_arm_right.jpg</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_base</gesture_solut>
+        <time_after>12</time_after>
+    </item>
+</game>
+
+<game>
+	<name>game_orders_child</name>
+    <intro>Vamos a jugar a un juego, para perder un poco la vergüenza. \pause=1000 ya que yo soy bastante vergonzosa. \pause=2000 Voy a ir dando ordenes. \pause=1000 y vosotros teneis que hacer lo que yo diga.\pause=1000 Por ejemplo, si digo que levantéis el brazo, \pause=1000 todos tenéis que levantar el brazo como yo.\pause=2000 Listos?</intro>
+    <time_intro>28</time_intro>
+    <gesture_intro>alz_speaking_04</gesture_intro>
+    <item>
+        <question>Quiero que todos cerréis los ojos.</question>
+        <multimedia_init></multimedia_init>
+        <multimedia_init_type></multimedia_init_type>
+        <gesture_init>alz_eyes_closing</gesture_init>
+        <wait_time>9</wait_time>
+        <solution>Venga. todos con los ojos bien cerrados.</solution>
+        <multimedia_solut></multimedia_solut>
+        <multimedia_solut_type></multimedia_solut_type>
+        <gesture_solut></gesture_solut>
+        <time_after>6</time_after>
+    </item>
+    <item>
+        <question>Y ahora abridlos. \pause=1500 Vamos,\pause=500 abrid los ojos.</question>
+        <multimedia_init></multimedia_init>
+        <multimedia_init_type></multimedia_init_type>
+        <gesture_init>alz_eyes_awake</gesture_init>
+        <wait_time>9</wait_time>
+        <solution>así,\pause=1000 muy bien!</solution>
+        <multimedia_solut></multimedia_solut>
+        <multimedia_solut_type></multimedia_solut_type>
+        <gesture_solut></gesture_solut>
+        <time_after>5</time_after>
+    </item>
+
+    <item>
+        <question></question>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/neck_side.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_phys_stim_neck</gesture_init>
+        <wait_time>16</wait_time>
+        <solution>perfecto!!</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/neck_side.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut></gesture_solut>
+        <time_after>2</time_after>
+    </item>
+
+    <item>
+        <question></question>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/right_hand.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_phys_stim_right_arm</gesture_init>
+        <wait_time>12</wait_time>
+        <solution></solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/right_hand.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut></gesture_solut>
+        <time_after>1</time_after>
+    </item>
+    <item>
+        <question></question>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/left_hand.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_phys_stim_left_arm</gesture_init>
+        <wait_time>12</wait_time>
+        <solution>Que bien lo hacéis</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/left_hand.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_base</gesture_solut>
+        <time_after>4</time_after>
+    </item>
+    <item>
+        <question>Venga, y para terminar vamos a reírnos todos juntos. \pause=2000 Vamos, quiero oír la risa de todos \item=Laugh_08 \item=Laugh_09</question>
+        <multimedia_init></multimedia_init>
+        <multimedia_init_type></multimedia_init_type>
+        <gesture_init>alz_speaking_03</gesture_init>
+        <wait_time>14</wait_time>
+        <solution>muy bien!! \item=Laugh_03 \pause=2000 Ala,\pause=1000 pues ya nos hemos soltado un poco.</solution>
+        <multimedia_solut></multimedia_solut>
+        <multimedia_solut_type></multimedia_solut_type>
+        <gesture_solut>alz_test_02</gesture_solut>
+        <time_after>10</time_after>
+    </item>
+</game>
+
+<game>
+	<name>game_food</name>
+    <intro>En este juego,\pause=1000 os voy a ir poniendo diferentes fotos de comida \pause=1000 y vosotros, \pause=1000 me tenéis que decir a qué zona de España pertenece. \pause=1200 Para que no sea muy difícil,\pause=1000 os voy a dar a elegir entre tres opciones. \pause=2000 A ver qué tal se os da. </intro>
+    <time_intro>28</time_intro>
+    <gesture_intro>alz_speaking_04</gesture_intro>
+    <item>
+        <question>De dónde es la paella. \pause=3000 Valencia,\pause=1000 País vasco \pause=1000 o León.\pause=3000 Repito. \pause=1000 la paella es típica de Valencia,\pause=1000 País vasco \pause=1000 o León.</question>
+        <multimedia_init>/mnt/external_sd/multimedia/session/food/paella.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_speaking_05</gesture_init>
+        <wait_time>25</wait_time>
+        <solution>Genial. \pause=1000 La paella valenciana es típica de valencia. \pause=1000 como bien dice su nombre. </solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session/food/paella.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_sad</gesture_solut>
+        <time_after>10</time_after>
+    </item>
+    <item>
+        <question>De dónde es típico el cocido. \pause=3000 Cádiz,\pause=1000 Madrid \pause=1000 o Baleares.\pause=3000 Repito. \pause=1000 El cocido es típico de Cádiz,\pause=1000 Madrid \pause=1000 o Baleares.</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session/food/cocido.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>25</wait_time>
+        <solution>muy bien!! \pause=1000 \emphasis+ Que listos sois. \pause=1000 \emphasis El cocido madrileño es muy típico de Madrid.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session/food/cocido.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_base</gesture_solut>
+        <time_after>10</time_after>
+    </item>
+    <item>
+        <question>Y de dónde es típico el pulpo cocinado con patatas y pimentón. \pause=1000 Valladolid,\pause=1000 Canarias \pause=1000 o Galicia.\pause=3000 Repito.\pause=1000 El pulpo cocinado con patatas y pimentón es típico de Valladolid,\pause=1000 Canarias \pause=1000 o Galicia.</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session/food/pulpo.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_speaking_05</gesture_init>
+        <wait_time>25</wait_time>
+        <solution>magnífico! \pause=1000 \emphasis El pulpo a la gallega, es típico de galicia. \pause=1000 \emphasis+ qué rico \emphasis que está. </solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session/food/pulpo.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_arms</gesture_solut>
+        <time_after>12</time_after>
+    </item>
+    <item>
+        <question>Seguro que sabéis dónde se come mucho cochinillo. \pause=1000 Murcia,\pause=1000 Valencia \pause=1000 o Segovia.\pause=3000 Repito.\pause=1000 El cochinillo es típico de Murcia,\pause=1000 Valencia \pause=1000 o \item=Cough \pause=1000 Segovia.</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session/food/cochinillo.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_speaking_05</gesture_init>
+        <wait_time>25</wait_time>
+        <solution>genial! \item=Cough \pause=1000 Seguro que más se uno ha ido a Segovia a comer cochinillo. \pause=1000 \emphasis+ qué bueno \emphasis cuando sale recién horneado.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session/food/cochinillo.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_test_02</gesture_solut>
+        <time_after>10</time_after>
+    </item>
+    <item>
+        <question>\item=Cough Perdón.\pause=1000 Y qué me decís de la morcilla. \pause=1000 De dónde es típica la morcilla de arroz? \pause=1000 Burgos,\pause=1000 Madrid \pause=1000 o Cataluña.\pause=3000 \emphasis+ Repito.\pause=1000 \emphasis La morcilla es típica de Burgos,\pause=1000 Madrid \pause=1000 o \emphasis+ Cataluña.</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session/food/morcilla.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_speaking_04</gesture_init>
+        <wait_time>25</wait_time>
+        <solution>claro que sí! \pause=1000 La morcilla, \pause=1000 de Burgos. \pause=1000 Pero \emphasis+ qué bien \emphasis se come en España.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session/food/morcilla.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_sad</gesture_solut>
+        <time_after>12</time_after>
+    </item>
+        <item>
+        <question>venga! y de dónde es la butifarra? \pause=1000 Cataluña,\pause=1000 Galicia \pause=1000 o Canarias.\pause=3000 Repito.\pause=1000 La butifarra es típica de Cataluña,\pause=1000 Galicia \pause=1000 o Canarias.</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session/food/butifarra.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_speaking_05</gesture_init>
+        <wait_time>25</wait_time>
+        <solution>fantastico!\pause=1000 La butifarra es super típica de cataluña. \pause=1000 \emphasis+ Se nota que \emphasis sois de buen comer. </solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session/food/butifarra.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_happy</gesture_solut>
+        <time_after>9</time_after>
+    </item>
+    <item>
+        <question>Bueno,\pause=1000 y para terminar,\pause=1000 seguro que no os cuesta decirme de dónde es típico el espeto. \pause=1000 País vasco,\pause=1000 Málaga \pause=1000 o Madrid.\pause=3000 \emphasis+ Repito.\pause=1000 \emphasis Los espetos son típicos de País vasco,\pause=1000 Málaga \pause=1000 o Madrid.</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session/food/espeto.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>25</wait_time>
+        <solution>muy bien!! \pause=1000 Como bien habéis dicho, \pause=1000 los espetos son muy típicos en Málaga.\pause=1000 \emphasis+ qué bien sienta \emphasis un espeto de sardinas en la playita. \pause=2000 \item=Pff_01 eso, es vivir bien. \item=Laugh_01 \pause=2000 \emphasis+ Bueno, vamos a parar, \emphasis de hablar de comida. \pause=1000 que no veais, el hambre que me esta entrando.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session/food/espeto.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_test_02</gesture_solut>
+        <time_after>20</time_after>
+    </item>
+</game>
+
+<game>
+	<name>game_monuments</name>
+    <intro>El siguiente juego es muy fácil. \pause=1000 En este caso, os voy a ir enseñando fotos de monumentos de todo el mundo. \pause=1000 Vosotros me tenéis que decir en qué ciudad se encuentran.\pause=2000 Empecemos </intro>
+    <time_intro>20</time_intro>
+    <gesture_intro>alz_speaking_02</gesture_intro>
+    <item>
+            <question>Seguro que sabéis decirme dónde se encuentra esta torre. \pause=2000 Roma,\pause=1000 Paris \pause=1000 o Madrid.\pause=3000 Repito. \pause=1000 Roma,\pause=1000 Paris \pause=1000 o Madrid.</question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/monuments/eiffel_paris.png</multimedia_init>
+            <multimedia_init_type>photo</multimedia_init_type>
+            <gesture_init>alz_speaking_04</gesture_init>
+            <wait_time>25</wait_time>
+            <solution>genial! \pause=1000 La torre Ifel es un símbolo de Paris. \pause=1000 Pero \emphasis+ qué \emphasis bonita, \pause=1000 y romántica es esa ciudad. </solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/monuments/eiffel_paris.png</multimedia_solut>
+            <multimedia_solut_type>photo</multimedia_solut_type>
+            <gesture_solut>alz_sad</gesture_solut>
+            <time_after>10</time_after>
+    </item>
+    <item>
+            <question>venga! \pause=1000 Y dónde está el coliseo? \pause=2000 Londres,\pause=1000 Pekín \pause=1000 o Roma.\pause=3000 Repito. \pause=1000 El coliseo está en Londres,\pause=1000 Pekín \pause=1000 o Roma.</question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/monuments/coliseum_roma.png</multimedia_init>
+            <multimedia_init_type>photo</multimedia_init_type>
+            <gesture_init>alz_speaking_05</gesture_init>
+            <wait_time>25</wait_time>
+            <solution>muy bien!! \pause=1000 El coliseo está en la ciudad de Roma. \pause=1000 En él,\pause=1000 los gladiadores se peleaban por su vida. \pause=1000  para dar espectáculo a los ciudadanos de Roma. </solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/monuments/coliseum_roma.png</multimedia_solut>
+            <multimedia_solut_type>photo</multimedia_solut_type>
+            <gesture_solut>alz_base</gesture_solut>
+            <time_after>14</time_after>
+    </item>
+    <item>
+            <question>\pause=1000 En qué ciudad se encuentra esta torre torcida tan típica. \pause=2000 París,\pause=1000 Pisa \pause=1000 o Barcelona.\pause=3000 Repito. \pause=1000 París,\pause=1000 Pisa \pause=1000 o Barcelona.</question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/monuments/torre_pisa.png</multimedia_init>
+            <multimedia_init_type>photo</multimedia_init_type>
+            <gesture_init>alz_base2</gesture_init>
+            <wait_time>25</wait_time>
+            <solution>bravo! \pause=1000 En la foto aparece la torre de Pisa. \pause=1000 Esperemos, \pause=1000 que no se nos caiga encima. \item=Laugh_08 </solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/monuments/torre_pisa.png</multimedia_solut>
+            <multimedia_solut_type>photo</multimedia_solut_type>
+            <gesture_solut>alz_speaking_02</gesture_solut>
+            <time_after>12</time_after>
+    </item>
+    <item>
+            <question>\pause=1000 Y en qué ciudad se encuentra esta belleza de templo. \pause=2000 Atenas,\pause=1000 Madrid \pause=1000 o Londres.\pause=3000 Repito. \pause=1000 Atenas,\pause=1000 Madrid \pause=1000 o Londres.</question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/monuments/partenon_atenas.png</multimedia_init>
+            <multimedia_init_type>photo</multimedia_init_type>
+            <gesture_init>alz_speaking_06</gesture_init>
+            <wait_time>25</wait_time>
+            <solution>Pero cuánto sabéis? \pause=2000 \emphasis muy bien! \pause=1000 El templo de la foto es el Partenon de Aténas. \pause=2000 Una belleza de la Grecia antigua. </solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/monuments/partenon_atenas.png</multimedia_solut>
+            <multimedia_solut_type>photo</multimedia_solut_type>
+            <gesture_solut>alz_test_02</gesture_solut>
+            <time_after>12</time_after>
+    </item>
+    <item>
+            <question>\pause=1000 Seguro que vais a saber decirme en qué ciudad se encuentra este famoso acueducto. \pause=2000 Berlín,\pause=1000 Madrid \pause=1000 o Segovia.\pause=3000 Repito. \pause=1000 Este acueducto está en Berlín,\pause=1000 Madrid \pause=1000 o Segovia.</question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/monuments/acueducto_segovia.png</multimedia_init>
+            <multimedia_init_type>photo</multimedia_init_type>
+            <gesture_init>alz_speaking_04</gesture_init>
+            <wait_time>25</wait_time>
+            <solution>claro que sí! \pause=1000 Se trata del acueducto de Segovia, \pause=1000 un simbólico monumento construído por los romanos. </solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/monuments/acueducto_segovia.png</multimedia_solut>
+            <multimedia_solut_type>photo</multimedia_solut_type>
+            <gesture_solut>alz_speaking_02</gesture_solut>
+            <time_after>12</time_after>
+    </item>
+    <item>
+            <question>\pause=1000 Bueno, para acabar este juego, \pause=1000 decidme dónde se encuentra el conocido patio de los leones de la Alhambra. \pause=2000 Granada,\pause=1000 Cuenca \pause=1000 o Paris.\pause=3000 Repito. \pause=1000 Granada,\pause=1000 Cuenca \pause=1000 o Paris.</question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/monuments/alhambra_granada.png</multimedia_init>
+            <multimedia_init_type>photo</multimedia_init_type>
+            <gesture_init>alz_speaking_05</gesture_init>
+            <wait_time>25</wait_time>
+            <solution>bravo! \pause=1000 La alhambra se encuentra en la ciudad de Granada, \pause=1000 en Andalucía. \pause=1000 Allí,\pause=1000 podéis ver el patio de los leones, cuyo nombre,\pause=1000 se debe a la fuente del centro del patio. </solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/monuments/alhambra_granada.png</multimedia_solut>
+            <multimedia_solut_type>photo</multimedia_solut_type>
+            <gesture_solut>alz_speaking_01</gesture_solut>
+            <time_after>20</time_after>
+    </item>
+</game>
+
+<game>
+    <name>game_animal_sound</name>
+    <intro>Vamos con el siguiente juego. \pause=1000 Os voy a ir poniendo sonidos de animales \pause=1000 y quiero que me digáis a qué animal pertenece el sonido. \pause=1000 Seguro que los reconocéis todos.\pause=2000 Empecemos.\pause=2000 Atentos al siguiente sonido </intro>
+    <time_intro>20</time_intro>
+    <gesture_intro>alz_speaking_01</gesture_intro>
+    <item>
+            <question>\pause=10000 de qué animal se trata? </question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/sounds/dog2.mp3</multimedia_init>
+            <multimedia_init_type>music</multimedia_init_type>
+            <gesture_init>alz_base2</gesture_init>
+            <wait_time>20</wait_time>
+            <solution>\pause=10000 exacto! es un perro. \pause=1000 Parece que este perro tiene un poco de mala leche. \pause=2000 vamos con el siguiente animal.</solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/sounds/dog2.mp3</multimedia_solut>
+            <multimedia_solut_type>music</multimedia_solut_type>
+            <gesture_solut>alz_sad</gesture_solut>
+            <time_after>20</time_after>
+    </item>
+    <item>
+            <question>\pause=10000 de qué animal se trata? </question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/sounds/cock2.mp3</multimedia_init>
+            <multimedia_init_type>music</multimedia_init_type>
+            <gesture_init>alz_base2</gesture_init>
+            <wait_time>20</wait_time>
+            <solution>\pause=10000 Muy bien.\pause=1000 Ese es el sonido que hace el gallo.\pause=1000 Que mal me sienta cuando les da por cácarear a primera hora de la mañana. \pause=1000 Reconozco que soy toda una dormilona. \item=Laugh_03 \pause=1000 A ver, atentos al siguiente sonido.</solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/sounds/cock2.mp3</multimedia_solut>
+            <multimedia_solut_type>music</multimedia_solut_type>
+            <gesture_solut>alz_speaking_04</gesture_solut>
+            <time_after>30</time_after>
+    </item>
+    <item>
+            <question>\pause=10000 de qué animal se trata? </question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/sounds/horse2.mp3</multimedia_init>
+            <multimedia_init_type>music</multimedia_init_type>
+            <gesture_init>alz_base2</gesture_init>
+            <wait_time>20</wait_time>
+            <solution>\pause=10000 genial! \pause=1000 Se trata de un caballo relinchando. \pause=1000 Realmente me parecen unos animales increíbles.\pause=1000 vamos con el siguiente animal</solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/sounds/horse2.mp3</multimedia_solut>
+            <multimedia_solut_type>music</multimedia_solut_type>
+            <gesture_solut>alz_happy</gesture_solut>
+            <time_after>22</time_after>
+    </item>
+    <item>
+            <question>\pause=10000 de qué animal se trata? </question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/sounds/Cat.mp3</multimedia_init>
+            <multimedia_init_type>music</multimedia_init_type>
+            <gesture_init>alz_base2</gesture_init>
+            <wait_time>20</wait_time>
+            <solution>\pause=10000 muy bien! \pause=1000 Se trata de un gato mahullando \pause=1000 y parece un poco cabreado. \pause=1000 Mira que este era difícil. \pause=1000 vamos con el último animal.</solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/sounds/Cat.mp3</multimedia_solut>
+            <multimedia_solut_type>music</multimedia_solut_type>
+            <gesture_solut>alz_happy</gesture_solut>
+            <time_after>23</time_after>
+    </item>
+    <item>
+            <question>\pause=10000 de qué animal se trata? </question>
+            <multimedia_init>/mnt/external_sd/multimedia/session/sounds/sheep2.mp3</multimedia_init>
+            <multimedia_init_type>music</multimedia_init_type>
+            <gesture_init>alz_base2</gesture_init>
+            <wait_time>20</wait_time>
+            <solution>\pause=10000 bravo! \pause=1000 \item=Breath_01 cómo os gustan los animales. \pause=1000 El sonido que habéis escuchado, es el de una oveja balando. \pause=1000 Seguramente que habéis visto muchas en el campo.</solution>
+            <multimedia_solut>/mnt/external_sd/multimedia/session/sounds/sheep.mp3</multimedia_solut>
+            <multimedia_solut_type>music</multimedia_solut_type>
+            <gesture_solut>alz_base</gesture_solut>
+            <time_after>22</time_after>
+    </item>
+</game>
+
+<game>
+    <name>game_character</name>
+    <intro>En este juego,\pause=1000 os voy a ir poniendo diferentes fotos \pause=1000 y vosotros, \pause=1000 me tenéis que decir a qué personaje de dibujos pertenece. \pause=2000 Para que no sea muy difícil,\pause=1000 os voy a dar a elegir entre tres opciones. \pause=2000 A ver qué tal se os da. </intro>
+    <time_intro>24</time_intro>
+    <gesture_intro>alz_speaking_04</gesture_intro>
+    <item>
+        <question>De quién es este brazo. \pause=3000 De un Mínion,\pause=1000 Bey max \pause=1000 u Olaf.</question>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/character/Baymax_red.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_happy</gesture_init>
+        <wait_time>13</wait_time>
+        <solution>genial! \pause=1000 El brazo es de Bey Max. \pause=1000 que es mi primo \pause=1000 \emphasis el gordito \item=Laugh_03. </solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/character/Baymax.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_sad</gesture_solut>
+        <time_after>10</time_after>
+    </item>
+    <item>
+        <question>Ahora otra. de quién son estos ojos?. \pause=3000 Clarens,\pause=1000 Doráimon \pause=1000 o Gámbol.</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/character/doraemon_red.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_base</gesture_init>
+        <wait_time>10</wait_time>
+        <solution>muy bien!! \pause=1000 \emphasis+ Que listos sois. \pause=1000 \emphasis estos ojos tan grandes son de Doráimon</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/character/doraemon.jpg</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_base</gesture_solut>
+        <time_after>10</time_after>
+    </item>
+    <item>
+        <question>Y de quién es esta nariz. \pause=1000 de Gru \pause=1000 de Elsa \pause=1000 o de Papá Pitufo.</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/character/gru_red.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_test_02</gesture_init>
+        <wait_time>9</wait_time>
+        <solution>magnífico! \pause=1000 \emphasis Esta nariz es de Gru, \pause=1000 mi villano favorito. </solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/character/gru.jpg</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_arms</gesture_solut>
+        <time_after>11</time_after>
+    </item>
+    <item>
+        <question>Ahora, \pause=1000 Seguro que sabéis qué superheroe,\pause=500 tiene un murciélago en el pecho. \pause=1000 Supermán,\pause=1000 Espíderman \pause=1000 o Batman.</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/character/murcielago.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_base</gesture_init>
+        <wait_time>12</wait_time>
+        <solution>genial! \item=Cough \pause=1000 Ya sabía yo que esta estaba fácil para chicos tan listos como vosotros. \pause=1000 \emphasis+ qué divertido.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/character/Batman.jpg</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_test_02</gesture_solut>
+        <time_after>12</time_after>
+    </item>
+    <item>
+        <question>\item=Cough Perdón.\pause=1000 Y qué me decís de los amigos de estos personajes. \pause=1000 Vosotros tenéis muchos amigos? \pause=2000 yo sí. \emphasis y están todos aqui.\pause=500 \item=Smack_04 \pause=2000 Ahora, Quién tiene como mejor amigo a un pez naranja? \pause=1000 Finn, \pause=1000 Gámbol \pause=1000 o Estiven.</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/character/pez_naranja.jpg</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_happy</gesture_init>
+        <wait_time>25</wait_time>
+        <solution>claro que sí! \pause=1000 Darwim es el mejor amigo de Gumbol. \pause=1500 Pero \emphasis+ qué bien \emphasis me lo estoy pasando.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/character/Gumball_darwin.png</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_sad</gesture_solut>
+        <time_after>10</time_after>
+    </item>
+    <item>
+        <question>venga! y ahora, quién vive en una piña debajo de mar. \item=Laugh_03 \pause=1000 es broma. \pause=1000  Esa es muy fácil para vosotros. \pause=2000 Esta es de nota.\pause=1000 \item=Cough Qué personaje de película quiere un abrazo calentito. \pause=1000 Olaf,\pause=1000 Bei Max \pause=1000 o Espiderman..</options>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/character/sol.jpg</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_speaking_05</gesture_init>
+        <wait_time>25</wait_time>
+        <solution>fantastico!\pause=1000 Es Olaf. \item=Laugh_03 que bobo. \pause=1000 \emphasis+ Se nota que \emphasis os gusta Frousen. </solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/character/olaf.jpg</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_happy</gesture_solut>
+        <time_after>14</time_after>
+    </item>
+    <item>
+        <question>Bueno,\pause=1000 y para terminar,\pause=1000 seguro que no os cuesta decirme quién es vuestro robot favorito. \pause=1000 Erre dos de dos,\pause=1000 Bei Max \pause=1000 o Gualy.\pause=1500 \emphasis+ Repito.\pause=1000 \emphasis Quién es el mejor robot del mundo? </options>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/character/varios_robots.png</multimedia_init>
+        <multimedia_init_type>photo</multimedia_init_type>
+        <gesture_init>alz_happy</gesture_init>
+        <wait_time>20</wait_time>
+        <solution> En serio? \pause=1000, \pitch=200 Si \emphasis+ soy yoo. \pause=1000 \item=Laugh_03 \emphasis+ Soy la mejor. \pause=1000 \emphasis no se nota? \pause=1000 \emphasis+ Es broma.\pause=1000 \emphasis espero que os estéis divirtiendo conmigo. \item=Laugh_01 \pause=2000 \emphasis+ Bueno, vamos a parar, \pause=1000 y si quereis seguimos jugando.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/character/mini.jpg</multimedia_solut>
+        <multimedia_solut_type>photo</multimedia_solut_type>
+        <gesture_solut>alz_test_02</gesture_solut>
+        <time_after>20</time_after>
+    </item>
+</game>
+
+<game>
+    <name>game_serie_sound</name>
+    <intro>Este otro juego es para ver si sois listos de verdad. \pause=1000 Os voy a ir poniendo trocitos de músicas de series de dibujos \pause=1000 y quiero que me digáis qué serie es. \pause=1000 Seguro que las reconocéis todas.\pause=2000 Empecemos.\pause=2000 Atentos a la primera </intro>
+    <time_intro>20</time_intro>
+    <gesture_intro>alz_speaking_01</gesture_intro>
+    <item>
+        <question>\pause=5000 de qué serie se trata? </question>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/series/los_pitufos_fragmento.mp3</multimedia_init>
+        <multimedia_init_type>music</multimedia_init_type>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>12</wait_time>
+        <solution>\pause=5000 fantastico! \emphasis+ son Los pitufos. \emphasis \pause=1500 Esta ha sido fácil. \item=Laugh_03. \pause=2000 vamos la siguiente.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/series/los_pitufos_fragmento.mp3</multimedia_solut>
+        <multimedia_solut_type>music</multimedia_solut_type>
+        <gesture_solut>alz_sad</gesture_solut>
+        <time_after>15</time_after>
+    </item>
+    <item>
+        <question>\pause=8000 y esta? cual es?</question>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/series/doraemon_intro_espanol_ini.mp3</multimedia_init>
+        <multimedia_init_type>music</multimedia_init_type>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>12</wait_time>
+        <solution>\pause=8000 \emphasis+ muy bien!\pause=1000 Ese es Doráimon. \pause=1000 Sabeis que es un gato robot, verdad?. \pause=1200 Reconozco que me da algo de alergia. \item=Laugh_03 \pause=1000 A ver. atentos al siguiente sonido.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/series/doraemon_intro_espanol_final.mp3</multimedia_solut>
+        <multimedia_solut_type>music</multimedia_solut_type>
+        <gesture_solut>alz_speaking_04</gesture_solut>
+        <time_after>21</time_after>
+    </item>
+    <item>
+        <question>\pause=5000 de qué serie es esta música? </question>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/series/bob_esponja_ini.mp3</multimedia_init>
+        <multimedia_init_type>music</multimedia_init_type>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>10</wait_time>
+        <solution>\pause=9000 genial! \pause=1000 \emphasis claro! \pause=1000 \pitch=200 es Bob, Esponja. \pause=1000  Me gustan mucho sus locuras.\pause=1000 \pitch=50 vamos con la siguiente canción.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/series/bob_esponja_final.mp3</multimedia_solut>
+        <multimedia_solut_type>music</multimedia_solut_type>
+        <gesture_solut>alz_happy</gesture_solut>
+        <time_after>15</time_after>
+    </item>
+    <item>
+        <question>\pause=7000 quien tiene esta música? </question>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/series/fanboy_chum_chum_ini.mp3</multimedia_init>
+        <multimedia_init_type>music</multimedia_init_type>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>14</wait_time>
+        <solution>\pause=9000 muy bien! \pause=1000 Son Fan boy y cham cham. \pause=1000 Mira que este era difícil. bravo!\pause=1000 vamos con la última música.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/series/fanboy_chum_chum_final.mp3</multimedia_solut>
+        <multimedia_solut_type>music</multimedia_solut_type>
+        <gesture_solut>alz_happy</gesture_solut>
+        <time_after>18</time_after>
+    </item>
+    <item>
+        <question>\pause=8000 esta es para los más pequeños.\pause=1000 De qué serie es? </question>
+        <multimedia_init>/mnt/external_sd/multimedia/session_child/series/pocoyo_ini.mp3</multimedia_init>
+        <multimedia_init_type>music</multimedia_init_type>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>12</wait_time>
+        <solution>\pause=6000 exacto! \pause=1000 \item=Breath_01 \emphasis+ \pitch=200 cómo os gustan los dibujos, verdad?. \pause=1000 \emphasis Es pocoyó. \pause=1000 Seguramente que le habéis visto muchas veces.</solution>
+        <multimedia_solut>/mnt/external_sd/multimedia/session_child/series/pocoyo_final.mp3</multimedia_solut>
+        <multimedia_solut_type>music</multimedia_solut_type>
+        <gesture_solut>alz_base</gesture_solut>
+        <time_after>15</time_after>
+    </item>
+</game>
+
+<game>
+		<name>game_case_study</name>
+        <intro>Seguro que con toda la experiencia que tenéis, \pause=500 me vais a poder ayudar con un problema que tengo.\pause=1000 Como sabéis,\pause=1000 soy bastante joven, \pause=1000 y todavía me queda por aprender muchas cosas.</intro>
+        <time_intro>18</time_intro>
+        <gesture_intro>alz_speaking_02</gesture_intro>
+        <item>
+                <question>Resulta que he encargado a un amigo a que compre carne pero no sabe donde comprarla. \pause=1000 Sabéis dónde se puede comprar la carne?</question>
+                <multimedia_init></multimedia_init>
+                <multimedia_init_type></multimedia_init_type>
+                <gesture_init>alz_speaking_01</gesture_init>
+                <wait_time>18</wait_time>
+                <solution>En una carniceria?\pause=1000 genial! \pause=2000 muchas gracias!</solution>
+                <multimedia_solut></multimedia_solut>
+                <multimedia_solut_type></multimedia_solut_type>
+                <gesture_solut>alz_happy</gesture_solut>
+                <time_after>7</time_after>
+        </item>
+        <item>
+                <question>A ver, vamos a calcular cuánto le tendrían que devolver a mi amigo.\pause=1000 Venga, ayudádme todos.\pause=1000 Si él da un billete de veinte euros \pause=1000 y la carne le cuesta dieciocho euros, \pause=1000 Cuánto le tienen que devolver. \pause=3000 Repito.\pause=1000 Si él da un billete de veinte euros \pause=1000 y la carne le cuesta dieciocho euros, \pause=1000 Cuánto le tienen que devolver</question>
+                <multimedia_init></multimedia_init>
+                <multimedia_init_type></multimedia_init_type>
+                <gesture_init>alz_speaking_06</gesture_init>
+                <wait_time>28</wait_time>
+                <solution> perfecto! \pause=1000 Le voy a decir que tiene que estar pendiente de que le devuelvan dos euros.</solution>
+                <multimedia_solut></multimedia_solut>
+                <multimedia_solut_type></multimedia_solut_type>
+                <gesture_solut>alz_test_02</gesture_solut>
+                <time_after>10</time_after>
+        </item>
+        <item>
+                <question>El problema es que mi amigo no tiene coche. y le pilla un poco lejos la carnicería. \item=Cough \pause=1000 Me prodríais decir cómo puede ir hasta la carnicería? \pause=2000 He oído que el transporte público es muy bueno.</question>
+                <multimedia_init></multimedia_init>
+                <multimedia_init_type></multimedia_init_type>
+                <gesture_init>alz_speaking_04</gesture_init>
+                <wait_time>20</wait_time>
+                <solution> genial! \pause=1000 O sea,\pause=1000 que si no está muy lejos, \pause=500 le digo que vaya andando.\pause=1000 Y si no \pause=1000 que se coja el metro o el autobús. \pause=2000 Muchas gracias por ayudarme.\pause=1000 Sois todos unos soletes.\item=Smack_05</solution>
+                <multimedia_solut></multimedia_solut>
+                <multimedia_solut_type></multimedia_solut_type>
+                <gesture_solut>alz_test_02</gesture_solut>
+                <time_after>15</time_after>
+        </item>
+</game>
+
+<game>
+		<name>game_song</name>
+        <intro>Este juego es muy muy fácil.\pause=1000 yo os voy a poner un trozo de una canción que vais a conocer seguro. \pause=2000 cuando yo pare la música, \pause=1000 quiero que vosotros sigáis cantando la canción. \pause=1000 a ver que tal se os da </intro>
+        <time_intro>20</time_intro>
+        <gesture_intro>alz_speaking_02</gesture_intro>
+        <item>
+                <question>\pause=10000 venga, ahora todos juntos \pause=38000 muy bien!!</question>
+                <multimedia_init>/mnt/external_sd/multimedia/session/songs/clavelito1.mp3</multimedia_init>
+                <multimedia_init_type>music</multimedia_init_type>
+                <gesture_init>alz_base2</gesture_init>
+                <wait_time>45</wait_time>
+                <solution>\pause=40000 bravo! \pause=1000 que bien lo hacéis.</solution>
+                <multimedia_solut>/mnt/external_sd/multimedia/session/songs/clavelito2.mp3</multimedia_solut>
+                <multimedia_solut_type>music</multimedia_solut_type>
+                <gesture_solut>alz_base2</gesture_solut>
+                <time_after>37</time_after>
+        </item>
+</game>
+
+<game>
+		<name>game_song2</name>
+        <intro>venga. \pause=1000 os quiero escuchar a todos cantar. \pause=1000 os voy a poner un trozo de una canción. \pause=2000 cuando yo pare la música, \pause=1000 quiero que vosotros sigáis cantando la canción. \pause=1000 listos? </intro>
+        <time_intro>18</time_intro>
+        <gesture_intro>alz_happy</gesture_intro>
+        <item>
+                <question>\pause=9000 ahora todos juntos </question>
+                <multimedia_init>/mnt/external_sd/multimedia/session/songs/vestida_azul.mp3</multimedia_init>
+                <multimedia_init_type>music</multimedia_init_type>
+                <gesture_init>alz_base2</gesture_init>
+                <wait_time>45</wait_time>
+                <solution>bravo! \pause=1000 que bien cantáis.</solution>
+                <multimedia_solut></multimedia_solut>
+                <multimedia_solut_type></multimedia_solut_type>
+                <gesture_solut>alz_base</gesture_solut>
+                <time_after>5</time_after>
+        </item>
+</game>
+
+<game>
+		<name>game_song_birthday</name>
+        <intro>vale. \pause=1000 Esta canción me la sé.</intro>
+        <time_intro>5</time_intro>
+        <gesture_intro></gesture_intro>
+        <item>
+                <question></question>
+                <multimedia_init>/mnt/external_sd/multimedia/session/songs/birthday.mp3</multimedia_init>
+                <multimedia_init_type>music</multimedia_init_type>
+                <gesture_init>alz_base2</gesture_init>
+                <wait_time>33</wait_time>
+                <solution>felicidades!</solution>
+                <multimedia_solut></multimedia_solut>
+                <multimedia_solut_type></multimedia_solut_type>
+                <gesture_solut></gesture_solut>
+                <time_after>2</time_after>
+        </item>
+</game>

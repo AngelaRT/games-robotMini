@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Differences Game</title>
+    <script> id_game="diffGame"; </script>
+    <link href="css/compiled/bootstrap.min.css" rel="stylesheet">
+    <link href="css/compiled/memoryGame.css" rel="stylesheet">
+    <script src="js/utils.js"></script>
+    <script src="js/polling.js"></script>
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>    
+   <div id="sombreado" class="visible"></div>
+   <div id="board">
+      <h1 class="tituloSeccion">Encuentra las diferencias</h1>
+      <div id="hintButton" class="oculta"><a onclick="getHint();">Dame una pista!</a></div>
+      <div id="finishGame" class="oculta messageScreen">
+       <p> ¡Enhorabuena! Has resuelto el juego!!!!</p>
+       <a class="oculta" onclick="reloadGame(); return false;">Volver a jugar</a>
+      </div>
+      <div id="content">
+      </div>
+   </div>
+  
+   <!-- Placed at the end of the document so the pages load faster -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+   <script> hideInitGame(); //startPolling();</script>
+</html>

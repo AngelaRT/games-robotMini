@@ -1,0 +1,7 @@
+<launch>
+    <arg name="robot" default="alz"/>
+    <group ns="$(arg robot)">
+        <node pkg="memory_game_handler" type="game_handler.exe"
+            name="game_handler" output="screen" required="true" />
+    </group>
+</launch>

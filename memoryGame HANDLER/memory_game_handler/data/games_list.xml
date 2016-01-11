@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+    <name>differences_game</name>
+    <description>el juego de las diferencias</description>
+    <type>0</type>
+    <topic></topic>
+</game>
+<game>
+    <name>memory_game</name>
+    <description>el juego de las parejas</description>
+    <type>0</type>
+    <topic></topic>
+</game>
+<game>
+	<name>game_orders</name>
+    <description>el juego de las ordenes</description>
+    <type>1</type>
+    <topic></topic>
+</game>
+<game>
+    <name>game_food</name>
+    <description>el juego de comidas</description>
+    <type>1</type>
+    <topic></topic>
+</game>
+<game>
+    <name>game_monuments</name>
+    <description>el de monumentos</description>
+    <type>1</type>
+    <topic></topic>
+</game>
+<game>
+    <name>game_character</name>
+    <description>el juego de los personajes</description>
+    <type>1</type>
+    <topic></topic>
+</game>
+<game>
+    <name>game_serie_sound</name>
+    <description>el juego de las series</description>
+    <type>1</type>
+    <topic></topic>
+</game>
+<game>
+    <name>game_animal_sound</name>
+    <description>el juego de los sonidos de animales</description>
+    <type>1</type>
+    <topic></topic>
+</game>
+
+<!--
+<game>
+    <name>game_case_study</name>
+    <description>casos prácticos</description>
+    <type>1</type>
+    <topic></topic>
+</game>
+<game>
+    <name>game_song</name>
+    <description>canción uno</description>
+    <type>1</type>
+    <topic></topic>
+</game>
+<game>
+    <name>game_song2</name>
+    <description>canción dos</description>
+    <type>1</type>
+    <topic></topic>
+</game>
+<game>
+    <name>game_song_birthday</name>
+    <description>la canción de cumpleaños</description>
+    <type>1</type>
+    <topic></topic>
+</game>-->
