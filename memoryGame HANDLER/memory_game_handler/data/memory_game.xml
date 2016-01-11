@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<memory_game>
+    <item>
+        <sentence></sentence>
+        <gesture_init>alz_speaking_02</gesture_init>
+        <wait_time>1</wait_time>
+    </item>
+    <item>
+        <sentence>Vamos a jugar a un juego de memoria.</sentence>
+        <gesture_init>alz_speaking_02</gesture_init>
+        <wait_time>3</wait_time>
+    </item>
+    <item>
+        <sentence>Os voy a poner unas cartas y tenéis que agruparlas por parejas.</sentence>
+        <gesture_init>alz_speaking_02</gesture_init>
+        <wait_time>3</wait_time>
+    </item>
+    <item>
+        <sentence>Si decís dos cartas que sean iguales, se quedarán al derecho. </sentence>
+        <gesture_init>alz_speaking_02</gesture_init>
+        <wait_time>3</wait_time>
+    </item>
+    <item>
+        <sentence>El juego se acabará cuando hayáis encontrado todas las parejas.</sentence>
+        <gesture_init>alz_speaking_02</gesture_init>
+        <wait_time>3</wait_time>
+    </item>
+    <item>
+        <sentence>Antes de empezar, necesito que me indiqueis un nivel de juego</sentence>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>5</wait_time>
+    </item>
+</memory_game>

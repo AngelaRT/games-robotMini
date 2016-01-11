@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<differences_game>
+    <item>
+        <sentence></sentence>
+        <gesture_init>alz_speaking_02</gesture_init>
+        <wait_time>1</wait_time>
+    </item>
+    <item>
+        <sentence>Vamos a jugar al juego de las diferencias!</sentence>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>5</wait_time>
+    </item>
+    <item>
+        <sentence>Yo os voy a enseñar dos fotos y vosotros tenéis que encontrar las diferencias entre ellas</sentence>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>7</wait_time>
+    </item> 
+    <item>
+        <sentence>Vamos a empezar! Cuáles son las diferencias que veis entre estos dos dibujos?</sentence>
+        <gesture_init>alz_base2</gesture_init>
+        <wait_time>5</wait_time>
+    </item>    
+</differences_game>

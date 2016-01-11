@@ -1,0 +1,79 @@
+.oculta {
+  display: none; }
+
+.visible {
+  display: block; }
+
+.card img {
+  height: 200px; }
+
+.tituloSeccion {
+  text-align: center;
+  margin-bottom: 50px; }
+
+.messageScreen {
+  position: absolute;
+  z-index: 99;
+  background-color: #fff;
+  border: 5px solid blue;
+  height: 75%;
+  width: 100%;
+  font-size: 30pt;
+  text-align: center;
+  color: blue; }
+  .messageScreen p {
+    margin-top: 10%; }
+  .messageScreen a {
+    cursor: pointer;
+    background-color: blue;
+    color: #fff;
+    font-size: 20pt;
+    padding: 10px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    position: relative;
+    top: 15px; }
+    .messageScreen a:hover {
+      text-decoration: none; }
+
+#sombreado {
+  position: absolute;
+  z-index: 80;
+  height: 100%;
+  width: 100%;
+  background-color: #FFFFFF;
+  opacity: 0.5; }
+
+#content {
+  margin-left: 100px; }
+  #content .card {
+    margin-bottom: 20px; }
+
+.hint {
+  border: 10px #00FF00 solid; }
+
+#hintButton {
+  margin-left: 75%;
+  margin-bottom: 5%; }
+  #hintButton a {
+    cursor: pointer;
+    background-color: blue;
+    color: #fff;
+    font-size: 15pt;
+    padding: 10px;
+    border: 1px solid blue;
+    border-radius: 10px;
+    position: relative;
+    top: 15px;
+    font-weight: bold; }
+    #hintButton a:hover {
+      text-decoration: none; }
+
+.diffRow img {
+  width: 100%;
+  max-width: 800px;
+  position: absolute;
+  top: 125px;
+  left: 100px; }
+
+/*# sourceMappingURL=memoryGame.css.map */
