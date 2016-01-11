@@ -1,11 +1,17 @@
 K 25
 svn:wc:ra_dav:version-url
 V 74
-/repoAD/!svn/ver/19033/catkin_projects/memory_game_handler/unstable/launch
+/repoAD/!svn/ver/19510/catkin_projects/memory_game_handler/unstable/launch
 END
 alz_memory_game.launch
 K 25
 svn:wc:ra_dav:version-url
 V 97
-/repoAD/!svn/ver/19033/catkin_projects/memory_game_handler/unstable/launch/alz_memory_game.launch
+/repoAD/!svn/ver/19504/catkin_projects/memory_game_handler/unstable/launch/alz_memory_game.launch
+END
+games_handler.launch
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repoAD/!svn/ver/19505/catkin_projects/memory_game_handler/unstable/launch/games_handler.launch
 END

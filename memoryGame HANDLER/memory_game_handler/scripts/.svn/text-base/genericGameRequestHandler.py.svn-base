@@ -45,7 +45,6 @@ class GenericGameRequestsHandler():
     # "Phase X", where X is the ID of the phase
         if "Phase" in post_body:
             self.phase=int(post_body[6]);
-            print ">>>> %s Phase %d"%(self.startString,self.phase)
             if self.phase==3:
                 self.commandResultPublisher.publish("a") #a=all --> we have found all the pairs
                 self.setRestart()
@@ -75,22 +74,19 @@ class GenericGameRequestsHandler():
             return False        
 
     def callback(self,reqContent):
-        print ">>>> %s RECIBO DESDE alz/ask4GameCommand: %s"%(self.startString,reqContent)
+        print ">>>> %s Receiving %s at alz/ask4GameCommand"%(self.startString,reqContent.data)
         if reqContent.data == self.startString:
             self.start=True
         elif self.start:
             if self.getPhase()==1:
                 #First, set the level
-                print ">>>> %s Level: %s"%(self.startString,reqContent)
                 self.setLevel(reqContent.data)
             elif self.getPhase()==2:
                 #Play the game --> requesting cards
-                print ">>>> %s Requested content: %s"%(self.startString,reqContent)
                 # Queue the reqContent in the httpHandler
                 self.queueContent(reqContent.data)
             else:
                 #Finally, restart game
-                print ">>>> %s Play again!!"%self.startString
                 self.setRestart()
 
     def listener(self):

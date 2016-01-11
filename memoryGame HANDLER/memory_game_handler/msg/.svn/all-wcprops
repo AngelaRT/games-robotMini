@@ -1,7 +1,19 @@
 K 25
 svn:wc:ra_dav:version-url
 V 71
-/repoAD/!svn/ver/19033/catkin_projects/memory_game_handler/unstable/msg
+/repoAD/!svn/ver/19495/catkin_projects/memory_game_handler/unstable/msg
+END
+Command.msg
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repoAD/!svn/ver/19495/catkin_projects/memory_game_handler/unstable/msg/Command.msg
+END
+Feedback.msg
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repoAD/!svn/ver/19495/catkin_projects/memory_game_handler/unstable/msg/Feedback.msg
 END
 IDCarta.msg
 K 25

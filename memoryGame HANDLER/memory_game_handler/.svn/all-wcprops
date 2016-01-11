@@ -1,13 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 67
-/repoAD/!svn/ver/19039/catkin_projects/memory_game_handler/unstable
-END
-differences_game.xml
-K 25
-svn:wc:ra_dav:version-url
-V 88
-/repoAD/!svn/ver/19033/catkin_projects/memory_game_handler/unstable/differences_game.xml
+/repoAD/!svn/ver/19510/catkin_projects/memory_game_handler/unstable
 END
 package.xml
 K 25
@@ -19,11 +13,5 @@ CMakeLists.txt
 K 25
 svn:wc:ra_dav:version-url
 V 82
-/repoAD/!svn/ver/19033/catkin_projects/memory_game_handler/unstable/CMakeLists.txt
-END
-memory_game.xml
-K 25
-svn:wc:ra_dav:version-url
-V 83
-/repoAD/!svn/ver/19033/catkin_projects/memory_game_handler/unstable/memory_game.xml
+/repoAD/!svn/ver/19495/catkin_projects/memory_game_handler/unstable/CMakeLists.txt
 END
